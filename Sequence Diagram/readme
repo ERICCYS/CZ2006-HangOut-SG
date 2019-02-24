@@ -1,0 +1,5 @@
+This folder contains sequence diagrams for main use cases for these project in both vpp and image file.
+The use cases includes:
+UC005 Search
+UC006 Add Planned Activity
+UC008 Manage Schedule
