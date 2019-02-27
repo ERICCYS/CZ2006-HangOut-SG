@@ -1,0 +1,34 @@
+# User API testing commands
+
+# GET all users
+curl -i -H "Content-Type: application/json" -X GET localhost:9090/api/user
+
+
+# GET one user by Id
+curl -i -H "Content-Type: application/json" -X GET localhost:9090/api/user/<id>
+
+
+# POST new user
+curl -i -H "Content-Type: application/json" -X POST -d '{
+        "firstName" : "de",
+        "lastName" : "mo",
+        "dob" : "1999-09-09",
+        "gender" : "MALE",
+        "email": "demo@demomail.com",
+        "phone" : "99999999"
+    }' localhost:9090/api/user
+
+
+# PUT (update) one user
+curl -i -H "Content-Type: application/json" -X POST -d '{
+        "firstName" : "de",
+        "lastName" : "mo",
+        "dob" : "1999-09-09",
+        "gender" : "MALE",
+        "email": "demo@demomail.com",
+        "phone" : "99999999"
+    }' localhost:9090/api/user/<id>
+
+
+# DELETE one user
+curl -i -H "Content-Type: application/json" -X DELETE localhost:9090/api/user/<id>
