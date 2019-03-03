@@ -1,7 +1,6 @@
 package com.skyforce.SkyForceWebService.model;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @MappedSuperclass
 public class User {
@@ -16,15 +15,11 @@ public class User {
     @Column(name = "LAST_NAME", nullable = false, length = 15)
     private String lastName;
 
-
     @Column(name = "GENDER", nullable = false, length = 15)
     private GenderEnm gender;
 
     @Column(name = "EMAIL", nullable = false, length = 100, unique = true)
     private String email;
-//
-//    @Column(name = "PHONE", nullable = false, length = 30)
-//    private String phone;
 
     public User() {
 
