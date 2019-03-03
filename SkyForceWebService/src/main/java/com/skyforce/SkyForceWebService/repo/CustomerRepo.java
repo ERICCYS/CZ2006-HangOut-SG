@@ -1,18 +1,17 @@
 package com.skyforce.SkyForceWebService.repo;
 
 import com.skyforce.SkyForceWebService.model.Customer;
-import com.skyforce.SkyForceWebService.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CustomerRepo extends JpaRepository<Customer,Integer> {
-    // find all the users
 
-    // insert one user
-
-    // find user by email
+    // find all the customers
     Customer findById(Long id);
 
+    // insert one user
     Customer save(Customer customer);
 
+    // delete one user
     void delete(Customer customer);
+
 }
