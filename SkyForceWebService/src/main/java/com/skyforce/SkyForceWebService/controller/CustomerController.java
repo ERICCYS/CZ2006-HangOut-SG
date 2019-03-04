@@ -13,31 +13,35 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 public class CustomerController {
+
+    // TODO:  Change http status for different exceptions
+
+
     @Autowired
     CustomerService customerService;
     private AtomicLong nextId = new AtomicLong();
 
     @GetMapping("/customer")
-    public String userAll() {
+    public String getAllCustomers() {
         List<Customer> customers = customerService.findAll();
         return "there are a brunch of customers " + customers;
     }
 
     @GetMapping("/customer/{id}")
-    public String getUserById(@PathVariable("id") Long id) {
+    public String getCustomerById(@PathVariable("id") Long id) {
         Customer customer = customerService.findCustomerById(id);
         return "find customer by id: " + customer;
     }
 
     @PostMapping("/customer")
     @ResponseStatus(HttpStatus.CREATED)
-    public String createUser(@Valid @RequestBody Customer customer) {
+    public String createCustomer(@Valid @RequestBody Customer customer) {
         customer.setId(nextId.incrementAndGet());
         return "Post success" + customerService.save(customer);
     }
 
     @PutMapping("/customer/{id}")
-    public String updateUserById(@PathVariable("id") Long id, @Valid @RequestBody Customer customer) {
+    public String updateCustomerById(@PathVariable("id") Long id, @Valid @RequestBody Customer customer) {
 
         Customer oldCustomer = customerService.findCustomerById(id);
 
@@ -45,13 +49,13 @@ public class CustomerController {
         oldCustomer.setLastName(customer.getLastName());
         oldCustomer.setGender(customer.getGender());
 
-        Customer updatedUser = customerService.save(oldCustomer);
-        return "updated Customer" + updatedUser;
+        Customer updatedCustomer = customerService.save(oldCustomer);
+        return "updated Customer" + updatedCustomer;
     }
 
     @DeleteMapping("/customer/{id}")
-    public ResponseEntity<?> deleteNote(@PathVariable(value = "id") Long userId) {
-        Customer customer = customerService.findCustomerById(userId);
+    public ResponseEntity<?> deleteCustomer(@PathVariable(value = "id") Long id) {
+        Customer customer = customerService.findCustomerById(id);
         customerService.delete(customer);
         return ResponseEntity.ok().build();
     }

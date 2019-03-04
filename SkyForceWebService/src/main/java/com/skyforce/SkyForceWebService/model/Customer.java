@@ -42,13 +42,20 @@ public class Customer extends User {
     @Override
     public String toString() {
         return "Customer{" +
-                "avatar=" + avatar +
+                "id=" + super.getId() +
+                ", firstName='" + super.getFirstName() + '\'' +
+                ", lastName='" + super.getLastName() + '\'' +
+                ", gender=" + super.getGender() +
+                ", email='" + super.getEmail() + '\'' +
+                ", avatar=" + avatar +
                 ", dob=" + dob +
                 ", halaPreference=" + halaPreference +
                 ", vegPreference=" + vegPreference +
                 ", regionalPreference='" + regionalPreference + '\'' +
                 '}';
     }
+
+
 
     public URL getAvatar() {
         return avatar;
