@@ -30,6 +30,18 @@ public class VendorController {
 
     private AtomicLong nextId = new AtomicLong();
 
+    // TODO: Need a machanism to remember the last assigned id
+    private long getRecentId () {
+        List<Vendor> vendors = vendorService.findAll();
+        Long recentId = 0L;
+        for (Vendor vendor : vendors) {
+            if (vendor.getId() > recentId) {
+                recentId = vendor.getId();
+            }
+        }
+        return recentId;
+    }
+
     @GetMapping("/vendor")
     public String getAllVendors() {
         List<Vendor> vendors = vendorService.findAll();
@@ -53,11 +65,20 @@ public class VendorController {
     public String addShop (@PathVariable("id") Long id, @Valid @RequestBody Shop shop) {
         Vendor oldVendor = vendorService.findVendorById(id);
         shop.setId(nextId.incrementAndGet());
-        System.out.println(shop);
         oldVendor.addShop(new Shop(shop.getId(), shop.getName(), shop.getContactNumber(), shop.getContactEmail()));
-        System.out.println(oldVendor);
         return  "add shop success" + vendorService.save(oldVendor) ;
     }
+
+    @PutMapping("/vendor/{vendorId}/delshop/{shopId}")
+    public String deleteShop (@PathVariable("vendorId") Long vendorId, @PathVariable("shopId") Long shopId) {
+        Vendor oldVendor = vendorService.findVendorById(vendorId);
+        Shop shop = shopService.findShopById(shopId);
+        System.out.println(shop);
+        oldVendor.removeShop(shop);
+        return "Vendor after delete the shop" + vendorService.save(oldVendor);
+
+    }
+
 
     @PutMapping("/vendor/{id}")
     public String updateVendorById(@PathVariable("id") Long id, @Valid @RequestBody Vendor vendor) {
@@ -69,6 +90,7 @@ public class VendorController {
         Vendor updatedVendor = vendorService.save(oldVendor);
         return "updated Vendor" + updatedVendor;
     }
+
 
     @DeleteMapping("/vendor/{id}")
     public ResponseEntity<?> deleteVendor(@PathVariable(value = "id") Long id) {
