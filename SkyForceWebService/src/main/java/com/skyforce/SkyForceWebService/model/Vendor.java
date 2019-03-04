@@ -24,9 +24,20 @@ public class Vendor extends User {
     @Override
     public String toString() {
         return "Vendor{" +
-                "shops=" + shops +
+                "id=" + super.getId() +
+                ", firstName='" + super.getFirstName() + '\'' +
+                ", lastName='" + super.getLastName() + '\'' +
+                ", gender=" + super.getGender() +
+                ", email='" + super.getEmail() + '\'' +
+                ", shops=" + shops +
                 '}';
     }
 
+    public List<Shop> getShops() {
+        return shops;
+    }
 
+    public void setShops(List<Shop> shops) {
+        this.shops = shops;
+    }
 }
