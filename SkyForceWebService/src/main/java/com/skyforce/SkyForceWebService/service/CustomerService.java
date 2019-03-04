@@ -9,6 +9,8 @@ public interface CustomerService {
 
     Customer findCustomerById(Long id);
 
+    Customer findCustomerByEmail(String email);
+
     Customer save(Customer customer);
 
     void delete(Customer customer);

@@ -23,17 +23,22 @@ public class User {
     @Column(name = "EMAIL", nullable = false, length = 100, unique = true)
     private String email;
 
+    @Column(name = "PASSWORD", nullable = false)
+    private String password;
+
     public User() {
 
     }
 
-    public User(Long id, String firstName, String lastName, GenderEnm gender, String email) {
+    public User(Long id, String firstName, String lastName, GenderEnm gender, String email, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
         this.email = email;
+        this.password = password;
     }
+
 
     @Override
     public String toString() {
@@ -43,6 +48,7 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", gender=" + gender +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 
@@ -83,4 +89,12 @@ public class User {
     }
 
     // email is not updatable
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

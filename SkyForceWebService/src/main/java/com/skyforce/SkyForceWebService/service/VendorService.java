@@ -9,6 +9,8 @@ public interface VendorService {
 
     Vendor findVendorById(Long id);
 
+    Vendor findVendorByEmail(String email);
+
     Vendor save(Vendor vendor);
 
     void delete(Vendor vendor);

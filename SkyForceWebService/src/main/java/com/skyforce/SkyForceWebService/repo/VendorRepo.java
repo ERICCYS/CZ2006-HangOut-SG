@@ -5,8 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface VendorRepo extends JpaRepository<Vendor, Integer> {
 
-    // find all the vendor
+    // find the vendor by id
     Vendor findById(Long id);
+
+    // find the vendor by email
+    Vendor findByEmail(String email);
 
     // insert one user
     Vendor save(Vendor vendor);

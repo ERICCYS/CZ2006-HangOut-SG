@@ -5,8 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CustomerRepo extends JpaRepository<Customer,Integer> {
 
-    // find all the customers
+    // find a customer by id
     Customer findById(Long id);
+
+    // find a customer by email
+    Customer findByEmail(String email);
 
     // insert one user
     Customer save(Customer customer);

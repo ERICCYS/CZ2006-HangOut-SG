@@ -8,6 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -35,14 +39,23 @@ public class CustomerController {
 
     @PostMapping("/customer")
     @ResponseStatus(HttpStatus.CREATED)
-    public String createCustomer(@Valid @RequestBody Customer customer) {
+    public String createCustomer(@Valid @RequestBody Customer customer) throws NoSuchAlgorithmException {
         customer.setId(nextId.incrementAndGet());
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(customer.getPassword().getBytes());
+        BigInteger no = new BigInteger(1, hash);
+        String hashedPassword = no.toString(16);
+        while (hashedPassword.length() < 32) {
+            hashedPassword = "0" + hashedPassword;
+        }
+        System.out.println(hashedPassword);
+        customer.setPassword(hashedPassword);
+
         return "Post success" + customerService.save(customer);
     }
 
     @PutMapping("/customer/{id}")
     public String updateCustomerById(@PathVariable("id") Long id, @Valid @RequestBody Customer customer) {
-
         Customer oldCustomer = customerService.findCustomerById(id);
         oldCustomer.setFirstName(customer.getFirstName());
         oldCustomer.setLastName(customer.getLastName());

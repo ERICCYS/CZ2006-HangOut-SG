@@ -18,8 +18,9 @@ public class Vendor extends User {
     @OneToMany(mappedBy = "vendor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Shop> shops = new ArrayList<>();
 
-    public Vendor(Long id, String firstName, String lastName, GenderEnm gender, String email, ArrayList<Shop> shops) {
-        super(id, firstName, lastName, gender, email);
+
+    public Vendor(Long id, String firstName, String lastName, GenderEnm gender, String email, String password, List<Shop> shops) {
+        super(id, firstName, lastName, gender, email, password);
         this.shops = shops;
     }
 

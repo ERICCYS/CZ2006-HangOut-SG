@@ -29,15 +29,14 @@ public class Customer extends User {
 
     }
 
-    public Customer(Long id, String firstName, String lastName, GenderEnm gender, String email, URL avatar, Date dob, boolean halaPreference, boolean vegPreference, String regionalPreference) {
-        super(id, firstName, lastName, gender, email);
+    public Customer(Long id, String firstName, String lastName, GenderEnm gender, String email, String password, URL avatar, Date dob, boolean halaPreference, boolean vegPreference, String regionalPreference) {
+        super(id, firstName, lastName, gender, email, password);
         this.avatar = avatar;
         this.dob = dob;
         this.halaPreference = halaPreference;
         this.vegPreference = vegPreference;
         this.regionalPreference = regionalPreference;
     }
-
 
     @Override
     public String toString() {
