@@ -5,6 +5,8 @@ import javax.persistence.*;
 @MappedSuperclass
 public class User {
 
+    // TODO: Add user authentication
+
     @Id
     @Column(name="ID", unique = true)
     private Long id;
@@ -80,8 +82,5 @@ public class User {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
+    // email is not updatable
 }

@@ -6,11 +6,8 @@ import javax.persistence.*;
 @Table(name = "Admin")
 public class Admin extends User {
 
-    // Admin need to be added manually, not through this system
-
+    // Admin need to be added manually with database query, not through this system
 
     public Admin() {
     }
-
-
 }

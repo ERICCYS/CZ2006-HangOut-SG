@@ -20,15 +20,27 @@ public class Shop {
     private String contactEmail;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "VENDOR_ID", nullable = false)
+    @JoinColumn(name = "VENDOR_ID")
     private Vendor vendor;
 
-    public Shop(Long id, String name, String contactNumber, String contactEmail, Vendor vendor) {
+    public Shop() {
+    }
+
+    public Shop(Long id, String name, String contactNumber, String contactEmail) {
         this.id = id;
         this.name = name;
         this.contactNumber = contactNumber;
         this.contactEmail = contactEmail;
-        this.vendor = vendor;
+    }
+
+    @Override
+    public String toString() {
+        return "Shop{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", contactNumber='" + contactNumber + '\'' +
+                ", contactEmail='" + contactEmail + '\'' +
+                '}';
     }
 
     public Long getId() {

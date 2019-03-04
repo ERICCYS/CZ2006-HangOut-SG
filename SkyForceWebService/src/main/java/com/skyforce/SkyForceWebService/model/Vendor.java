@@ -12,9 +12,11 @@ public class Vendor extends User {
 
     // orphanRemoval = true in One to Many? How it works?
 
+    // TODO: Add shop method
 
-    @OneToMany(mappedBy = "vendor", cascade = CascadeType.ALL)
-    private List<Shop> shops = new ArrayList<Shop>();
+
+    @OneToMany(mappedBy = "vendor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Shop> shops = new ArrayList<>();
 
     public Vendor(Long id, String firstName, String lastName, GenderEnm gender, String email, ArrayList<Shop> shops) {
         super(id, firstName, lastName, gender, email);
@@ -42,5 +44,15 @@ public class Vendor extends User {
 
     public void setShops(List<Shop> shops) {
         this.shops = shops;
+    }
+
+    public void addShop(Shop shop) {
+        shops.add(shop);
+        shop.setVendor(this);
+    }
+
+    public void removeShop(Shop shop) {
+        shops.remove(shop);
+        shop.setVendor(null);
     }
 }

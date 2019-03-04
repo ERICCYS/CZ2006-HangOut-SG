@@ -1,7 +1,9 @@
 package com.skyforce.SkyForceWebService.controller;
 
 
+import com.skyforce.SkyForceWebService.model.Shop;
 import com.skyforce.SkyForceWebService.model.Vendor;
+import com.skyforce.SkyForceWebService.service.ShopService;
 import com.skyforce.SkyForceWebService.service.VendorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,8 +20,14 @@ public class VendorController {
 
     // TODO:  Change http status for different exceptions
 
+    // TODO: add service for vendor to add shop
+
     @Autowired
     VendorService vendorService;
+
+    @Autowired
+    ShopService shopService;
+
     private AtomicLong nextId = new AtomicLong();
 
     @GetMapping("/vendor")
@@ -41,9 +49,18 @@ public class VendorController {
         return "post success" + vendorService.save(vendor);
     }
 
+    @PutMapping("/vendor/{id}/addshop")
+    public String addShop (@PathVariable("id") Long id, @Valid @RequestBody Shop shop) {
+        Vendor oldVendor = vendorService.findVendorById(id);
+        shop.setId(nextId.incrementAndGet());
+        System.out.println(shop);
+        oldVendor.addShop(new Shop(shop.getId(), shop.getName(), shop.getContactNumber(), shop.getContactEmail()));
+        System.out.println(oldVendor);
+        return  "add shop success" + vendorService.save(oldVendor) ;
+    }
+
     @PutMapping("/vendor/{id}")
     public String updateVendorById(@PathVariable("id") Long id, @Valid @RequestBody Vendor vendor) {
-
         Vendor oldVendor = vendorService.findVendorById(id);
         oldVendor.setFirstName(vendor.getFirstName());
         oldVendor.setLastName(vendor.getLastName());
