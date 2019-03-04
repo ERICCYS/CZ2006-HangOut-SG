@@ -44,11 +44,14 @@ public class CustomerController {
     public String updateCustomerById(@PathVariable("id") Long id, @Valid @RequestBody Customer customer) {
 
         Customer oldCustomer = customerService.findCustomerById(id);
-
         oldCustomer.setFirstName(customer.getFirstName());
         oldCustomer.setLastName(customer.getLastName());
         oldCustomer.setGender(customer.getGender());
-
+        oldCustomer.setDob(customer.getDob());
+        oldCustomer.setAvatar(customer.getAvatar());
+        oldCustomer.setHalaPreference(customer.isHalaPreference());
+        oldCustomer.setVegPreference(customer.isVegPreference());
+        oldCustomer.setRegionalPreference(customer.getRegionalPreference());
         Customer updatedCustomer = customerService.save(oldCustomer);
         return "updated Customer" + updatedCustomer;
     }

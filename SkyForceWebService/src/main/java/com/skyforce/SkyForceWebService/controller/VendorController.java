@@ -45,6 +45,9 @@ public class VendorController {
     public String updateVendorById(@PathVariable("id") Long id, @Valid @RequestBody Vendor vendor) {
 
         Vendor oldVendor = vendorService.findVendorById(id);
+        oldVendor.setFirstName(vendor.getFirstName());
+        oldVendor.setLastName(vendor.getLastName());
+        oldVendor.setGender(vendor.getGender());
         oldVendor.setShops(vendor.getShops());
         Vendor updatedVendor = vendorService.save(oldVendor);
         return "updated Vendor" + updatedVendor;

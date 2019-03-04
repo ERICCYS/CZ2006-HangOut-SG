@@ -10,7 +10,10 @@ import java.util.List;
 public class Vendor extends User {
     // Vendor
 
-    @OneToMany(mappedBy = "vendor", cascade = CascadeType.ALL, orphanRemoval = true)
+    // orphanRemoval = true in One to Many? How it works?
+
+
+    @OneToMany(mappedBy = "vendor", cascade = CascadeType.ALL)
     private List<Shop> shops = new ArrayList<Shop>();
 
     public Vendor(Long id, String firstName, String lastName, GenderEnm gender, String email, ArrayList<Shop> shops) {
