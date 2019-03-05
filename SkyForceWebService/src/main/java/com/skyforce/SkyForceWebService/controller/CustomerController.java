@@ -8,9 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
@@ -37,20 +34,30 @@ public class CustomerController {
         return "find customer by id: " + customer;
     }
 
+    @GetMapping("/customer/signin/{email}/{password}")
+    public Customer signInCustomer (@PathVariable("email") String email, @PathVariable("password") String password) throws NoSuchAlgorithmException {
+        Customer customer = customerService.findCustomerByEmail(email);
+        String hashedPassword = customer.hashPassword(password);
+        if (hashedPassword.equals(customer.getPassword())) {
+            return customer;
+        } else {
+            throw new IllegalArgumentException();
+        }
+    }
+    @ResponseStatus(value = HttpStatus.UNAUTHORIZED,
+            reason = "Email or password incorrect")
+    @ExceptionHandler(IllegalArgumentException.class)
+    public void badAuthenticationException() {
+
+    }
+
+
     @PostMapping("/customer")
     @ResponseStatus(HttpStatus.CREATED)
     public String createCustomer(@Valid @RequestBody Customer customer) throws NoSuchAlgorithmException {
         customer.setId(nextId.incrementAndGet());
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        byte[] hash = digest.digest(customer.getPassword().getBytes());
-        BigInteger no = new BigInteger(1, hash);
-        String hashedPassword = no.toString(16);
-        while (hashedPassword.length() < 32) {
-            hashedPassword = "0" + hashedPassword;
-        }
-        System.out.println(hashedPassword);
+        String hashedPassword = customer.hashPassword(customer.getPassword());
         customer.setPassword(hashedPassword);
-
         return "Post success" + customerService.save(customer);
     }
 

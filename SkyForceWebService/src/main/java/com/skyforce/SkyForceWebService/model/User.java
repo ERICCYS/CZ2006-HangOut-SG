@@ -1,6 +1,9 @@
 package com.skyforce.SkyForceWebService.model;
 
 import javax.persistence.*;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 @MappedSuperclass
 public class User {
@@ -96,5 +99,16 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String hashPassword (String password) throws NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(password.getBytes());
+        BigInteger no = new BigInteger(1, hash);
+        String hashedPassword = no.toString(16);
+        while (hashedPassword.length() < 32) {
+            hashedPassword = "0" + hashedPassword;
+        }
+        return hashedPassword;
     }
 }

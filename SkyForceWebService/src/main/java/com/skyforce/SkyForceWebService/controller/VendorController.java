@@ -1,6 +1,7 @@
 package com.skyforce.SkyForceWebService.controller;
 
 
+import com.skyforce.SkyForceWebService.model.Vendor;
 import com.skyforce.SkyForceWebService.model.Shop;
 import com.skyforce.SkyForceWebService.model.Vendor;
 import com.skyforce.SkyForceWebService.service.ShopService;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.validation.Valid;
@@ -54,6 +56,23 @@ public class VendorController {
         return "find vendor by id: " + vendor;
     }
 
+    @GetMapping("/vendor/signin/{email}/{password}")
+    public Vendor signInVendor (@PathVariable("email") String email, @PathVariable("password") String password) throws NoSuchAlgorithmException {
+        Vendor vendor = vendorService.findVendorByEmail(email);
+        String hashedPassword = vendor.hashPassword(password);
+        if (hashedPassword.equals(vendor.getPassword())) {
+            return vendor;
+        } else {
+            throw new IllegalArgumentException();
+        }
+    }
+    @ResponseStatus(value = HttpStatus.UNAUTHORIZED,
+            reason = "Email or password incorrect")
+    @ExceptionHandler(IllegalArgumentException.class)
+    public void badAuthenticationException() {
+
+    }
+    
     @PostMapping("/vendor")
     @ResponseStatus(HttpStatus.CREATED)
     public String createVendor(@Valid @RequestBody Vendor vendor) {
