@@ -1,11 +1,14 @@
 package com.skyforce.SkyForceWebService.model;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
-@Entity
-@Table(name = "User")
+@MappedSuperclass
 public class User {
+
+    // TODO: Add user authentication
 
     @Id
     @Column(name="ID", unique = true)
@@ -17,32 +20,28 @@ public class User {
     @Column(name = "LAST_NAME", nullable = false, length = 15)
     private String lastName;
 
-    @Column(name = "DOB")
-    @Temporal(TemporalType.DATE)
-    private Date dob;
-
     @Column(name = "GENDER", nullable = false, length = 15)
     private GenderEnm gender;
 
     @Column(name = "EMAIL", nullable = false, length = 100, unique = true)
     private String email;
 
-    @Column(name = "PHONE", nullable = false, length = 30)
-    private String phone;
+    @Column(name = "PASSWORD", nullable = false)
+    private String password;
 
     public User() {
 
     }
 
-    public User(Long id, String firstName, String lastName, Date dob, GenderEnm gender, String email, String phone) {
+    public User(Long id, String firstName, String lastName, GenderEnm gender, String email, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.dob = dob;
         this.gender = gender;
         this.email = email;
-        this.phone = phone;
+        this.password = password;
     }
+
 
     @Override
     public String toString() {
@@ -50,10 +49,9 @@ public class User {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", dob=" + dob +
                 ", gender=" + gender +
                 ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 
@@ -81,14 +79,6 @@ public class User {
         this.lastName = lastName;
     }
 
-    public Date getDob() {
-        return dob;
-    }
-
-    public void setDob(Date dob) {
-        this.dob = dob;
-    }
-
     public GenderEnm getGender() {
         return gender;
     }
@@ -101,15 +91,24 @@ public class User {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    // email is not updatable
+
+    public String getPassword() {
+        return password;
     }
 
-    public String getPhone() {
-        return phone;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public String hashPassword (String password) throws NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(password.getBytes());
+        BigInteger no = new BigInteger(1, hash);
+        String hashedPassword = no.toString(16);
+        while (hashedPassword.length() < 32) {
+            hashedPassword = "0" + hashedPassword;
+        }
+        return hashedPassword;
     }
 }
