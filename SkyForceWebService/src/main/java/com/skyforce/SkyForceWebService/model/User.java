@@ -8,8 +8,6 @@ import java.security.NoSuchAlgorithmException;
 @MappedSuperclass
 public class User {
 
-    // TODO: Add user authentication
-
     @Id
     @Column(name="ID", unique = true)
     private Long id;
