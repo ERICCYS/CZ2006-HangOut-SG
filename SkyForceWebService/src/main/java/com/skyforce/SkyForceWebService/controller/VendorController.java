@@ -75,8 +75,11 @@ public class VendorController {
     // Vendor registration
     @PostMapping("/vendor")
     @ResponseStatus(HttpStatus.CREATED)
-    public String createVendor(@Valid @RequestBody Vendor vendor) {
+    public String createVendor(@Valid @RequestBody Vendor vendor) throws NoSuchAlgorithmException {
         vendor.setId(nextId.incrementAndGet());
+
+        String hashedPassword = vendor.hashPassword(vendor.getPassword());
+        vendor.setPassword(hashedPassword);
         return JSONConvert.JSONConverter(vendorService.save(vendor));
     }
 
