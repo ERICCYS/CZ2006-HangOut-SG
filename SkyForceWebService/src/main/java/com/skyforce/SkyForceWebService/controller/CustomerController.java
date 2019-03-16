@@ -37,12 +37,7 @@ public class CustomerController {
     @GetMapping("/customer/signin/{email}/{password}")
     public String signInCustomer (@PathVariable("email") String email, @PathVariable("password") String password) throws NoSuchAlgorithmException {
         Customer customer = customerService.findCustomerByEmail(email);
-        String hashedPassword = customer.hashPassword(password);
-        if (hashedPassword.equals(customer.getPassword())) {
-            return JSONConvert.JSONConverter(customer);
-        } else {
-            throw new IllegalArgumentException();
-        }
+        return ValidationController.UserSignIn(customer, password);
     }
     @ResponseStatus(value = HttpStatus.UNAUTHORIZED,
             reason = "Email or password incorrect")

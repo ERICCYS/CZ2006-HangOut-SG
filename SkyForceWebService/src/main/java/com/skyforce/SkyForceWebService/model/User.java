@@ -104,7 +104,7 @@ public class User {
         byte[] hash = digest.digest(password.getBytes());
         BigInteger no = new BigInteger(1, hash);
         String hashedPassword = no.toString(16);
-        while (hashedPassword.length() < 32) {
+        while (hashedPassword.length() < 64) {
             hashedPassword = "0" + hashedPassword;
         }
         return hashedPassword;

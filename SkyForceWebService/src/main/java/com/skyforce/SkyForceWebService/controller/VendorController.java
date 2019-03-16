@@ -63,12 +63,7 @@ public class VendorController {
     @GetMapping("/vendor/signin/{email}/{password}")
     public String signInVendor (@PathVariable("email") String email, @PathVariable("password") String password) throws NoSuchAlgorithmException {
         Vendor vendor = vendorService.findVendorByEmail(email);
-        String hashedPassword = vendor.hashPassword(password);
-        if (hashedPassword.equals(vendor.getPassword())) {
-            return JSONConvert.JSONConverter(vendor);
-        } else {
-            throw new IllegalArgumentException();
-        }
+        return ValidationController.UserSignIn(vendor, password);
     }
     @ResponseStatus(value = HttpStatus.UNAUTHORIZED,
             reason = "Email or password incorrect")
