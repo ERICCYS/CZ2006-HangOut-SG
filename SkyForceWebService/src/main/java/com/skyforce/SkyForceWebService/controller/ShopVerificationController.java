@@ -25,18 +25,20 @@ public class ShopVerificationController {
 
     // Get all shop verifications
     // http://localhost:9090/api/verification
-    @GetMapping("/verification")
+    @GetMapping("/verifications")
     public String getAllShopVerification() {
-
         return JSONConvert.JSONConverter(shopVerificationService.findAll());
     }
 
     // Add shop verification
     // http://localhost:9090/api/shop/1/verify
-    @PostMapping("/shop/{id}/verify")
+    @PostMapping("/shop/verify")
     @ResponseStatus(HttpStatus.CREATED)
-    public String postShopVerification(@PathVariable("id") Long id, @Valid @RequestBody ShopVerification shopVerification) {
-        Shop shop = shopService.findShopById(id);
+    public String postShopVerification(
+            @RequestParam Long shopId,
+            @Valid @RequestBody ShopVerification shopVerification
+    ) {
+        Shop shop = shopService.findShopById(shopId);
         shopVerification.setId(nextId.incrementAndGet());
         shopVerification.setShop(shop);
         shopVerification.setVendor(shop.getVendor());
@@ -50,8 +52,11 @@ public class ShopVerificationController {
     // Example
     // http://localhost:9090/api/verification/1/false
     @PutMapping("/verification/{id}/{state}")
-    public String manageShopVerification(@PathVariable("id") Long id, @PathVariable("state") boolean state) {
-        ShopVerification shopVerification = shopVerificationService.findById(id);
+    public String manageShopVerification(
+            @RequestParam Long shopVerificationId,
+            @RequestParam boolean state
+    ) {
+        ShopVerification shopVerification = shopVerificationService.findById(shopVerificationId);
         shopVerification.setProcessed(true);
         shopVerification.setApproved(state);
         shopVerification.getShop().setVerified(state);

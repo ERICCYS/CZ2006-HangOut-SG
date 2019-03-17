@@ -21,15 +21,16 @@ public class AdminController {
 
     private AtomicLong nextId = new AtomicLong();
 
-    @GetMapping("/admin")
+    @GetMapping("/admins")
     public String getAllAdmins() {
         List<Admin> admins = adminService.findAll();
         return JSONConvert.JSONConverter(admins);
     }
 
-    @GetMapping("/admin/{id}")
-    public String getAdminById(@PathVariable("id") Long id) {
-        Admin admin = adminService.findById(id);
+    @GetMapping("/admin")
+    public String getAdminById(
+            @RequestParam Long adminId) {
+        Admin admin = adminService.findById(adminId);
         return JSONConvert.JSONConverter(admin);
     }
 
@@ -47,7 +48,9 @@ public class AdminController {
 
     @PostMapping("/admin")
     @ResponseStatus(HttpStatus.CREATED)
-    public String createAdmin (@Valid @RequestBody Admin admin) throws NoSuchAlgorithmException {
+    public String createAdmin (
+            @Valid @RequestBody Admin admin
+    ) throws NoSuchAlgorithmException {
         admin.setId(nextId.incrementAndGet());
         String hashedPassword = admin.hashPassword(admin.getPassword());
         admin.setPassword(hashedPassword);
@@ -55,9 +58,10 @@ public class AdminController {
     }
 
     // Delete admin account
-    @DeleteMapping("/admin/{id}")
-    public ResponseEntity<?> deleteAdmin(@PathVariable(value = "id") Long id) {
-        Admin admin = adminService.findById(id);
+    @DeleteMapping("/admin")
+    public ResponseEntity<?> deleteAdmin(
+            @RequestParam Long adminId) {
+        Admin admin = adminService.findById(adminId);
         adminService.delete(admin);
         return ResponseEntity.ok().build();
     }

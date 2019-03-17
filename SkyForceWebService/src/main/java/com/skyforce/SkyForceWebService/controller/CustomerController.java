@@ -22,15 +22,16 @@ public class CustomerController {
     CustomerService customerService;
     private AtomicLong nextId = new AtomicLong();
 
-    @GetMapping("/customer")
+    @GetMapping("/customers")
     public String getAllCustomers() {
         List<Customer> customers = customerService.findAll();
         return JSONConvert.JSONConverter(customers);
     }
 
-    @GetMapping("/customer/{id}")
-    public String getCustomerById(@PathVariable("id") Long id) {
-        Customer customer = customerService.findCustomerById(id);
+    @GetMapping("/customer")
+    public String getCustomerById(
+            @RequestParam Long customerId) {
+        Customer customer = customerService.findCustomerById(customerId);
         return JSONConvert.JSONConverter(customer);
     }
 
@@ -48,16 +49,21 @@ public class CustomerController {
 
     @PostMapping("/customer")
     @ResponseStatus(HttpStatus.CREATED)
-    public String createCustomer(@Valid @RequestBody Customer customer) throws NoSuchAlgorithmException {
+    public String createCustomer(
+            @Valid @RequestBody Customer customer
+    ) throws NoSuchAlgorithmException {
         customer.setId(nextId.incrementAndGet());
         String hashedPassword = customer.hashPassword(customer.getPassword());
         customer.setPassword(hashedPassword);
         return JSONConvert.JSONConverter(customerService.save(customer));
     }
 
-    @PutMapping("/customer/{id}")
-    public String updateCustomerById(@PathVariable("id") Long id, @Valid @RequestBody Customer customer) {
-        Customer oldCustomer = customerService.findCustomerById(id);
+    @PutMapping("/customer")
+    public String updateCustomerById(
+            @RequestParam Long customerId,
+            @Valid @RequestBody Customer customer
+    ) {
+        Customer oldCustomer = customerService.findCustomerById(customerId);
         oldCustomer.setFirstName(customer.getFirstName());
         oldCustomer.setLastName(customer.getLastName());
         oldCustomer.setGender(customer.getGender());
@@ -70,9 +76,10 @@ public class CustomerController {
         return JSONConvert.JSONConverter(updatedCustomer);
     }
 
-    @DeleteMapping("/customer/{id}")
-    public ResponseEntity<?> deleteCustomer(@PathVariable(value = "id") Long id) {
-        Customer customer = customerService.findCustomerById(id);
+    @DeleteMapping("/customer")
+    public ResponseEntity<?> deleteCustomer(
+            @RequestParam Long customerId) {
+        Customer customer = customerService.findCustomerById(customerId);
         customerService.delete(customer);
         return ResponseEntity.ok().build();
     }
