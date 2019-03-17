@@ -11,10 +11,9 @@ public interface CustomerRepo extends JpaRepository<Customer,Integer> {
     // find a customer by email
     Customer findByEmail(String email);
 
-    // insert one user
+    // insert one customer
     Customer save(Customer customer);
 
-    // delete one user
+    // delete one customer
     void delete(Customer customer);
-
 }
