@@ -4,12 +4,13 @@ import com.skyforce.SkyForceWebService.model.Shop;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ShopRepo extends JpaRepository<Shop, Integer> {
-    // find all the shop
+
+    // find a shop by Id
     Shop findById(Long id);
 
-    // insert one user
+    // insert one shop
     Shop save(Shop shop);
 
-    // delete one user
+    // delete one shop
     void delete(Shop shop);
 }

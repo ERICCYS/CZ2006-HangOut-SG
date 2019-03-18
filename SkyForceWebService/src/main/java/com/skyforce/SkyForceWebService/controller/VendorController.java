@@ -1,8 +1,7 @@
 package com.skyforce.SkyForceWebService.controller;
 
 
-import com.skyforce.SkyForceWebService.model.Vendor;
-import com.skyforce.SkyForceWebService.model.Shop;
+import com.skyforce.SkyForceWebService.config.JSONConvert;
 import com.skyforce.SkyForceWebService.model.Vendor;
 import com.skyforce.SkyForceWebService.service.ShopService;
 import com.skyforce.SkyForceWebService.service.VendorService;
@@ -33,6 +32,7 @@ public class VendorController {
     private AtomicLong nextId = new AtomicLong();
 
     // TODO: Need a machanism to remember the last assigned id
+
     private long getRecentId () {
         List<Vendor> vendors = vendorService.findAll();
         Long recentId = 0L;
@@ -44,27 +44,27 @@ public class VendorController {
         return recentId;
     }
 
-    @GetMapping("/vendor")
+    // Get all the vendors
+    @GetMapping("/vendors")
     public String getAllVendors() {
         List<Vendor> vendors = vendorService.findAll();
-        return "there are a brunch of vendors " + vendors;
+        return JSONConvert.JSONConverter(vendors);
     }
 
-    @GetMapping("/vendor/{id}")
-    public String getVendorById(@PathVariable("id") Long id) {
-        Vendor vendor = vendorService.findVendorById(id);
-        return "find vendor by id: " + vendor;
+    // Get vendor by ID
+    @GetMapping("/vendor")
+    public String getVendorById(
+            @RequestParam Long vendorId
+    ) {
+        Vendor vendor = vendorService.findVendorById(vendorId);
+        return JSONConvert.JSONConverter(vendor);
     }
 
+    // Vendor Sign in
     @GetMapping("/vendor/signin/{email}/{password}")
-    public Vendor signInVendor (@PathVariable("email") String email, @PathVariable("password") String password) throws NoSuchAlgorithmException {
+    public String signInVendor (@PathVariable("email") String email, @PathVariable("password") String password) throws NoSuchAlgorithmException {
         Vendor vendor = vendorService.findVendorByEmail(email);
-        String hashedPassword = vendor.hashPassword(password);
-        if (hashedPassword.equals(vendor.getPassword())) {
-            return vendor;
-        } else {
-            throw new IllegalArgumentException();
-        }
+        return ValidationController.UserSignIn(vendor, password);
     }
     @ResponseStatus(value = HttpStatus.UNAUTHORIZED,
             reason = "Email or password incorrect")
@@ -72,48 +72,59 @@ public class VendorController {
     public void badAuthenticationException() {
 
     }
-    
+
+    // Vendor registration
     @PostMapping("/vendor")
     @ResponseStatus(HttpStatus.CREATED)
-    public String createVendor(@Valid @RequestBody Vendor vendor) {
+    public String createVendor(
+            @Valid @RequestBody Vendor vendor
+    ) throws NoSuchAlgorithmException {
         vendor.setId(nextId.incrementAndGet());
-        return "post success" + vendorService.save(vendor);
+        String hashedPassword = vendor.hashPassword(vendor.getPassword());
+        vendor.setPassword(hashedPassword);
+        return JSONConvert.JSONConverter(vendorService.save(vendor));
     }
 
-    @PutMapping("/vendor/{id}/addshop")
-    public String addShop (@PathVariable("id") Long id, @Valid @RequestBody Shop shop) {
-        Vendor oldVendor = vendorService.findVendorById(id);
-        shop.setId(nextId.incrementAndGet());
-        oldVendor.addShop(new Shop(shop.getId(), shop.getName(), shop.getContactNumber(), shop.getContactEmail()));
-        return  "add shop success" + vendorService.save(oldVendor) ;
-    }
+//    // Vendor add shop
+//    @PostMapping("/vendor/{id}/shop")
+//    public String addShop (@PathVariable("id") Long id, @Valid @RequestBody Shop shop) {
+//        Vendor oldVendor = vendorService.findVendorById(id);
+//        shop.setId(nextId.incrementAndGet());
+//        oldVendor.addShop(new Shop(shop.getId(), shop.getName(), shop.getContactNumber(), shop.getContactEmail()));
+//        return JSONConvert.JSONConverter(vendorService.save(oldVendor));
+//    }
+//
+//    // Vendor delete shop
+//    @DeleteMapping("/vendor/{vendorId}/shop/{shopId}")
+//    public String deleteShop (@PathVariable("vendorId") Long vendorId, @PathVariable("shopId") Long shopId) {
+//        Vendor oldVendor = vendorService.findVendorById(vendorId);
+//        Shop shop = shopService.findShopById(shopId);
+////        System.out.println(shop);
+//        oldVendor.removeShop(shop);
+//        return JSONConvert.JSONConverter(vendorService.save(oldVendor));
+//    }
 
-    @PutMapping("/vendor/{vendorId}/delshop/{shopId}")
-    public String deleteShop (@PathVariable("vendorId") Long vendorId, @PathVariable("shopId") Long shopId) {
+    // Change Vendor account information
+    @PutMapping("/vendor")
+    public String updateVendorById(
+            @RequestParam Long vendorId,
+            @Valid @RequestBody Vendor vendor) {
         Vendor oldVendor = vendorService.findVendorById(vendorId);
-        Shop shop = shopService.findShopById(shopId);
-        System.out.println(shop);
-        oldVendor.removeShop(shop);
-        return "Vendor after delete the shop" + vendorService.save(oldVendor);
-
-    }
-
-
-    @PutMapping("/vendor/{id}")
-    public String updateVendorById(@PathVariable("id") Long id, @Valid @RequestBody Vendor vendor) {
-        Vendor oldVendor = vendorService.findVendorById(id);
         oldVendor.setFirstName(vendor.getFirstName());
         oldVendor.setLastName(vendor.getLastName());
         oldVendor.setGender(vendor.getGender());
-        oldVendor.setShops(vendor.getShops());
+//        The setShops should not be here, it should be done with the add and delete shop.
+//        oldVendor.setShops(vendor.getShops());
         Vendor updatedVendor = vendorService.save(oldVendor);
-        return "updated Vendor" + updatedVendor;
+        return JSONConvert.JSONConverter(updatedVendor) ;
     }
 
-
-    @DeleteMapping("/vendor/{id}")
-    public ResponseEntity<?> deleteVendor(@PathVariable(value = "id") Long id) {
-        Vendor vendor = vendorService.findVendorById(id);
+    // Delete vendor account
+    @DeleteMapping("/vendor")
+    public ResponseEntity<?> deleteVendor(
+            @RequestParam Long vendorId
+    ) {
+        Vendor vendor = vendorService.findVendorById(vendorId);
         vendorService.delete(vendor);
         return ResponseEntity.ok().build();
     }

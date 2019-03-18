@@ -1,5 +1,6 @@
 package com.skyforce.SkyForceWebService.controller;
 
+import com.skyforce.SkyForceWebService.config.JSONConvert;
 import com.skyforce.SkyForceWebService.model.Customer;
 import com.skyforce.SkyForceWebService.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,32 +18,41 @@ public class CustomerController {
 
     // TODO:  Change http status for different exceptions
 
-
     @Autowired
     CustomerService customerService;
     private AtomicLong nextId = new AtomicLong();
 
-    @GetMapping("/customer")
+    @GetMapping("/customers")
     public String getAllCustomers() {
         List<Customer> customers = customerService.findAll();
-        return "there are a brunch of customers " + customers;
+        return JSONConvert.JSONConverter(customers);
     }
 
-    @GetMapping("/customer/{id}")
-    public String getCustomerById(@PathVariable("id") Long id) {
-        Customer customer = customerService.findCustomerById(id);
-        return "find customer by id: " + customer;
+    @GetMapping("/customertoken")
+    public String fooo(
+            @RequestHeader(value = "Accept") String accept,
+            @RequestHeader(value = "Accept-Language") String acceptLanguage,
+            @RequestHeader(value = "User-Agent", defaultValue = "foo") String userAgent,
+            @RequestHeader(value = "Authorization") String accessToken
+    ) {
+        System.out.println("accept: " + accept);
+        System.out.println("acceptLanguage: " + acceptLanguage);
+        System.out.println("userAgent: " + userAgent);
+        System.out.println("authentication " + accessToken);
+        return accept + " " + acceptLanguage + " " + userAgent + " " + ValidationController.decryptAccessToken(accessToken);
+    }
+
+    @GetMapping("/customer")
+    public String getCustomerById(
+            @RequestParam Long customerId) {
+        Customer customer = customerService.findCustomerById(customerId);
+        return JSONConvert.JSONConverter(customer);
     }
 
     @GetMapping("/customer/signin/{email}/{password}")
-    public Customer signInCustomer (@PathVariable("email") String email, @PathVariable("password") String password) throws NoSuchAlgorithmException {
+    public String signInCustomer (@PathVariable("email") String email, @PathVariable("password") String password) throws NoSuchAlgorithmException {
         Customer customer = customerService.findCustomerByEmail(email);
-        String hashedPassword = customer.hashPassword(password);
-        if (hashedPassword.equals(customer.getPassword())) {
-            return customer;
-        } else {
-            throw new IllegalArgumentException();
-        }
+        return ValidationController.UserSignIn(customer, password);
     }
     @ResponseStatus(value = HttpStatus.UNAUTHORIZED,
             reason = "Email or password incorrect")
@@ -51,19 +61,24 @@ public class CustomerController {
 
     }
 
-
     @PostMapping("/customer")
     @ResponseStatus(HttpStatus.CREATED)
-    public String createCustomer(@Valid @RequestBody Customer customer) throws NoSuchAlgorithmException {
+    public String createCustomer(
+            @Valid @RequestBody Customer customer
+    ) throws NoSuchAlgorithmException {
         customer.setId(nextId.incrementAndGet());
         String hashedPassword = customer.hashPassword(customer.getPassword());
         customer.setPassword(hashedPassword);
-        return "Post success" + customerService.save(customer);
+        JSONConvert.JSONConverter(customerService.save(customer));
+        return ValidationController.getAccessToken(customer.getId(), "CUSTOMER");
     }
 
-    @PutMapping("/customer/{id}")
-    public String updateCustomerById(@PathVariable("id") Long id, @Valid @RequestBody Customer customer) {
-        Customer oldCustomer = customerService.findCustomerById(id);
+    @PutMapping("/customer")
+    public String updateCustomerById(
+            @RequestParam Long customerId,
+            @Valid @RequestBody Customer customer
+    ) {
+        Customer oldCustomer = customerService.findCustomerById(customerId);
         oldCustomer.setFirstName(customer.getFirstName());
         oldCustomer.setLastName(customer.getLastName());
         oldCustomer.setGender(customer.getGender());
@@ -73,12 +88,13 @@ public class CustomerController {
         oldCustomer.setVegPreference(customer.isVegPreference());
         oldCustomer.setRegionalPreference(customer.getRegionalPreference());
         Customer updatedCustomer = customerService.save(oldCustomer);
-        return "updated Customer" + updatedCustomer;
+        return JSONConvert.JSONConverter(updatedCustomer);
     }
 
-    @DeleteMapping("/customer/{id}")
-    public ResponseEntity<?> deleteCustomer(@PathVariable(value = "id") Long id) {
-        Customer customer = customerService.findCustomerById(id);
+    @DeleteMapping("/customer")
+    public ResponseEntity<?> deleteCustomer(
+            @RequestParam Long customerId) {
+        Customer customer = customerService.findCustomerById(customerId);
         customerService.delete(customer);
         return ResponseEntity.ok().build();
     }

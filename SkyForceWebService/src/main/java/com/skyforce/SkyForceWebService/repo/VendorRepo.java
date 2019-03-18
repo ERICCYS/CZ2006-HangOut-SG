@@ -11,9 +11,9 @@ public interface VendorRepo extends JpaRepository<Vendor, Integer> {
     // find the vendor by email
     Vendor findByEmail(String email);
 
-    // insert one user
+    // insert one vendor
     Vendor save(Vendor vendor);
 
-    // delete one user
+    // delete one vendor
     void delete(Vendor vendor);
 }

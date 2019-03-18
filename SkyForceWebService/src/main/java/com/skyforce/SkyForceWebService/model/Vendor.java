@@ -1,5 +1,8 @@
 package com.skyforce.SkyForceWebService.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 import java.util.ArrayList;
@@ -16,6 +19,7 @@ public class Vendor extends User {
 
 
     @OneToMany(mappedBy = "vendor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Shop> shops = new ArrayList<>();
 
 
