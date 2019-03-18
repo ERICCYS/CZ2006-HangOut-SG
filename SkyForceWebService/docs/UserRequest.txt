@@ -1,0 +1,73 @@
+# Customer API testing commands
+
+# GET all customers
+curl -i -H "Content-Type: application/json" -X GET localhost:9090/api/customer
+
+
+# GET one customer by Id
+curl -i -H "Content-Type: application/json" -X GET localhost:9090/api/customer/<id>
+
+
+# POST new customer
+curl -i -H "Content-Type: application/json" -X POST -d '{
+        "firstName" : "de",
+        "lastName" : "mo",
+        "gender" : "MALE",
+        "email": "demo@demomail.com",
+        "avatar": "https://www.greencointoken.com/assets/images/avatar.png"
+        "dob" : "1999-09-09",
+        "halaPreference": false,
+        "vegPreference": false,
+        "regionalPreference": "None"
+    }' localhost:9090/api/customer
+
+
+# PUT (update) one customer
+curl -i -H "Content-Type: application/json" -X POST -d '{
+        "firstName" : "de",
+        "lastName" : "mo",
+        "gender" : "MALE",
+        "email": "demo@demomail.com",
+        "avatar": "https://www.greencointoken.com/assets/images/avatar.png"
+        "dob" : "1999-09-09",
+        "halaPreference": true,
+        "vegPreference": true,
+        "regionalPreference": "Downtown"
+    }' localhost:9090/api/customer/<id>
+
+
+# DELETE one customer
+curl -i -H "Content-Type: application/json" -X DELETE localhost:9090/api/customer/<id>
+
+
+
+# Vendor API testing commands
+
+# GET all vendors
+curl -i -H "Content-Type: application/json" -X GET localhost:9090/api/vendor
+
+
+# GET one vendor by Id
+curl -i -H "Content-Type: application/json" -X GET localhost:9090/api/vendor/<id>
+
+
+# POST new vendor
+curl -i -H "Content-Type: application/json" -X POST -d '{
+        "firstName" : "de",
+        "lastName" : "mo",
+        "gender" : "MALE",
+        "email": "demo@demomail.com"
+    }' localhost:9090/api/vendor
+
+
+# PUT (update) one vendor
+curl -i -H "Content-Type: application/json" -X POST -d '{
+        "firstName" : "de",
+        "lastName" : "mo",
+        "gender" : "FEMALE",
+        "email": "demo@demomail.com"
+    }' localhost:9090/api/vendor/<id>
+
+
+# DELETE one vendor
+curl -i -H "Content-Type: application/json" -X DELETE localhost:9090/api/vendor/<id>
