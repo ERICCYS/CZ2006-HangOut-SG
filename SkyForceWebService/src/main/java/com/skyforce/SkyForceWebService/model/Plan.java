@@ -19,6 +19,10 @@ public class Plan {
     @Column(name="DATE", nullable = false)
     private Date date;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CUSTOMER")
+    private Customer customer;
+
     @OneToMany(
             mappedBy = "plan",
             cascade = CascadeType.ALL,
@@ -28,6 +32,9 @@ public class Plan {
 
     public Plan(){}
 
+    public Plan(Date date){
+        this.date = date;
+    }
     public Plan(Date date, List<PlanItem> planItems){
         this.date = date;
         this.planItems = planItems;
@@ -57,5 +64,13 @@ public class Plan {
     public void removePlanItem(PlanItem planItem){
         planItems.remove(planItem);
         planItem.setPlan(null);
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Customer getCustomer() {
+        return customer;
     }
 }
