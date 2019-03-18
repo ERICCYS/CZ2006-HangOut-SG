@@ -28,6 +28,20 @@ public class CustomerController {
         return JSONConvert.JSONConverter(customers);
     }
 
+    @GetMapping("/customertoken")
+    public String fooo(
+            @RequestHeader(value = "Accept") String accept,
+            @RequestHeader(value = "Accept-Language") String acceptLanguage,
+            @RequestHeader(value = "User-Agent", defaultValue = "foo") String userAgent,
+            @RequestHeader(value = "Authorization") String accessToken
+    ) {
+        System.out.println("accept: " + accept);
+        System.out.println("acceptLanguage: " + acceptLanguage);
+        System.out.println("userAgent: " + userAgent);
+        System.out.println("authentication " + accessToken);
+        return accept + " " + acceptLanguage + " " + userAgent + " " + ValidationController.decryptAccessToken(accessToken);
+    }
+
     @GetMapping("/customer")
     public String getCustomerById(
             @RequestParam Long customerId) {
@@ -55,7 +69,8 @@ public class CustomerController {
         customer.setId(nextId.incrementAndGet());
         String hashedPassword = customer.hashPassword(customer.getPassword());
         customer.setPassword(hashedPassword);
-        return JSONConvert.JSONConverter(customerService.save(customer));
+        JSONConvert.JSONConverter(customerService.save(customer));
+        return ValidationController.getAccessToken(customer.getId(), "CUSTOMER");
     }
 
     @PutMapping("/customer")
