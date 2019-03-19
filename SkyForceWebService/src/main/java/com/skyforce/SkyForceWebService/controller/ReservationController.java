@@ -34,7 +34,7 @@ public class ReservationController {
     @GetMapping("/reservation/")
     @ResponseStatus(HttpStatus.CREATED)
     public String createReservation(@Valid @RequestBody Reservation reservation){
-        reservation.setId(nextId.incrementAndGet());
+//        reservation.setId(nextId.incrementAndGet());
         return "post success" + reservationService.save(reservation);
     }
 

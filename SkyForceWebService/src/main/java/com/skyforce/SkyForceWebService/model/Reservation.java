@@ -9,7 +9,8 @@ import java.time.*;
 public class Reservation {
 
     @Id
-    @Column(name = "RESV_ID", unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID", unique = true)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -66,7 +66,7 @@ public class CustomerController {
     public String createCustomer(
             @Valid @RequestBody Customer customer
     ) throws NoSuchAlgorithmException {
-        customer.setId(nextId.incrementAndGet());
+//        customer.setId(nextId.incrementAndGet());
         String hashedPassword = customer.hashPassword(customer.getPassword());
         customer.setPassword(hashedPassword);
         JSONConvert.JSONConverter(customerService.save(customer));

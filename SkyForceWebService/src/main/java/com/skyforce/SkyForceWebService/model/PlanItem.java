@@ -1,16 +1,17 @@
 package com.skyforce.SkyForceWebService.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.sql.Time;
-import java.util.Date;
 
 @Entity
 @Table(name = "PlanItem")
 public class PlanItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name="ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
 
@@ -22,17 +23,23 @@ public class PlanItem {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PLAN_ID")
+    @JsonBackReference
     private Plan plan;
 
-    public PlanItem() {}
+    public PlanItem() {
+    }
 
     public PlanItem(Time time) {
         this.scheduledVisitTime = time;
     }
 
-    public Long getId() {return this.id;}
+    public Long getId() {
+        return this.id;
+    }
 
-    public void setId(Long id) {this.id = id;}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getShopId() {
         return shopId;
@@ -42,13 +49,21 @@ public class PlanItem {
         this.shopId = shopId;
     }
 
-    public Time getScheduledVisitTime() {return this.scheduledVisitTime;}
+    public Time getScheduledVisitTime() {
+        return this.scheduledVisitTime;
+    }
 
-    public void setScheduledVisitTime(Time time){this.scheduledVisitTime = time;}
+    public void setScheduledVisitTime(Time time) {
+        this.scheduledVisitTime = time;
+    }
 
-    public Plan getPlan(){return plan;}
+    public Plan getPlan() {
+        return plan;
+    }
 
-    public void setPlan(Plan plan){this.plan = plan;}
+    public void setPlan(Plan plan) {
+        this.plan = plan;
+    }
 
 
 }

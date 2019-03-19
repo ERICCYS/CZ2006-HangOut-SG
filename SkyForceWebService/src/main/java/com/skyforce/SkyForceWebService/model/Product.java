@@ -12,6 +12,7 @@ public class Product {
 
     @Id
     @Column(name="ID", unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name="NAME", nullable = false)
@@ -31,8 +32,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long id, String name, String description, List<URL> productImg) {
-        this.id = id;
+    public Product(String name, String description, List<URL> productImg) {
         this.name = name;
         this.description = description;
         this.productImg = productImg;

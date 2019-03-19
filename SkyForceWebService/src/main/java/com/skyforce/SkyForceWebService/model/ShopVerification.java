@@ -9,6 +9,7 @@ public class ShopVerification {
 
     @Id
     @Column(name="ID", unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)

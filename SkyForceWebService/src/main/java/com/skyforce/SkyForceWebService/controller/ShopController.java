@@ -54,8 +54,8 @@ public class ShopController {
             @Valid @RequestBody Shop shop
     ) {
         Vendor oldVendor = vendorService.findVendorById(vendorId);
-        shop.setId(nextId.incrementAndGet());
-        oldVendor.addShop(new Shop(shop.getId(), shop.getName(), shop.getContactNumber(), shop.getContactEmail()));
+//        shop.setId(nextId.incrementAndGet());
+        oldVendor.addShop(new Shop(shop.getName(), shop.getContactNumber(), shop.getContactEmail(), shop.getCategory()));
         return JSONConvert.JSONConverter(vendorService.save(oldVendor));
     }
 

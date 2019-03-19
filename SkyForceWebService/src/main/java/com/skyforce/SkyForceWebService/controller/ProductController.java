@@ -33,19 +33,19 @@ public class ProductController {
 
     // How to use the request header
     // Header key must be the requestHeader value here
-    @GetMapping("/headertest")
-    public String fooo(
-            @RequestHeader(value = "Accept") String accept,
-            @RequestHeader(value = "Accept-Language") String acceptLanguage,
-            @RequestHeader(value = "User-Agent", defaultValue = "foo") String userAgent,
-            @RequestHeader(value = "Authorization") String accessToken
-    ) {
-        System.out.println("accept: " + accept);
-        System.out.println("acceptLanguage: " + acceptLanguage);
-        System.out.println("userAgent: " + userAgent);
-        System.out.println("authentication " + accessToken);
-        return accept + " " + acceptLanguage + " " + userAgent + " " + accessToken;
-    }
+//    @GetMapping("/headertest")
+//    public String fooo(
+//            @RequestHeader(value = "Accept") String accept,
+//            @RequestHeader(value = "Accept-Language") String acceptLanguage,
+//            @RequestHeader(value = "User-Agent", defaultValue = "foo") String userAgent,
+//            @RequestHeader(value = "Authorization") String accessToken
+//    ) {
+//        System.out.println("accept: " + accept);
+//        System.out.println("acceptLanguage: " + acceptLanguage);
+//        System.out.println("userAgent: " + userAgent);
+//        System.out.println("authentication " + accessToken);
+//        return accept + " " + acceptLanguage + " " + userAgent + " " + accessToken;
+//    }
 
     @GetMapping("/products")
     public String getAllProducts() {
@@ -68,8 +68,8 @@ public class ProductController {
             @Valid @RequestBody Product product
     ) {
         Shop oldShop = shopService.findShopById(shopId);
-        product.setId(nextId.incrementAndGet());
-        oldShop.addProduct(new Product(product.getId(), product.getName(), product.getDescription(), product.getProductImg()));
+//        product.setId(nextId.incrementAndGet());
+        oldShop.addProduct(new Product(product.getName(), product.getDescription(), product.getProductImg()));
         return "OK";
     }
 

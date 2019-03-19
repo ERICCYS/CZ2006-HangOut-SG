@@ -47,9 +47,9 @@ public class PlanController {
             @Valid @RequestBody Plan plan
     ) {
         Customer oldCustomer = customerService.findCustomerById(customerId);
-        plan.setId(nextId.incrementAndGet());
-
-        oldCustomer.addPlan(new Plan(plan.getDate(), plan.getPlanItems()));
+//        plan.setId(nextId.incrementAndGet());
+//        oldCustomer.addPlan(new Plan(plan.getName(), plan.getDate(), plan.getPlanItems()));
+        oldCustomer.addPlan(plan);
         return JSONConvert.JSONConverter(customerService.save(oldCustomer));
     }
 

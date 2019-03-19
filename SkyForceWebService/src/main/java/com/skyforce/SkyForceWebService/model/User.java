@@ -9,6 +9,7 @@ import java.security.NoSuchAlgorithmException;
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID", unique = true)
     private Long id;
 

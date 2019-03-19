@@ -1,6 +1,7 @@
 package com.skyforce.SkyForceWebService.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,12 +11,13 @@ import java.util.List;
 @Entity
 @Table(name = "Plan")
 public class Plan {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID")
     private Long id;
 
-    @Column(name="NAME")
+    @Column(name="NAME", nullable = false)
     private String name;
 
     @Column(name="DATE", nullable = false)
@@ -31,6 +33,7 @@ public class Plan {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @JsonManagedReference
     private List<PlanItem> planItems = new ArrayList<>();
 
     public Plan(){}
@@ -40,6 +43,12 @@ public class Plan {
     }
 
     public Plan(Date date, List<PlanItem> planItems){
+        this.date = date;
+        this.planItems = planItems;
+    }
+
+    public Plan(String name, Date date, List<PlanItem> planItems) {
+        this.name = name;
         this.date = date;
         this.planItems = planItems;
     }

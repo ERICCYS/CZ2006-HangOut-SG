@@ -79,30 +79,11 @@ public class VendorController {
     public String createVendor(
             @Valid @RequestBody Vendor vendor
     ) throws NoSuchAlgorithmException {
-        vendor.setId(nextId.incrementAndGet());
+//        vendor.setId(nextId.incrementAndGet());
         String hashedPassword = vendor.hashPassword(vendor.getPassword());
         vendor.setPassword(hashedPassword);
         return JSONConvert.JSONConverter(vendorService.save(vendor));
     }
-
-//    // Vendor add shop
-//    @PostMapping("/vendor/{id}/shop")
-//    public String addShop (@PathVariable("id") Long id, @Valid @RequestBody Shop shop) {
-//        Vendor oldVendor = vendorService.findVendorById(id);
-//        shop.setId(nextId.incrementAndGet());
-//        oldVendor.addShop(new Shop(shop.getId(), shop.getName(), shop.getContactNumber(), shop.getContactEmail()));
-//        return JSONConvert.JSONConverter(vendorService.save(oldVendor));
-//    }
-//
-//    // Vendor delete shop
-//    @DeleteMapping("/vendor/{vendorId}/shop/{shopId}")
-//    public String deleteShop (@PathVariable("vendorId") Long vendorId, @PathVariable("shopId") Long shopId) {
-//        Vendor oldVendor = vendorService.findVendorById(vendorId);
-//        Shop shop = shopService.findShopById(shopId);
-////        System.out.println(shop);
-//        oldVendor.removeShop(shop);
-//        return JSONConvert.JSONConverter(vendorService.save(oldVendor));
-//    }
 
     // Change Vendor account information
     @PutMapping("/vendor")

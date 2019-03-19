@@ -51,7 +51,7 @@ public class AdminController {
     public String createAdmin (
             @Valid @RequestBody Admin admin
     ) throws NoSuchAlgorithmException {
-        admin.setId(nextId.incrementAndGet());
+//        admin.setId(nextId.incrementAndGet());
         String hashedPassword = admin.hashPassword(admin.getPassword());
         admin.setPassword(hashedPassword);
         return JSONConvert.JSONConverter(adminService.save(admin));
