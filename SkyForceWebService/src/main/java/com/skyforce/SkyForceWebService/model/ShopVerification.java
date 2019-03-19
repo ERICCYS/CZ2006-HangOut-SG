@@ -8,29 +8,29 @@ import java.net.URL;
 public class ShopVerification {
 
     @Id
-    @Column(name="ID", unique = true)
+    @Column(name = "ID", unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="SHOP_ID")
+    @JoinColumn(name = "SHOP_ID")
     private Shop shop;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="VENDOR_ID")
+    @JoinColumn(name = "VENDOR_ID")
     private Vendor vendor;
 
-    @Column(name="CERTIFICATE", nullable = false)
+    @Column(name = "CERTIFICATE", nullable = false)
     private URL certificate;
 
-    @Column(name="PROCESSED")
+    @Column(name = "PROCESSED")
     private boolean processed;
 
     @Column(name = "APPROVED")
     private boolean approved;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="ADMIN")
+    @JoinColumn(name = "ADMIN")
     private Admin admin;
 
     @Column(name = "details")

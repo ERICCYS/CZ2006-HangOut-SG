@@ -63,7 +63,6 @@ public class Customer extends User {
     }
 
 
-
     public URL getAvatar() {
         return avatar;
     }

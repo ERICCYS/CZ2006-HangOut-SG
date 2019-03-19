@@ -10,7 +10,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="ID", unique = true)
+    @Column(name = "ID", unique = true)
     private Long id;
 
     @Column(name = "FIRST_NAME", nullable = false, length = 30)
@@ -90,8 +90,6 @@ public class User {
         return email;
     }
 
-    // email is not updatable
-
     public String getPassword() {
         return password;
     }
@@ -100,7 +98,7 @@ public class User {
         this.password = password;
     }
 
-    public String hashPassword (String password) throws NoSuchAlgorithmException {
+    public String hashPassword(String password) throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] hash = digest.digest(password.getBytes());
         BigInteger no = new BigInteger(1, hash);

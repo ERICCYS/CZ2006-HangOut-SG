@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ShopVerificationServiceImpl implements ShopVerificationService{
+public class ShopVerificationServiceImpl implements ShopVerificationService {
 
     @Autowired
     ShopVerificationRepo shopVerificationRepo;

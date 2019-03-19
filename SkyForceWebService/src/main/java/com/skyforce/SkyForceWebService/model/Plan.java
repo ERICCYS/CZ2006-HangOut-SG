@@ -14,13 +14,13 @@ public class Plan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="ID")
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name="NAME", nullable = false)
+    @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name="DATE", nullable = false)
+    @Column(name = "DATE", nullable = false)
     private Date date;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -36,13 +36,14 @@ public class Plan {
     @JsonManagedReference
     private List<PlanItem> planItems = new ArrayList<>();
 
-    public Plan(){}
+    public Plan() {
+    }
 
-    public Plan(Date date){
+    public Plan(Date date) {
         this.date = date;
     }
 
-    public Plan(Date date, List<PlanItem> planItems){
+    public Plan(Date date, List<PlanItem> planItems) {
         this.date = date;
         this.planItems = planItems;
     }
@@ -53,37 +54,53 @@ public class Plan {
         this.planItems = planItems;
     }
 
-    public Date getDate(){return date;}
+    public Date getDate() {
+        return date;
+    }
 
-    public void setDate(Date date){this.date = date;}
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
-    public Long getId(){return id;}
+    public Long getId() {
+        return id;
+    }
 
-    public void setId(Long id){this.id = id;}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getName(){return name;}
+    public String getName() {
+        return name;
+    }
 
-    public void setName(String s){name = s;}
+    public void setName(String s) {
+        name = s;
+    }
 
-    public List<PlanItem> getPlanItems(){return planItems;}
+    public List<PlanItem> getPlanItems() {
+        return planItems;
+    }
 
-    public void setPlanItems(List<PlanItem> planItems){this.planItems = planItems;}
+    public void setPlanItems(List<PlanItem> planItems) {
+        this.planItems = planItems;
+    }
 
-    public void addPlanItem(PlanItem planItem){
+    public void addPlanItem(PlanItem planItem) {
         planItems.add(planItem);
         planItem.setPlan(this);
     }
 
-    public void removePlanItem(PlanItem planItem){
+    public void removePlanItem(PlanItem planItem) {
         planItems.remove(planItem);
         planItem.setPlan(null);
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
     public Customer getCustomer() {
         return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

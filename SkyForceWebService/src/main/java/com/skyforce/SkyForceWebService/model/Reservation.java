@@ -2,7 +2,6 @@ package com.skyforce.SkyForceWebService.model;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.time.*;
 
 @Entity
 @Table(name = "Reservation")
@@ -24,9 +23,10 @@ public class Reservation {
     @Column(name = "ARRV_TIME", nullable = false)
     private Date arrivalTime;
 
-    public Reservation(){}
+    public Reservation() {
+    }
 
-    public Reservation(Long id, Date arrivalTime){
+    public Reservation(Long id, Date arrivalTime) {
         this.id = id;
         this.arrivalTime = arrivalTime;
 
@@ -36,39 +36,36 @@ public class Reservation {
     public String toString() {
         return "Reservation{" +
                 "id=" + id +
-                ", arrivalTime='" + arrivalTime + '\''  +
+                ", arrivalTime='" + arrivalTime + '\'' +
                 '}';
     }
 
-    // getters
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Customer getCustomer() {
         return customer;
     }
 
-    public Shop getShop() {
-        return shop;
-    }
-
-    public Date getArrivalTime() {
-        return arrivalTime;
-    }
-
-    //setters
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
+    public Shop getShop() {
+        return shop;
+    }
+
     public void setShop(Shop shop) {
         this.shop = shop;
+    }
+
+    public Date getArrivalTime() {
+        return arrivalTime;
     }
 
     public void setArrivalTime(Date arrivalTime) {

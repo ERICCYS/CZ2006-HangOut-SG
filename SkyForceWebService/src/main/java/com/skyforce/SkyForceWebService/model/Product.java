@@ -7,18 +7,18 @@ import java.net.URL;
 import java.util.List;
 
 @Entity
-@Table(name="Product")
+@Table(name = "Product")
 public class Product {
 
     @Id
-    @Column(name="ID", unique = true)
+    @Column(name = "ID", unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="NAME", nullable = false)
+    @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name="DESCRIPTION", nullable = false)
+    @Column(name = "DESCRIPTION", nullable = false)
     private String description;
 
     @ElementCollection

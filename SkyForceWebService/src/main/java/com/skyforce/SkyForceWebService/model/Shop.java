@@ -13,26 +13,26 @@ import java.util.List;
 public class Shop {
 
     @Id
-    @Column(name="ID", unique = true)
+    @Column(name = "ID", unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="NAME", nullable = false)
+    @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name="CONTACT_NUMBER", nullable = false)
+    @Column(name = "CONTACT_NUMBER", nullable = false)
     private String contactNumber;
 
-    @Column(name="CONTACT_EMAIL", nullable = false)
+    @Column(name = "CONTACT_EMAIL", nullable = false)
     private String contactEmail;
 
-    @Column(name="VERIFIED", nullable = false)
+    @Column(name = "VERIFIED", nullable = false)
     private boolean verified;
 
-    @Column(name="CERTIFICATE")
+    @Column(name = "CERTIFICATE")
     private URL certificate;
 
-    @Column(name="CATEGORY")
+    @Column(name = "CATEGORY")
     private String category;
 
 
@@ -171,5 +171,4 @@ public class Shop {
         products.remove(product);
         product.setShop(null);
     }
-
 }

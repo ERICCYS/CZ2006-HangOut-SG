@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 public class ShopController {
@@ -30,8 +29,6 @@ public class ShopController {
 
     @Autowired
     ProductService productService;
-
-    private AtomicLong nextId = new AtomicLong();
 
     @GetMapping("/shops")
     public String getAllShops() {
@@ -54,7 +51,6 @@ public class ShopController {
             @Valid @RequestBody Shop shop
     ) {
         Vendor oldVendor = vendorService.findVendorById(vendorId);
-//        shop.setId(nextId.incrementAndGet());
         oldVendor.addShop(new Shop(shop.getName(), shop.getContactNumber(), shop.getContactEmail(), shop.getCategory()));
         return JSONConvert.JSONConverter(vendorService.save(oldVendor));
     }

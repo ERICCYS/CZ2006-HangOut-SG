@@ -40,6 +40,7 @@ public class PlanController {
         Plan plan = planService.findPlanById(id);
         return JSONConvert.JSONConverter(plan);
     }
+
     // Customer add plan
     @PostMapping("/customer/plan")
     public String createPlan(
@@ -47,8 +48,6 @@ public class PlanController {
             @Valid @RequestBody Plan plan
     ) {
         Customer oldCustomer = customerService.findCustomerById(customerId);
-//        plan.setId(nextId.incrementAndGet());
-//        oldCustomer.addPlan(new Plan(plan.getName(), plan.getDate(), plan.getPlanItems()));
         oldCustomer.addPlan(plan);
         return JSONConvert.JSONConverter(customerService.save(oldCustomer));
     }
@@ -81,6 +80,4 @@ public class PlanController {
         return JSONConvert.JSONConverter(planService.save(oldPlan));
 
     }
-
-
 }

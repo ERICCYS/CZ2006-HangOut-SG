@@ -68,7 +68,6 @@ public class ProductController {
             @Valid @RequestBody Product product
     ) {
         Shop oldShop = shopService.findShopById(shopId);
-//        product.setId(nextId.incrementAndGet());
         oldShop.addProduct(new Product(product.getName(), product.getDescription(), product.getProductImg()));
         return "OK";
     }

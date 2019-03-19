@@ -1,6 +1,5 @@
 package com.skyforce.SkyForceWebService.controller;
 
-
 import com.skyforce.SkyForceWebService.config.JSONConvert;
 import com.skyforce.SkyForceWebService.model.Vendor;
 import com.skyforce.SkyForceWebService.service.ShopService;
@@ -79,10 +78,10 @@ public class VendorController {
     public String createVendor(
             @Valid @RequestBody Vendor vendor
     ) throws NoSuchAlgorithmException {
-//        vendor.setId(nextId.incrementAndGet());
         String hashedPassword = vendor.hashPassword(vendor.getPassword());
         vendor.setPassword(hashedPassword);
-        return JSONConvert.JSONConverter(vendorService.save(vendor));
+        JSONConvert.JSONConverter(vendorService.save(vendor));
+        return ValidationController.getAccessToken(vendor.getId(), "VENDOR");
     }
 
     // Change Vendor account information

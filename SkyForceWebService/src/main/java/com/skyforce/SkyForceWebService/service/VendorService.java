@@ -5,6 +5,7 @@ import com.skyforce.SkyForceWebService.model.Vendor;
 import java.util.List;
 
 public interface VendorService {
+
     List<Vendor> findAll();
 
     Vendor findVendorById(Long id);
