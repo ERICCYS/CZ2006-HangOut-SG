@@ -1,5 +1,7 @@
 package com.skyforce.SkyForceWebService.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,7 +12,7 @@ import java.util.List;
 public class Plan {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name="PlanID")
+    @Column(name="ID")
     private Long id;
 
     @Column(name="NAME")
@@ -20,7 +22,8 @@ public class Plan {
     private Date date;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CUSTOMER")
+    @JoinColumn(name = "CUSTOMER_ID")
+    @JsonBackReference
     private Customer customer;
 
     @OneToMany(
@@ -35,6 +38,7 @@ public class Plan {
     public Plan(Date date){
         this.date = date;
     }
+
     public Plan(Date date, List<PlanItem> planItems){
         this.date = date;
         this.planItems = planItems;

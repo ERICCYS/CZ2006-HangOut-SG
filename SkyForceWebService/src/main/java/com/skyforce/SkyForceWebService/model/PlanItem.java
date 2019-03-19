@@ -10,18 +10,18 @@ public class PlanItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name="ID")
     private Long id;
 
 
-    @Column(name = "Time")
+    @Column(name = "TIME")
     private Time scheduledVisitTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ShopId")
-    private Shop shop;
+    @Column(name = "SHOP_ID")
+    private Long shopId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PlanId")
+    @JoinColumn(name = "PLAN_ID")
     private Plan plan;
 
     public PlanItem() {}
@@ -34,9 +34,13 @@ public class PlanItem {
 
     public void setId(Long id) {this.id = id;}
 
-    public Shop getShop() {return this.shop;}
+    public Long getShopId() {
+        return shopId;
+    }
 
-    public void setShopId(Shop shop) {this.shop = shop;}
+    public void setShopId(Long shopId) {
+        this.shopId = shopId;
+    }
 
     public Time getScheduledVisitTime() {return this.scheduledVisitTime;}
 

@@ -28,7 +28,7 @@ public class Customer extends User {
     @Column(name = "REGIONAL_PREFERENCE", nullable = false)
     private String regionalPreference;
 
-    @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Plan> plans = new ArrayList<>();
 

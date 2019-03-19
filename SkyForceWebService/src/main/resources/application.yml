@@ -19,4 +19,4 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/bd_spring_demo?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
-    password: "@Bz990419"
+    password:
