@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 public class ShopVerificationController {
@@ -20,8 +19,6 @@ public class ShopVerificationController {
 
     @Autowired
     ShopVerificationService shopVerificationService;
-
-    private AtomicLong nextId = new AtomicLong();
 
     // Get all shop verifications
     // http://localhost:9090/api/verification
@@ -39,7 +36,6 @@ public class ShopVerificationController {
             @Valid @RequestBody ShopVerification shopVerification
     ) {
         Shop shop = shopService.findShopById(shopId);
-        shopVerification.setId(nextId.incrementAndGet());
         shopVerification.setShop(shop);
         shopVerification.setVendor(shop.getVendor());
         shopVerification.setProcessed(false);

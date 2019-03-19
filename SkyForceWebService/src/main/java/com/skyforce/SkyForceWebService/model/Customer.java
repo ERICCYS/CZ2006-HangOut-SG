@@ -1,8 +1,12 @@
 package com.skyforce.SkyForceWebService.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Customer")
@@ -23,6 +27,10 @@ public class Customer extends User {
 
     @Column(name = "REGIONAL_PREFERENCE", nullable = false)
     private String regionalPreference;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Plan> plans = new ArrayList<>();
 
 
     public Customer() {
@@ -53,7 +61,6 @@ public class Customer extends User {
                 ", regionalPreference='" + regionalPreference + '\'' +
                 '}';
     }
-
 
 
     public URL getAvatar() {
@@ -94,5 +101,23 @@ public class Customer extends User {
 
     public void setRegionalPreference(String regionalPreference) {
         this.regionalPreference = regionalPreference;
+    }
+
+    public List<Plan> getPlans() {
+        return plans;
+    }
+
+    public void setPlans(List<Plan> plans) {
+        this.plans = plans;
+    }
+
+    public void addPlan(Plan plan) {
+        plans.add(plan);
+        plan.setCustomer(this);
+    }
+
+    public void removePlan(Plan plan) {
+        plans.remove(plan);
+        plan.setCustomer(null);
     }
 }

@@ -1,50 +1,69 @@
 package com.skyforce.SkyForceWebService.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.sql.Time;
-import java.util.Date;
 
 @Entity
 @Table(name = "PlanItem")
 public class PlanItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
 
-    @Column(name = "Time")
+    @Column(name = "TIME")
     private Time scheduledVisitTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ShopId")
-    private Shop shop;
+    @Column(name = "SHOP_ID")
+    private Long shopId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PlanId")
+    @JoinColumn(name = "PLAN_ID")
+    @JsonBackReference
     private Plan plan;
 
-    public PlanItem() {}
+    public PlanItem() {
+    }
 
     public PlanItem(Time time) {
         this.scheduledVisitTime = time;
     }
 
-    public Long getId() {return this.id;}
+    public Long getId() {
+        return this.id;
+    }
 
-    public void setId(Long id) {this.id = id;}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Shop getShop() {return this.shop;}
+    public Long getShopId() {
+        return shopId;
+    }
 
-    public void setShopId(Shop shop) {this.shop = shop;}
+    public void setShopId(Long shopId) {
+        this.shopId = shopId;
+    }
 
-    public Time getScheduledVisitTime() {return this.scheduledVisitTime;}
+    public Time getScheduledVisitTime() {
+        return this.scheduledVisitTime;
+    }
 
-    public void setScheduledVisitTime(Time time){this.scheduledVisitTime = time;}
+    public void setScheduledVisitTime(Time time) {
+        this.scheduledVisitTime = time;
+    }
 
-    public Plan getPlan(){return plan;}
+    public Plan getPlan() {
+        return plan;
+    }
 
-    public void setPlan(Plan plan){this.plan = plan;}
+    public void setPlan(Plan plan) {
+        this.plan = plan;
+    }
 
 
 }

@@ -1,22 +1,17 @@
 package com.skyforce.SkyForceWebService.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import javax.persistence.*;
-
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "Vendor")
 public class Vendor extends User {
-    // Vendor
-
-    // orphanRemoval = true in One to Many? How it works?
-
-    // TODO: Add shop method
-
 
     @OneToMany(mappedBy = "vendor", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference

@@ -5,6 +5,7 @@ import com.skyforce.SkyForceWebService.model.Plan;
 import java.util.List;
 
 public interface PlanService {
+
     List<Plan> findAll();
 
     Plan findPlanById(Long id);

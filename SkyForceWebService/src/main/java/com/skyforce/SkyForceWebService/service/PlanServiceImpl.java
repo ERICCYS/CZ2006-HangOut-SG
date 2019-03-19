@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class PlanServiceImpl implements PlanService{
     @Autowired
     PlanRepo planRepo;

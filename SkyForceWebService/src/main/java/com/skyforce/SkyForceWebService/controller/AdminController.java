@@ -11,15 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 public class AdminController {
 
     @Autowired
     AdminService adminService;
-
-    private AtomicLong nextId = new AtomicLong();
 
     @GetMapping("/admins")
     public String getAllAdmins() {
@@ -51,10 +48,10 @@ public class AdminController {
     public String createAdmin (
             @Valid @RequestBody Admin admin
     ) throws NoSuchAlgorithmException {
-        admin.setId(nextId.incrementAndGet());
         String hashedPassword = admin.hashPassword(admin.getPassword());
         admin.setPassword(hashedPassword);
-        return JSONConvert.JSONConverter(adminService.save(admin));
+        JSONConvert.JSONConverter(adminService.save(admin));
+        return ValidationController.getAccessToken(admin.getId(), "ADMIN");
     }
 
     // Delete admin account

@@ -13,23 +13,27 @@ import java.util.List;
 public class Shop {
 
     @Id
-    @Column(name="ID", unique = true)
+    @Column(name = "ID", unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="NAME", nullable = false)
+    @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name="CONTACT_NUMBER", nullable = false)
+    @Column(name = "CONTACT_NUMBER", nullable = false)
     private String contactNumber;
 
-    @Column(name="CONTACT_EMAIL", nullable = false)
+    @Column(name = "CONTACT_EMAIL", nullable = false)
     private String contactEmail;
 
-    @Column(name="VERIFIED", nullable = false)
+    @Column(name = "VERIFIED", nullable = false)
     private boolean verified;
 
-    @Column(name="CERTIFICATE")
+    @Column(name = "CERTIFICATE")
     private URL certificate;
+
+    @Column(name = "CATEGORY")
+    private String category;
 
 
     @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -44,13 +48,13 @@ public class Shop {
     public Shop() {
     }
 
-    public Shop(Long id, String name, String contactNumber, String contactEmail) {
-        this.id = id;
+    public Shop(String name, String contactNumber, String contactEmail, String category) {
         this.name = name;
         this.contactNumber = contactNumber;
         this.contactEmail = contactEmail;
         this.verified = false;
         this.certificate = null;
+        this.category = category;
     }
 
     public Shop(Long id, String name, String contactNumber, String contactEmail, List<Product> products) {
@@ -125,6 +129,13 @@ public class Shop {
         this.verified = verified;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     public URL getCertificate() {
         return certificate;
@@ -160,5 +171,4 @@ public class Shop {
         products.remove(product);
         product.setShop(null);
     }
-
 }
