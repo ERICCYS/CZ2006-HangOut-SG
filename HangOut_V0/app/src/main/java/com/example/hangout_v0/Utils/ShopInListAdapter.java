@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.example.hangout_v0.R;
 
 
-public class CustomListView extends ArrayAdapter<String> {
+public class ShopInListAdapter extends ArrayAdapter<String> {
     private Activity context;
 
     private String[] name;
@@ -26,7 +26,7 @@ public class CustomListView extends ArrayAdapter<String> {
     private String[] distance;
     private String[] carParkCapacity;
 
-    public CustomListView(Activity context, String[] name, String[] description, Integer[] imgid, Float[] rating, String[] distance, String[] carParkCapacity) {
+    public ShopInListAdapter(Activity context, String[] name, String[] description, Integer[] imgid, Float[] rating, String[] distance, String[] carParkCapacity) {
         super(context, R.layout.shop_item_in_list, name);
         this.context = context;
         this.name=name;

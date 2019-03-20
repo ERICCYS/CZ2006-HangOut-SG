@@ -8,5 +8,6 @@
     <string name="navigation_nearby">Nearby</string>
     <string name="navigation_recommendation">Rec</string>
     <string name="navigation_me">Me</string>
+    <string name="title_activity_shop_in_detail">ShopInDetail</string>
 
 </resources>
