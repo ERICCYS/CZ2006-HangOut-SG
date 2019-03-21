@@ -44,63 +44,72 @@ public class ShopController {
         return JSONConvert.JSONConverter(shop);
     }
 
-    // Vendor add shop
     @PostMapping("/vendor/shop")
     public String createShop(
             @RequestParam Long vendorId,
+            @RequestHeader(value = "Authorization") String accessToken,
             @Valid @RequestBody Shop shop
     ) {
-        Vendor oldVendor = vendorService.findVendorById(vendorId);
-        oldVendor.addShop(new Shop(shop.getName(), shop.getContactNumber(), shop.getContactEmail(), shop.getCategory()));
-        return JSONConvert.JSONConverter(vendorService.save(oldVendor));
+        String[] info = ValidationController.decryptAccessToken(accessToken);
+
+        if (info.length != 2)
+            throw new IllegalArgumentException();
+
+        if (Long.parseLong(info[0]) == vendorId && info[1].equals("VENDOR")) {
+            Vendor oldVendor = vendorService.findVendorById(vendorId);
+            oldVendor.addShop(new Shop(shop.getName(), shop.getContactNumber(), shop.getContactEmail(), shop.getCategory()));
+            return JSONConvert.JSONConverter(vendorService.save(oldVendor));
+        }
+        else {
+            throw new IllegalArgumentException();
+        }
     }
 
-    // Vendor delete shop
     @DeleteMapping("/vendor/shop")
     public String deleteShop(
             @RequestParam Long vendorId,
-            @RequestParam Long shopId
+            @RequestParam Long shopId,
+            @RequestHeader(value = "Authorization") String accessToken
     ) {
-        Vendor oldVendor = vendorService.findVendorById(vendorId);
-        Shop shop = shopService.findShopById(shopId);
-        oldVendor.removeShop(shop);
-        return JSONConvert.JSONConverter(vendorService.save(oldVendor));
+        String[] info = ValidationController.decryptAccessToken(accessToken);
+
+        if (info.length != 2)
+            throw new IllegalArgumentException();
+
+        if (Long.parseLong(info[0]) == vendorId && info[1].equals("VENDOR")) {
+            Vendor oldVendor = vendorService.findVendorById(vendorId);
+            Shop shop = shopService.findShopById(shopId);
+            oldVendor.removeShop(shop);
+            return JSONConvert.JSONConverter(vendorService.save(oldVendor));
+        }
+        else {
+            throw new IllegalArgumentException();
+        }
     }
 
-    // Change shop information
     @PutMapping("/shop")
     public String updateShopById(
             @RequestParam Long shopId,
-            @Valid @RequestBody Shop shop) {
+            @Valid @RequestBody Shop shop,
+            @RequestHeader(value = "Authorization") String accessToken
+    ) {
         Shop oldShop = shopService.findShopById(shopId);
-        oldShop.setName(shop.getName());
-        oldShop.setCertificate(shop.getCertificate());
-        oldShop.setContactEmail(shop.getContactEmail());
-        oldShop.setContactNumber(shop.getContactNumber());
-        Shop updatedShop = shopService.save(shop);
-        return JSONConvert.JSONConverter(updatedShop);
-    }
-//
-//    // Shop add product
-//    @PostMapping("/shop/{id}/product")
-//    public String addProduct (@PathVariable("id") Long id, @Valid @RequestBody Product product) {
-//        System.out.println("Add a product to a shop");
-//        System.out.println();
-//        System.out.println();
-//        Shop oldShop = shopService.findShopById(id);
-//        product.setId(nextId.incrementAndGet());
-//        System.out.println(product);
-//        oldShop.addProduct(new Product(product.getId(), product.getName(), product.getDescription(), product.getProductImg()));
-//        return  JSONConvert.JSONConverter(shopService.save(oldShop));
-//    }
+        String[] info = ValidationController.decryptAccessToken(accessToken);
 
-//
-//    // Shop delete product
-//    @DeleteMapping("/shop/{shopId}/product/{productId}")
-//    public String delProduct (@PathVariable("shopId") Long shopId, @PathVariable("productId") Long productId) {
-//        Shop oldShop = shopService.findShopById(shopId);
-//        Product product = productService.findProductById(productId);
-//        oldShop.removeProduct(product);
-//        return JSONConvert.JSONConverter(shopService.save(oldShop));
-//    }
+        if (oldShop == null || info.length != 2) {
+            throw new IllegalArgumentException();
+        }
+
+        if (Long.parseLong(info[0]) == oldShop.getVendor().getId() && info[1].equals("VENDOR")) {
+            oldShop.setName(shop.getName());
+            oldShop.setCertificate(shop.getCertificate());
+            oldShop.setContactEmail(shop.getContactEmail());
+            oldShop.setContactNumber(shop.getContactNumber());
+            Shop updatedShop = shopService.save(shop);
+            return JSONConvert.JSONConverter(updatedShop);
+        }
+        else {
+            throw new IllegalArgumentException();
+        }
+    }
 }
