@@ -1,8 +1,10 @@
 package com.skyforce.SkyForceWebService.controller;
 
 
-import com.skyforce.SkyForceWebService.config.JSONConvert;
+import com.skyforce.SkyForceWebService.model.Admin;
+import com.skyforce.SkyForceWebService.model.Customer;
 import com.skyforce.SkyForceWebService.model.User;
+import com.skyforce.SkyForceWebService.model.Vendor;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -17,7 +19,13 @@ public class ValidationController {
         String hashedPassword = user.hashPassword(password);
 
         if (hashedPassword.equals(user.getPassword())) {
-            return JSONConvert.JSONConverter(user);
+            if (user instanceof Customer)
+                return getAccessToken(user.getId(), "CUSTOMER");
+            if (user instanceof Vendor)
+                return getAccessToken(user.getId(), "VENDOR");
+            if (user instanceof Admin)
+                return getAccessToken(user.getId(), "ADMIN");
+            return "";
         } else {
             throw new IllegalArgumentException();
         }

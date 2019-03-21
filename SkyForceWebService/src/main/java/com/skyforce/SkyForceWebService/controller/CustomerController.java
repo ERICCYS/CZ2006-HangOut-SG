@@ -49,9 +49,15 @@ public class CustomerController {
         return JSONConvert.JSONConverter(customer);
     }
 
-    @GetMapping("/customer/signin/{email}/{password}")
-    public String signInCustomer (@PathVariable("email") String email, @PathVariable("password") String password) throws NoSuchAlgorithmException {
+    @GetMapping("/customer/signin")
+    public String signInCustomer (
+            @RequestParam String email,
+            @RequestParam String password
+    ) throws NoSuchAlgorithmException {
         Customer customer = customerService.findCustomerByEmail(email);
+        if (customer == null) {
+            throw new IllegalArgumentException();
+        }
         return ValidationController.UserSignIn(customer, password);
     }
     @ResponseStatus(value = HttpStatus.UNAUTHORIZED,

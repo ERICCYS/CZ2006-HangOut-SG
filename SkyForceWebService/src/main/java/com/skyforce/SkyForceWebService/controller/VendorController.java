@@ -59,9 +59,11 @@ public class VendorController {
         return JSONConvert.JSONConverter(vendor);
     }
 
-    // Vendor Sign in
-    @GetMapping("/vendor/signin/{email}/{password}")
-    public String signInVendor (@PathVariable("email") String email, @PathVariable("password") String password) throws NoSuchAlgorithmException {
+    @GetMapping("/vendor/signin")
+    public String signInVendor (
+            @RequestParam String email,
+            @RequestParam String password
+    ) throws NoSuchAlgorithmException {
         Vendor vendor = vendorService.findVendorByEmail(email);
         return ValidationController.UserSignIn(vendor, password);
     }
@@ -72,7 +74,6 @@ public class VendorController {
 
     }
 
-    // Vendor registration
     @PostMapping("/vendor")
     @ResponseStatus(HttpStatus.CREATED)
     public String createVendor(
@@ -84,7 +85,6 @@ public class VendorController {
         return ValidationController.getAccessToken(vendor.getId(), "VENDOR");
     }
 
-    // Change Vendor account information
     @PutMapping("/vendor")
     public String updateVendorById(
             @RequestParam Long vendorId,
@@ -93,13 +93,10 @@ public class VendorController {
         oldVendor.setFirstName(vendor.getFirstName());
         oldVendor.setLastName(vendor.getLastName());
         oldVendor.setGender(vendor.getGender());
-//        The setShops should not be here, it should be done with the add and delete shop.
-//        oldVendor.setShops(vendor.getShops());
         Vendor updatedVendor = vendorService.save(oldVendor);
         return JSONConvert.JSONConverter(updatedVendor) ;
     }
 
-    // Delete vendor account
     @DeleteMapping("/vendor")
     public ResponseEntity<?> deleteVendor(
             @RequestParam Long vendorId

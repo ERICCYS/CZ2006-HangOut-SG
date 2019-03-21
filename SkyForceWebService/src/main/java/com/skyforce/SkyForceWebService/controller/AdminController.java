@@ -31,8 +31,11 @@ public class AdminController {
         return JSONConvert.JSONConverter(admin);
     }
 
-    @GetMapping("/admin/signin/{email}/{password}")
-    public String signInAdmin (@PathVariable("email") String email, @PathVariable("password") String password) throws NoSuchAlgorithmException {
+    @GetMapping("/admin/signin")
+    public String signInAdmin (
+            @RequestParam String email,
+            @RequestParam String password
+    ) throws NoSuchAlgorithmException {
         Admin admin = adminService.findByEmail(email);
         return ValidationController.UserSignIn(admin, password);
     }
