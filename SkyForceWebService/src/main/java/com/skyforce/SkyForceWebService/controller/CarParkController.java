@@ -1,8 +1,8 @@
 package com.skyforce.SkyForceWebService.controller;
 
-import com.skyforce.SkyForceWebService.config.JSONConvert;
 import com.skyforce.SkyForceWebService.model.CarParkAvailability;
 import com.skyforce.SkyForceWebService.model.CarParkInfo;
+import com.skyforce.SkyForceWebService.service.CarParkInfoService;
 import com.skyforce.SkyForceWebService.service.CarParkService;
 import org.json.simple.*;
 import org.json.simple.parser.JSONParser;
@@ -24,6 +24,9 @@ public class CarParkController {
 
     @Autowired
     CarParkService carParkService;
+
+    @Autowired
+    CarParkInfoService carParkInfoService;
 
     @GetMapping("/carpark")
     public String getCarParkAvailability() throws IOException, ParseException {
@@ -48,11 +51,9 @@ public class CarParkController {
         JSONArray carParkData = (JSONArray)carPark.get("carpark_data");
         System.out.println(carParkData);
         System.out.println(carParkData.size());
-        for (int i = 0; i < carParkData.size(); i++) {
-//            System.out.println(carParkData.get(i));
+        for (int i = 0; i < 100; i++) {
             saveCarParkAvailability((JSONObject)carParkData.get(i));
         }
-
         return content.toString();
     }
 
@@ -62,25 +63,48 @@ public class CarParkController {
         JSONArray info = (JSONArray) carParkInfo.get("carpark_info");
         System.out.println(info);
         String updatedTime = (String) carParkInfo.get("update_datetime");
+
+
+
+
         System.out.println(updatedTime);
         System.out.println();
-        CarParkAvailability carParkAvailability = new CarParkAvailability();
-        carParkAvailability.setId(number);
-        carParkAvailability.setUpdateTime(updatedTime);
-        List<CarParkInfo> carParkInfos = new ArrayList<CarParkInfo>();
+//
+//        CarParkAvailability oldCarParkAvailability = carParkService.findByCarParkNumber(number);
+//        if (oldCarParkAvailability != null) {
+//            oldCarParkAvailability.setUpdateTime(updatedTime);
+//
+//            for (int i = 0; i < oldCarParkAvailability.getCarParkInfos().size(); i++) {
+//                oldCarParkAvailability.deleteCarParkInfo(oldCarParkAvailability.getCarParkInfos().get(0));
+//            }
+//
+//            for (int i = 0; i  < info.size(); i++) {
+//                JSONObject obj = (JSONObject)info.get(i);
+//                Long lotsAvailable = Long.parseLong((String)obj.get("lots_available"));
+//                Long totalLots = Long.parseLong((String)obj.get("total_lots"));
+//                String lotType = (String)obj.get("lot_type");
+//                oldCarParkAvailability.addCarParkInfo(new CarParkInfo(lotsAvailable, totalLots, lotType));
+//            }
+//            carParkService.save(oldCarParkAvailability);
+//        }
+//
+
+//        else {
+        CarParkAvailability newCarParkAvailability = new CarParkAvailability();
+        newCarParkAvailability.setCarParkNumber(number);
+        newCarParkAvailability.setUpdateTime(updatedTime);
+        newCarParkAvailability.setCarParkInfos(new ArrayList<>());
         for (int i = 0; i  < info.size(); i++) {
             JSONObject obj = (JSONObject)info.get(i);
-            Long lotsAvailable = (Long)obj.get("lots_available");
-            Long totalLots = (Long)obj.get("total_lots");
+            Long lotsAvailable = Long.parseLong((String)obj.get("lots_available"));
+            Long totalLots = Long.parseLong((String)obj.get("total_lots"));
             String lotType = (String)obj.get("lot_type");
-            carParkInfos.add(new CarParkInfo(lotsAvailable,totalLots,lotType));
+            newCarParkAvailability.addCarParkInfo(new CarParkInfo(lotsAvailable, totalLots, lotType));
         }
-        carParkAvailability.setCarParkInfos(carParkInfos);
-        // TODO: save the carpark object
-        // TODO: update the carpark object every 2 mins
-
-        carParkService.save(carParkAvailability);
+        carParkService.save(newCarParkAvailability);
         System.out.println("saving info");
-        System.out.println(carParkAvailability);
+        System.out.println(newCarParkAvailability);
+//        }
+
     }
 }

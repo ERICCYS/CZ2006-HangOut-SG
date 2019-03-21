@@ -1,11 +1,32 @@
 package com.skyforce.SkyForceWebService.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="CarParkInfo")
 public class CarParkInfo {
+
+    @Id
+    @Column(name="ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name="LOTS_AVAILABLE")
     private Long lotsAvailable;
 
+    @Column(name="TOTAL_LOTS")
     private Long totalLots;
 
+    @Column(name="LOT_TYPE")
     private String lotType;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CAR_PARK_ID")
+    @JsonBackReference
+    private CarParkAvailability carParkAvailability;
 
     public CarParkInfo() {
     }
@@ -38,5 +59,13 @@ public class CarParkInfo {
 
     public void setLotType(String lotType) {
         this.lotType = lotType;
+    }
+
+    public CarParkAvailability getCarParkAvailability() {
+        return carParkAvailability;
+    }
+
+    public void setCarParkAvailability(CarParkAvailability carParkAvailability) {
+        this.carParkAvailability = carParkAvailability;
     }
 }

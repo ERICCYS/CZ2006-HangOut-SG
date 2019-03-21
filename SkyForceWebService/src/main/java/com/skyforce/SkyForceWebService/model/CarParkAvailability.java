@@ -1,5 +1,7 @@
 package com.skyforce.SkyForceWebService.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -8,10 +10,15 @@ import java.util.List;
 public class CarParkAvailability {
 
     @Id
-    @Column(name="ID", unique = true, nullable = false)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    private Long id;
 
-    @ElementCollection
+    @Column(name="CAR_PARK_NUMBER", nullable = false)
+    private String carParkNumber;
+
+    @OneToMany(mappedBy = "carParkAvailability", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<CarParkInfo> carParkInfos;
 
     @Column(name = "UPDATE_DATETIME", nullable = false)
@@ -20,18 +27,26 @@ public class CarParkAvailability {
     public CarParkAvailability() {
     }
 
-    public CarParkAvailability(String id, List<CarParkInfo> carParkInfos, String updateTime) {
+    public CarParkAvailability(Long id, List<CarParkInfo> carParkInfos, String updateTime) {
         this.id = id;
         this.carParkInfos = carParkInfos;
         this.updateTime = updateTime;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCarParkNumber() {
+        return carParkNumber;
+    }
+
+    public void setCarParkNumber(String carParkNumber) {
+        this.carParkNumber = carParkNumber;
     }
 
     public List<CarParkInfo> getCarParkInfos() {
@@ -48,5 +63,15 @@ public class CarParkAvailability {
 
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public void addCarParkInfo(CarParkInfo carParkInfo) {
+        carParkInfos.add(carParkInfo);
+        carParkInfo.setCarParkAvailability(this);
+    }
+
+    public void deleteCarParkInfo(CarParkInfo carParkInfo) {
+        carParkInfos.remove(carParkInfo);
+        carParkInfo.setCarParkAvailability(null);
     }
 }

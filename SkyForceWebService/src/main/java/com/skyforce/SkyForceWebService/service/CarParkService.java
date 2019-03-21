@@ -9,7 +9,9 @@ public interface CarParkService {
 
     List<CarParkAvailability> findAll();
 
-    Optional<CarParkAvailability> findById(String id);
+    CarParkAvailability findById(Long id);
+
+    CarParkAvailability findByCarParkNumber(String carParkNumber);
 
     CarParkAvailability save(CarParkAvailability carParkAvailability);
 

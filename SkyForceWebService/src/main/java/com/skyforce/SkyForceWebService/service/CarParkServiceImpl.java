@@ -21,8 +21,13 @@ public class CarParkServiceImpl implements CarParkService {
     }
 
     @Override
-    public Optional<CarParkAvailability> findById(String id) {
+    public CarParkAvailability findById(Long id) {
         return carParkRepo.findById(id);
+    }
+
+    @Override
+    public CarParkAvailability findByCarParkNumber(String carParkNumber) {
+        return carParkRepo.findByCarParkNumber(carParkNumber);
     }
 
     @Override
