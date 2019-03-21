@@ -44,14 +44,13 @@ public class ShopVerificationController {
     }
 
 
-    // Admin process the verification
-    // Example
-    // http://localhost:9090/api/verification/1/false
     @PutMapping("/verification/{id}/{state}")
     public String manageShopVerification(
             @RequestParam Long shopVerificationId,
-            @RequestParam boolean state
+            @RequestParam boolean state,
+            @RequestHeader(value = "Authorization") String accessToken
     ) {
+
         ShopVerification shopVerification = shopVerificationService.findById(shopVerificationId);
         shopVerification.setProcessed(true);
         shopVerification.setApproved(state);
