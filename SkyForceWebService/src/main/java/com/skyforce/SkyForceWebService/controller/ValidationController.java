@@ -1,8 +1,10 @@
 package com.skyforce.SkyForceWebService.controller;
 
 
-import com.skyforce.SkyForceWebService.config.JSONConvert;
+import com.skyforce.SkyForceWebService.model.Admin;
+import com.skyforce.SkyForceWebService.model.Customer;
 import com.skyforce.SkyForceWebService.model.User;
+import com.skyforce.SkyForceWebService.model.Vendor;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -14,12 +16,18 @@ public class ValidationController {
 
     private static final String key = "Bar12345Bar12345";
 
-    public static String UserSignIn (User user, String password) throws NoSuchAlgorithmException {
+    public static String UserSignIn(User user, String password) throws NoSuchAlgorithmException {
 
         String hashedPassword = user.hashPassword(password);
 
         if (hashedPassword.equals(user.getPassword())) {
-            return JSONConvert.JSONConverter(user);
+            if (user instanceof Customer)
+                return getAccessToken(user.getId(), "CUSTOMER");
+            if (user instanceof Vendor)
+                return getAccessToken(user.getId(), "VENDOR");
+            if (user instanceof Admin)
+                return getAccessToken(user.getId(), "ADMIN");
+            return "";
         } else {
             throw new IllegalArgumentException();
         }
@@ -30,8 +38,7 @@ public class ValidationController {
     public static String getAccessToken(Long userId, String userType) {
 
         String accessToken = "";
-        try
-        {
+        try {
             String text = "" + userId + "|" + userType;
             Key aesKey = new SecretKeySpec(key.getBytes(), "AES");
             Cipher cipher = Cipher.getInstance("AES");
@@ -43,9 +50,7 @@ public class ValidationController {
             Base64.Decoder decoder = Base64.getDecoder();
             byte[] cipherText = decoder.decode(accessToken.getBytes("UTF8"));
             String decrypted = new String(cipher.doFinal(encrypted), "UTF-8");
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -62,8 +67,7 @@ public class ValidationController {
             Base64.Decoder decoder = Base64.getDecoder();
             byte[] cipherText = decoder.decode(accessToken.getBytes("UTF8"));
             decrypted = new String(cipher.doFinal(cipherText), "UTF-8");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
