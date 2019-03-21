@@ -31,7 +31,6 @@ public class ValidationController {
         } else {
             throw new IllegalArgumentException();
         }
-
     }
 
 
@@ -57,9 +56,10 @@ public class ValidationController {
         return accessToken;
     }
 
-    public static String decryptAccessToken(String accessToken) {
+    public static String[] decryptAccessToken(String accessToken) {
 
         String decrypted = "";
+        String[] info = null;
         try {
             Cipher cipher = Cipher.getInstance("AES");
             Key aesKey = new SecretKeySpec(key.getBytes(), "AES");
@@ -67,10 +67,10 @@ public class ValidationController {
             Base64.Decoder decoder = Base64.getDecoder();
             byte[] cipherText = decoder.decode(accessToken.getBytes("UTF8"));
             decrypted = new String(cipher.doFinal(cipherText), "UTF-8");
+            info = decrypted.split("\\|");
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return decrypted;
+        return info;
     }
 }

@@ -57,10 +57,10 @@ public class AdminController {
         return ValidationController.getAccessToken(admin.getId(), "ADMIN");
     }
 
-    // Delete admin account
     @DeleteMapping("/admin")
     public ResponseEntity<?> deleteAdmin(
-            @RequestParam Long adminId) {
+            @RequestParam Long adminId
+    ) {
         Admin admin = adminService.findById(adminId);
         adminService.delete(admin);
         return ResponseEntity.ok().build();
