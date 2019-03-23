@@ -28,7 +28,7 @@ public class ReservationController {
         return "There are all reservations" + reservation;
     }
 
-    @GetMapping("/reservation/")
+    @PostMapping("/reservation")
     @ResponseStatus(HttpStatus.CREATED)
     public String createReservation(
             @RequestParam Long customerId,
