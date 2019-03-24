@@ -20,42 +20,60 @@ public class ShopVerificationController {
     @Autowired
     ShopVerificationService shopVerificationService;
 
-    // Get all shop verifications
-    // http://localhost:9090/api/verification
     @GetMapping("/verifications")
     public String getAllShopVerification() {
         return JSONConvert.JSONConverter(shopVerificationService.findAll());
     }
 
-    // Add shop verification
-    // http://localhost:9090/api/shop/1/verify
     @PostMapping("/shop/verify")
     @ResponseStatus(HttpStatus.CREATED)
     public String postShopVerification(
             @RequestParam Long shopId,
+            @RequestHeader(value = "Authorization") String accessToken,
             @Valid @RequestBody ShopVerification shopVerification
     ) {
+
         Shop shop = shopService.findShopById(shopId);
-        shopVerification.setShop(shop);
-        shopVerification.setVendor(shop.getVendor());
-        shopVerification.setProcessed(false);
-        shopVerification.setApproved(false);
-        return JSONConvert.JSONConverter(shopVerificationService.save(shopVerification));
+        String[] info = ValidationController.decryptAccessToken(accessToken);
+
+        if (shop == null || info.length != 2) {
+            throw new IllegalArgumentException();
+        }
+
+        if (Long.parseLong(info[0]) == shop.getVendor().getId() && info[1].equals("VENDOR")) {
+            shopVerification.setShop(shop);
+            shopVerification.setVendor(shop.getVendor());
+            shopVerification.setProcessed(false);
+            shopVerification.setApproved(false);
+            return JSONConvert.JSONConverter(shopVerificationService.save(shopVerification));
+        }
+        else {
+            throw new IllegalArgumentException();
+        }
+
     }
 
 
-    // Admin process the verification
-    // Example
-    // http://localhost:9090/api/verification/1/false
     @PutMapping("/verification/{id}/{state}")
     public String manageShopVerification(
             @RequestParam Long shopVerificationId,
-            @RequestParam boolean state
+            @RequestParam boolean state,
+            @RequestHeader(value = "Authorization") String accessToken
     ) {
         ShopVerification shopVerification = shopVerificationService.findById(shopVerificationId);
-        shopVerification.setProcessed(true);
-        shopVerification.setApproved(state);
-        shopVerification.getShop().setVerified(state);
-        return JSONConvert.JSONConverter(shopVerificationService.save(shopVerification));
+        String[] info = ValidationController.decryptAccessToken(accessToken);
+
+        if (shopVerification == null || info.length == 2)
+            throw new IllegalArgumentException();
+
+        if (info[1].equals("ADMIN")) {
+            shopVerification.setProcessed(true);
+            shopVerification.setApproved(state);
+            shopVerification.getShop().setVerified(state);
+            return JSONConvert.JSONConverter(shopVerificationService.save(shopVerification));
+        }
+        else {
+            throw new IllegalArgumentException();
+        }
     }
 }

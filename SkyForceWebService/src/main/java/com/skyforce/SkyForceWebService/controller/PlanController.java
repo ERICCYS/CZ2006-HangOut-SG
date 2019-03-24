@@ -8,12 +8,9 @@ import com.skyforce.SkyForceWebService.service.CustomerService;
 import com.skyforce.SkyForceWebService.service.PlanService;
 import com.skyforce.SkyForceWebService.service.PlanItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -29,55 +26,113 @@ public class PlanController {
     CustomerService customerService;
     private AtomicLong nextId = new AtomicLong();
 
-    @GetMapping("/customer/plan")
+    @GetMapping("/plans")
     public String getAllPlan(){
         List<Plan> planItemList = planService.findAll();
         return JSONConvert.JSONConverter(planItemList);
     }
 
-    @GetMapping("/customer/plan/{id}")
-    public String getPlanById(@PathVariable("id") Long id){
+    @GetMapping("/customer/plan")
+    public String getPlanById(
+            @RequestParam Long id,
+            @RequestHeader(value = "Authorization") String accessToken
+    ){
         Plan plan = planService.findPlanById(id);
-        return JSONConvert.JSONConverter(plan);
+        String[] info = ValidationController.decryptAccessToken(accessToken);
+        if (info.length != 2)
+            throw new IllegalArgumentException();
+
+        if (Long.parseLong(info[0]) == plan.getCustomer().getId() && info[1].equals("CUSTOMER")) {
+            return JSONConvert.JSONConverter(plan);
+        }
+        else {
+            throw new IllegalArgumentException();
+        }
     }
 
-    // Customer add plan
     @PostMapping("/customer/plan")
     public String createPlan(
             @RequestParam Long customerId,
+            @RequestHeader (value = "Authorization") String accessToken,
             @Valid @RequestBody Plan plan
     ) {
-        Customer oldCustomer = customerService.findCustomerById(customerId);
-        oldCustomer.addPlan(plan);
-        return JSONConvert.JSONConverter(customerService.save(oldCustomer));
+        String[] info = ValidationController.decryptAccessToken(accessToken);
+        System.out.println(info[0]);
+        System.out.println(info[1]);
+        if (info.length != 2)
+            throw new IllegalArgumentException();
+        if (Long.parseLong(info[0]) == customerId && info[1].equals("CUSTOMER")) {
+            Customer oldCustomer = customerService.findCustomerById(customerId);
+            oldCustomer.addPlan(plan);
+            return JSONConvert.JSONConverter(customerService.save(oldCustomer));
+        }
+        else {
+            throw new IllegalArgumentException();
+        }
     }
 
-    // Customer delete plan
     @DeleteMapping("/customer/plan")
     public String deletePlan(
             @RequestParam Long customerId,
-            @RequestParam Long planId
+            @RequestParam Long planId,
+            @RequestHeader (value = "Authorization") String accessToken
     ) {
-        Customer oldCustomer = customerService.findCustomerById(customerId);
+        String[] info = ValidationController.decryptAccessToken(accessToken);
+        if (info.length != 2)
+            throw new IllegalArgumentException();
+        if (Long.parseLong(info[0]) == customerId && info[1].equals("CUSTOMER")) {
+            Customer oldCustomer = customerService.findCustomerById(customerId);
+            Plan plan = planService.findPlanById(planId);
+            oldCustomer.removePlan(plan);
+            return JSONConvert.JSONConverter(customerService.save(oldCustomer));
+        }
+        else {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    @PostMapping("/customer/plan/addPlanItem")
+    public String addPlanItem (
+            @RequestParam Long planId,
+            @RequestHeader (value = "Authorization") String accessToken,
+            @Valid @RequestBody PlanItem planItem
+    ) {
+
+        Plan oldPlan = planService.findPlanById(planId);
+        String[] info = ValidationController.decryptAccessToken(accessToken);
+
+        if (info.length != 2 || oldPlan == null)
+            throw new IllegalArgumentException();
+
+        if (Long.parseLong(info[0]) == oldPlan.getCustomer().getId() && info[1].equals("CUSTOMER")) {
+            oldPlan.addPlanItem(planItem);
+            return JSONConvert.JSONConverter(planService.save(oldPlan));
+        }
+        else {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    @DeleteMapping("/customer/plan/delItem/{itemId}")
+    public String deleteItem (
+            @RequestParam Long customerId,
+            @RequestParam Long planId,
+            @PathVariable("itemId") Long itemId,
+            @RequestHeader (value = "Authorization") String accessToken
+            ) {
         Plan plan = planService.findPlanById(planId);
-        oldCustomer.removePlan(plan);
-        return JSONConvert.JSONConverter(customerService.save(oldCustomer));
-    }
+        String[] info = ValidationController.decryptAccessToken(accessToken);
 
-    @PutMapping("/customer/plan/addPlanItem")
-    public String addPlanItem (@RequestParam Long customerId, @RequestParam Long planId, @Valid @RequestBody PlanItem planItem) {
-        Plan oldPlan = planService.findPlanById(planId);
-        oldPlan.addPlanItem(planItem);
-        return  JSONConvert.JSONConverter(planService.save(oldPlan)) ;
-    }
+        if (info.length != 2 || plan == null)
+            throw new IllegalArgumentException();
 
-    @PutMapping("/customer/plan/delItem/{itemId}")
-    public String deleteItem (@RequestParam Long customerId, @RequestParam Long planId, @PathVariable("itemId") Long itemId) {
-        Plan oldPlan = planService.findPlanById(planId);
-        PlanItem item = planItemService.findPlanItemById(itemId);
-        System.out.println(item);
-        oldPlan.removePlanItem(item);
-        return JSONConvert.JSONConverter(planService.save(oldPlan));
-
+        if (Long.parseLong(info[0]) == customerId && info[1].equals("CUSTOMER")) {
+            PlanItem item = planItemService.findPlanItemById(itemId);
+            plan.removePlanItem(item);
+            return JSONConvert.JSONConverter(planService.save(plan));
+        }
+        else {
+            throw new IllegalArgumentException();
+        }
     }
 }
