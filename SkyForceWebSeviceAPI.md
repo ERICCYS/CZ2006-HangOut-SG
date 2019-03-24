@@ -554,7 +554,7 @@ None
 
 Method: POST
 
-URL: "http://localhost:9090/api/shop/product"
+URL: "http://localhost:9090/api/customer/plan"
 
 Request Header:
 ```json
