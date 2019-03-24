@@ -57,7 +57,7 @@ public class ShopController {
 
         if (Long.parseLong(info[0]) == vendorId && info[1].equals("VENDOR")) {
             Vendor oldVendor = vendorService.findVendorById(vendorId);
-            oldVendor.addShop(new Shop(shop.getName(), shop.getContactNumber(), shop.getContactEmail(), shop.getCategory()));
+            oldVendor.addShop(new Shop(shop.getName(), shop.getContactNumber(), shop.getContactEmail(), shop.getCategory(), shop.getLocation()));
             return JSONConvert.JSONConverter(vendorService.save(oldVendor));
         }
         else {

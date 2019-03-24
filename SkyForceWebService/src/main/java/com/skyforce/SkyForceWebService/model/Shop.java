@@ -32,9 +32,11 @@ public class Shop {
     @Column(name = "CERTIFICATE")
     private URL certificate;
 
-    @Column(name = "CATEGORY")
+    @Column(name = "CATEGORY", nullable = false)
     private String category;
 
+    @Column(name = "LOCATION", nullable = false)
+    private String location;
 
     @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
@@ -48,13 +50,14 @@ public class Shop {
     public Shop() {
     }
 
-    public Shop(String name, String contactNumber, String contactEmail, String category) {
+    public Shop(String name, String contactNumber, String contactEmail, String category, String location) {
         this.name = name;
         this.contactNumber = contactNumber;
         this.contactEmail = contactEmail;
         this.verified = false;
         this.certificate = null;
         this.category = category;
+        this.location = location;
     }
 
     public Shop(Long id, String name, String contactNumber, String contactEmail, List<Product> products) {
@@ -135,6 +138,14 @@ public class Shop {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public URL getCertificate() {
