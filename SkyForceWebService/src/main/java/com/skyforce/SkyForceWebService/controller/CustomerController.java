@@ -14,7 +14,6 @@ import java.util.List;
 @RestController
 public class CustomerController {
 
-    // TODO:  Change http status for different exceptions
 
     @Autowired
     CustomerService customerService;
@@ -24,7 +23,6 @@ public class CustomerController {
         List<Customer> customers = customerService.findAll();
         return JSONConvert.JSONConverter(customers);
     }
-    // pass
 
     @GetMapping("/customer")
     public String getCustomerById(
@@ -33,7 +31,6 @@ public class CustomerController {
         Customer customer = customerService.findCustomerById(customerId);
         return JSONConvert.JSONConverter(customer);
     }
-    // pass
 
     @GetMapping("/customer/signin")
     public String signInCustomer(
@@ -46,7 +43,6 @@ public class CustomerController {
         }
         return ValidationController.UserSignIn(customer, password);
     }
-    // pass
 
 
     @PostMapping("/customer")
@@ -59,7 +55,6 @@ public class CustomerController {
         JSONConvert.JSONConverter(customerService.save(customer));
         return ValidationController.getAccessToken(customer.getId(), "CUSTOMER");
     }
-    // pass
 
     @PutMapping("/customer")
     public String updateCustomerById(
@@ -87,7 +82,6 @@ public class CustomerController {
             throw new IllegalArgumentException();
         }
     }
-    //pass
 
     @DeleteMapping("/customer")
     public String deleteCustomer(
@@ -105,7 +99,6 @@ public class CustomerController {
             throw new IllegalArgumentException();
         }
     }
-    //pass
 
     @ResponseStatus(value = HttpStatus.UNAUTHORIZED,
             reason = "Email or password incorrect")
