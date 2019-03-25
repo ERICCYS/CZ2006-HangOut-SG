@@ -38,6 +38,9 @@ public class Shop {
     @Column(name = "LOCATION", nullable = false)
     private String location;
 
+    @ElementCollection
+    private List<String> carParkNumbers;
+
     @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Product> products = new ArrayList<>();
@@ -50,7 +53,7 @@ public class Shop {
     public Shop() {
     }
 
-    public Shop(String name, String contactNumber, String contactEmail, String category, String location) {
+    public Shop(String name, String contactNumber, String contactEmail, String category, String location, List<String> carParkNumbers) {
         this.name = name;
         this.contactNumber = contactNumber;
         this.contactEmail = contactEmail;
@@ -58,6 +61,7 @@ public class Shop {
         this.certificate = null;
         this.category = category;
         this.location = location;
+        this.carParkNumbers = carParkNumbers;
     }
 
     public Shop(Long id, String name, String contactNumber, String contactEmail, List<Product> products) {
@@ -88,6 +92,9 @@ public class Shop {
                 ", contactEmail='" + contactEmail + '\'' +
                 ", verified=" + verified +
                 ", certificate=" + certificate +
+                ", category='" + category + '\'' +
+                ", location='" + location + '\'' +
+                ", carParkNumbers=" + carParkNumbers +
                 ", products=" + products +
                 '}';
     }
@@ -164,6 +171,13 @@ public class Shop {
         this.products = products;
     }
 
+    public List<String> getCarParkNumbers() {
+        return carParkNumbers;
+    }
+
+    public void setCarParkNumbers(List<String> carParkNumbers) {
+        this.carParkNumbers = carParkNumbers;
+    }
 
     public Vendor getVendor() {
         return vendor;
