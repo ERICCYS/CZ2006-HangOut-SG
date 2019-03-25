@@ -1,7 +1,9 @@
 package com.skyforce.SkyForceWebService.model;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
+import java.time.*;
 
 @Entity
 @Table(name = "Reservation")
@@ -21,21 +23,27 @@ public class Reservation {
     private Shop shop;
 
     @Column(name = "ARRV_TIME", nullable = false)
-    private Date arrivalTime;
+    private Timestamp arrivalTime;
 
     public Reservation() {
     }
 
-    public Reservation(Long id, Date arrivalTime) {
+    public Reservation(Long id, Customer customer, Shop shop) {
         this.id = id;
-        this.arrivalTime = arrivalTime;
-
+        this.customer = customer;
+        this.shop = shop;
+        // get current timestamp
+        Date date = new Date();
+        long time = date.getTime();
+        arrivalTime = new Timestamp(time);
     }
 
     @Override
     public String toString() {
         return "Reservation{" +
                 "id=" + id +
+                ", customer=" + customer +
+                ", shop=" + shop +
                 ", arrivalTime='" + arrivalTime + '\'' +
                 '}';
     }
@@ -67,8 +75,5 @@ public class Reservation {
     public Date getArrivalTime() {
         return arrivalTime;
     }
-
-    public void setArrivalTime(Date arrivalTime) {
-        this.arrivalTime = arrivalTime;
-    }
+    
 }
