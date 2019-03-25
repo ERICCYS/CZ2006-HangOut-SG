@@ -1,34 +1,23 @@
 package com.skyforce.SkyForceWebService.controller;
 
-import com.skyforce.SkyForceWebService.model.CarParkAvailability;
-import com.skyforce.SkyForceWebService.model.CarParkInfo;
-import com.skyforce.SkyForceWebService.service.CarParkInfoService;
-import com.skyforce.SkyForceWebService.service.CarParkService;
 import org.json.simple.*;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 
 @RestController
 public class CarParkController {
 
-    @Autowired
-    CarParkService carParkService;
-
-    @Autowired
-    CarParkInfoService carParkInfoService;
-
     @GetMapping("/carpark")
-    public String getCarParkAvailability() throws IOException, ParseException {
+    public String getCarParkAvailability(
+            @RequestParam String carParkNumber
+    ) throws IOException, ParseException  {
         URL url = new URL("https://api.data.gov.sg/v1/transport/carpark-availability");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
@@ -48,61 +37,23 @@ public class CarParkController {
         JSONArray items = (JSONArray) object.get("items");
         JSONObject carPark = (JSONObject)items.get(0);
         JSONArray carParkData = (JSONArray)carPark.get("carpark_data");
-        System.out.println(carParkData);
-        System.out.println(carParkData.size());
-        for (int i = 0; i < 100; i++) {
-            saveCarParkAvailability((JSONObject)carParkData.get(i));
+        JSONObject carParkInfo;
+        String cpNumber;
+        Integer totalLots = 0;
+        Integer lotsAvailable = 0;
+        JSONArray info;
+        for (int i = 0; i < carParkData.size(); i++) {
+            carParkInfo = (JSONObject)carParkData.get(i);
+            cpNumber = (String)carParkInfo.get("carpark_number");
+            if (cpNumber.equals(carParkNumber)) {
+                info = (JSONArray) carParkInfo.get("carpark_info");
+                for (int j = 0; j  < info.size(); j++) {
+                    JSONObject obj = (JSONObject)info.get(j);
+                    lotsAvailable += Integer.parseInt((String)obj.get("lots_available"));
+                    totalLots += Integer.parseInt((String)obj.get("total_lots"));
+                }
+            }
         }
-        return content.toString();
-    }
-
-    public void saveCarParkAvailability(JSONObject carParkInfo) {
-        String number = (String)carParkInfo.get("carpark_number");
-        System.out.println(number);
-        JSONArray info = (JSONArray) carParkInfo.get("carpark_info");
-        System.out.println(info);
-        String updatedTime = (String) carParkInfo.get("update_datetime");
-
-
-
-
-        System.out.println(updatedTime);
-        System.out.println();
-//
-//        CarParkAvailability oldCarParkAvailability = carParkService.findByCarParkNumber(number);
-//        if (oldCarParkAvailability != null) {
-//            oldCarParkAvailability.setUpdateTime(updatedTime);
-//
-//            for (int i = 0; i < oldCarParkAvailability.getCarParkInfos().size(); i++) {
-//                oldCarParkAvailability.deleteCarParkInfo(oldCarParkAvailability.getCarParkInfos().get(0));
-//            }
-//
-//            for (int i = 0; i  < info.size(); i++) {
-//                JSONObject obj = (JSONObject)info.get(i);
-//                Long lotsAvailable = Long.parseLong((String)obj.get("lots_available"));
-//                Long totalLots = Long.parseLong((String)obj.get("total_lots"));
-//                String lotType = (String)obj.get("lot_type");
-//                oldCarParkAvailability.addCarParkInfo(new CarParkInfo(lotsAvailable, totalLots, lotType));
-//            }
-//            carParkService.save(oldCarParkAvailability);
-//        }
-//
-
-//        else {
-        CarParkAvailability newCarParkAvailability = new CarParkAvailability();
-        newCarParkAvailability.setCarParkNumber(number);
-        newCarParkAvailability.setUpdateTime(updatedTime);
-        newCarParkAvailability.setCarParkInfos(new ArrayList<>());
-        for (int i = 0; i  < info.size(); i++) {
-            JSONObject obj = (JSONObject)info.get(i);
-            Long lotsAvailable = Long.parseLong((String)obj.get("lots_available"));
-            Long totalLots = Long.parseLong((String)obj.get("total_lots"));
-            String lotType = (String)obj.get("lot_type");
-            newCarParkAvailability.addCarParkInfo(new CarParkInfo(lotsAvailable, totalLots, lotType));
-        }
-        carParkService.save(newCarParkAvailability);
-        System.out.println("saving info");
-        System.out.println(newCarParkAvailability);
-//        }
+        return totalLots + " / " + lotsAvailable;
     }
 }
