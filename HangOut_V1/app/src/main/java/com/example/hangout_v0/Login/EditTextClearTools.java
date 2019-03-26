@@ -1,4 +1,4 @@
-package com.example.hangout_v0.Utils;
+package com.example.hangout_v0.Login;
 
 import android.text.Editable;
 import android.text.TextWatcher;

@@ -13,16 +13,14 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ShopInDetail"
-            android:label="@string/title_activity_shop_in_detail"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".ShopDetail.ShopInDetail"></activity>
         <activity android:name=".UserMainActivity"></activity>
         <activity android:name=".Vendor.VendorMainActivity"></activity>
         <activity android:name=".Vendor.AddShop"></activity>
         <activity android:name=".Vendor.EditShop"></activity>
         <activity android:name=".Vendor.VendorShop"></activity>
 
-        <activity android:name=".LoginActivity">
+        <activity android:name=".Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

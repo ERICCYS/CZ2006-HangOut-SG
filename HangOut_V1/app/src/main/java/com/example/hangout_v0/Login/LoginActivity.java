@@ -1,4 +1,4 @@
-package com.example.hangout_v0;
+package com.example.hangout_v0.Login;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +10,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.example.hangout_v0.R;
+import com.example.hangout_v0.UserMainActivity;
 import com.example.hangout_v0.Vendor.VendorMainActivity;
 
 public class LoginActivity extends AppCompatActivity {
@@ -74,8 +76,8 @@ public class LoginActivity extends AppCompatActivity {
         ImageView unameClear = (ImageView) findViewById(R.id.login_userName_clear);
         ImageView pwdClear = (ImageView) findViewById(R.id.login_userPassword_clear);
 
-        com.example.hangout_v0.Utils.EditTextClearTools.addClearListener(userName,unameClear);
-        com.example.hangout_v0.Utils.EditTextClearTools.addClearListener(password,pwdClear);
+        com.example.hangout_v0.Login.EditTextClearTools.addClearListener(userName,unameClear);
+        com.example.hangout_v0.Login.EditTextClearTools.addClearListener(password,pwdClear);
     }
 
     private void switchToUserPage(){

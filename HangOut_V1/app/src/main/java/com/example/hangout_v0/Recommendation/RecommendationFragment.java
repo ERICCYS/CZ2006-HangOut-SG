@@ -14,7 +14,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.hangout_v0.R;
-import com.example.hangout_v0.ShopInDetail;
+import com.example.hangout_v0.ShopDetail.ShopInDetail;
+import com.example.hangout_v0.ShopDetail.ShopInDetail;
 
 public class RecommendationFragment extends Fragment {
 
@@ -37,7 +38,7 @@ public class RecommendationFragment extends Fragment {
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             View view =  inflater.inflate(R.layout.fragment_recommendation, container, false);
             ListView nearbyShopListView = view.findViewById(R.id.rec_shop_listView);
-            com.example.hangout_v0.Utils.ShopInListAdapter shopInListAdapter = new com.example.hangout_v0.Utils.ShopInListAdapter(getActivity(),name,description,imgid,rating,distance,carParkCapacity);
+            com.example.hangout_v0.Recommendation.ShopInListAdapter shopInListAdapter = new com.example.hangout_v0.Recommendation.ShopInListAdapter(getActivity(),name,description,imgid,rating,distance,carParkCapacity);
             nearbyShopListView.setAdapter(shopInListAdapter);
 
             nearbyShopListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -1,24 +1,45 @@
-package com.example.hangout_v0;
+package com.example.hangout_v0.ShopDetail;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
-public class ShopInDetail extends AppCompatActivity {
+import com.example.hangout_v0.R;
+
+import java.text.DateFormat;
+import java.util.Calendar;
+
+public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
+
+    AppCompatButton addPlanButton;
+    AppCompatButton reserveButton;
+    String planDateString;
+    int hour, minute, hour_x, minute_x;
+    String ampm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_in_detail);
+
+        this.getSupportActionBar().hide();
 
         ImageView shopPhoto1 = (ImageView) findViewById(R.id.shopPhoto1);
         ImageView shopPhoto2 = (ImageView) findViewById(R.id.shopPhoto2);
@@ -43,7 +64,7 @@ public class ShopInDetail extends AppCompatActivity {
 
 
         ListView shopDishListView = (ListView) findViewById(R.id.shopDishListView);
-        com.example.hangout_v0.Utils.ShopInListAdapter shopDishAdapter = new com.example.hangout_v0.Utils.ShopInListAdapter(this,name,description,imgid,rating,distance,carParkCapacity);
+        com.example.hangout_v0.Recommendation.ShopInListAdapter shopDishAdapter = new com.example.hangout_v0.Recommendation.ShopInListAdapter(this,name,description,imgid,rating,distance,carParkCapacity);
         shopDishListView.setAdapter(shopDishAdapter);
 
         final FloatingActionButton addPlanFloatingActionButton = (FloatingActionButton) findViewById(R.id.addPlanFloatingActionButton);
@@ -70,4 +91,36 @@ public class ShopInDetail extends AppCompatActivity {
         });
     }
 
+    public void addToPlan(View view) {
+        DialogFragment datePicker = new com.example.hangout_v0.ShopDetail.DatePickerFragment();
+        datePicker.show(getSupportFragmentManager(),"date picker");
+    }
+
+    public void reserve(View view){
+        Toast.makeText(ShopInDetail.this,"This is reserve button",Toast.LENGTH_SHORT).show();
+    }
+
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar c= Calendar.getInstance();
+        c.set(Calendar.YEAR,year);
+        c.set(Calendar.MONTH,month);
+        c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+        planDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+
+        hour = c.get(Calendar.HOUR);
+        minute = c.get(Calendar.MINUTE);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(ShopInDetail.this, ShopInDetail.this,
+                hour,minute,false);
+        timePickerDialog.show();
+
+    }
+
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        hour_x =hourOfDay;
+        minute_x = minute;
+        ampm= hourOfDay<12? "AM":"PM";
+        Toast.makeText(ShopInDetail.this,planDateString+"\n"+"hour: "+hour_x+"  minute"+minute_x+ "  "+ ampm,Toast.LENGTH_SHORT).show();
+    }
 }
