@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/shopInList"
+        android:layout_width="98dp"
+        android:layout_height="86dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        app:srcCompat="@drawable/shopicon"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="377dp"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:id="@+id/shopNameTextView"
+        android:layout_width="283dp"
+        android:layout_height="35dp"
+        android:layout_alignTop="@+id/shopInList"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="44dp"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@+id/shopInList"
+        android:layout_toRightOf="@+id/shopInList"
+        android:text="name"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/shopNumberTextView"
+        android:layout_width="298dp"
+        android:layout_height="31dp"
+        android:layout_alignBottom="@+id/shopInList"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="44dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toEndOf="@+id/shopInList"
+        android:layout_toRightOf="@+id/shopInList"
+        android:text="number"
+        android:textSize="18sp" />
+</RelativeLayout>
