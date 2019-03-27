@@ -14,7 +14,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
-        app:srcCompat="@drawable/shopicon"
+        app:srcCompat="@drawable/vendor_shopicon"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="377dp"
         android:layout_marginLeft="10dp" />

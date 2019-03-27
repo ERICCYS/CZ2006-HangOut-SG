@@ -49,7 +49,7 @@ public class CardPagerAdapter extends PagerAdapter implements com.example.hangou
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View view = LayoutInflater.from(container.getContext())
-                .inflate(R.layout.adapter, container, false);
+                .inflate(R.layout.home_card_adapter, container, false);
         container.addView(view);
         bind(mData.get(position), view);
         CardView cardView = (CardView) view.findViewById(R.id.cardView);
@@ -70,8 +70,8 @@ public class CardPagerAdapter extends PagerAdapter implements com.example.hangou
     }
 
     private void bind(com.example.hangout_v0.Home.CardItem item, View view) {
-        TextView titleTextView = (TextView) view.findViewById(R.id.titleTextView);
-        TextView contentTextView = (TextView) view.findViewById(R.id.contentTextView);
+        TextView titleTextView = (TextView) view.findViewById(R.id.homeCardtitleTextView);
+        TextView contentTextView = (TextView) view.findViewById(R.id.homeCardcontentTextView);
         titleTextView.setText(item.getTitle());
         contentTextView.setText(item.getText());
     }

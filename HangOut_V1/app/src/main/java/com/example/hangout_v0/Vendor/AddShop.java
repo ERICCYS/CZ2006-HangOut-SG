@@ -14,7 +14,7 @@ public class AddShop extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_shop);
+        setContentView(R.layout.activity_vendor_add_shop);
         submit = (Button) findViewById(R.id.submitButton);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override

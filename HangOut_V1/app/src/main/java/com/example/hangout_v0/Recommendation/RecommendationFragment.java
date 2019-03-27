@@ -15,7 +15,6 @@ import android.widget.ListView;
 
 import com.example.hangout_v0.R;
 import com.example.hangout_v0.ShopDetail.ShopInDetail;
-import com.example.hangout_v0.ShopDetail.ShopInDetail;
 
 public class RecommendationFragment extends Fragment {
 

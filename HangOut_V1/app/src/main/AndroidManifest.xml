@@ -12,13 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity
-            android:name=".ShopDetail.ShopInDetail"></activity>
+        <activity android:name=".ShopDetail.ShopInDetail"></activity>
         <activity android:name=".UserMainActivity"></activity>
         <activity android:name=".Vendor.VendorMainActivity"></activity>
         <activity android:name=".Vendor.AddShop"></activity>
         <activity android:name=".Vendor.EditShop"></activity>
         <activity android:name=".Vendor.VendorShop"></activity>
+        <activity android:name=".Me.PlanDetailActivity"></activity>
+        <activity android:name=".Me.PlanHistoryActivity"></activity>
 
         <activity android:name=".Login.LoginActivity">
             <intent-filter>
@@ -26,6 +27,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--<activity android:name=".UserMainActivity">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
     </application>
 
 </manifest>

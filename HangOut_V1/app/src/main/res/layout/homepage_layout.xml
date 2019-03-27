@@ -7,19 +7,19 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="15dp"
     android:orientation="vertical" >
 
     <com.youth.banner.Banner
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/banner"
+        android:id="@+id/home_banner"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
         android:layout_width="fill_parent"
         android:layout_height="200dp" />
 
-    <!--分割线-->
+    <!--blank space-->
     <View
         android:layout_width="match_parent"
         android:layout_height="20dp"
@@ -28,19 +28,19 @@
         android:background="#fafafa" />
 
     <SearchView
-        android:id="@+id/searchView"
+        android:id="@+id/home_searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:iconifiedByDefault="false"
         android:queryHint="What do you want to search?" />
 
     <ListView
-        android:id="@+id/listView"
+        android:id="@+id/home_listView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <!--分割线-->
+
     <View
         android:layout_width="match_parent"
         android:layout_height="20dp"
@@ -83,7 +83,6 @@
     </LinearLayout>
 
 
-    <!--分割线-->
     <View
         android:layout_width="match_parent"
         android:layout_height="20dp"
@@ -92,7 +91,7 @@
         android:background="#fafafa" />
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/viewPager"
+        android:id="@+id/home_cardViewPager"
         android:layout_width="match_parent"
         android:layout_height="280dp"
         android:clipToPadding="false"

@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         init();
 
+        this.getSupportActionBar().hide();
         btn_login = (Button) findViewById(R.id.login_login_button);
         btn_skip = (Button) findViewById(R.id.login_skip_button);
         cb_vendor = (CheckBox) findViewById(R.id.login_vendorTunnel_checkbox);

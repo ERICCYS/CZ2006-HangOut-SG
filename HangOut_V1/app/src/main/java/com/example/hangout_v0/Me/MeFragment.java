@@ -1,6 +1,7 @@
 package com.example.hangout_v0.Me;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.hangout_v0.R;
+import com.example.hangout_v0.UserMainActivity;
 
 public class MeFragment extends Fragment {
 
@@ -55,7 +57,8 @@ public class MeFragment extends Fragment {
         plan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "this is to PLANS", Toast.LENGTH_SHORT).show();
+                Intent planActivity = new Intent(getActivity(), PlanDetailActivity.class);
+                getActivity().startActivity(planActivity);
             }
         });
 

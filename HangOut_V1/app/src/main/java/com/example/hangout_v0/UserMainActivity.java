@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.hangout_v0.Home.HomeFragment;
 import com.example.hangout_v0.Me.MeFragment;
@@ -18,12 +19,7 @@ public class UserMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_user);
 
-
-        // hide original app bar
         this.getSupportActionBar().hide();
-
-//        FloatingActionButton exit = findViewById(R.id.exitFloatingActionButton);
-//        exit.bringToFront();
 
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
         bottomNav.setOnNavigationItemSelectedListener(navLister);

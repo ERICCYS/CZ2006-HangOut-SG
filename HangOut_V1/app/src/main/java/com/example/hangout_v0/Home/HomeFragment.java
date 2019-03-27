@@ -41,45 +41,40 @@ public class HomeFragment extends Fragment {
         ///////////////////////////////////////////////////////////////////////////////////
 
         initImageData();
-        Banner banner = (Banner) view.findViewById(R.id.banner);
-        //设置图片加载器
+        Banner banner = (Banner) view.findViewById(R.id.home_banner);
         banner.setImageLoader(new com.example.hangout_v0.Home.GlideImageLoader());
-        //设置图片集合
         banner.setImages(images);
-        //banner设置方法全部调用完毕时最后调用
         banner.start();
 
         ///////////////////////////////////////////////////////////////////////////////////
-
-        mSearchView = (SearchView) view.findViewById(R.id.searchView);
-        mListView = (ListView) view.findViewById(R.id.listView);
-        mListView.setAdapter(new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_1, mDatas));
-        mListView.setTextFilterEnabled(true);
-
-        // 设置搜索文本监听
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            // 当点击搜索按钮时触发该方法
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            // 当搜索内容改变时触发该方法
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if (!TextUtils.isEmpty(newText)){
-                    mListView.setFilterText(newText);
-                }else{
-                    mListView.clearTextFilter();
-                }
-                return false;
-            }
-        });
+//
+//        mSearchView = (SearchView) view.findViewById(R.id.home_searchView);
+//        mListView = (ListView) view.findViewById(R.id.home_listView);
+//        mListView.setAdapter(new ArrayAdapter<String>(getActivity(),
+//                android.R.layout.simple_list_item_1, mDatas));
+//        mListView.setTextFilterEnabled(true);
+//
+//        // listen to the search view
+//        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//            // if the search view text changes
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                if (!TextUtils.isEmpty(newText)){
+//                    mListView.setFilterText(newText);
+//                }else{
+//                    mListView.clearTextFilter();
+//                }
+//                return false;
+//            }
+//        });
 
         ///////////////////////////////////////////////////////////////////////////////////
 
-        mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
+        mViewPager = (ViewPager) view.findViewById(R.id.home_cardViewPager);
 
         mCardAdapter = new com.example.hangout_v0.Home.CardPagerAdapter();
         mCardAdapter.addCardItem(new com.example.hangout_v0.Home.CardItem(R.string.title_1, R.string.text_1));
