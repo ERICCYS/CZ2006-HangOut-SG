@@ -5,7 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context=".ShopInDetail">
+    tools:context=".Vendor.VendorShop">
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/vendorReserveButton"
+        android:layout_width="107dp"
+        android:layout_height="33dp"
+        android:layout_below="@+id/editbutton"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="29dp"
+        android:background="@drawable/reserve_round_corner_bg"
+
+        android:text="Reservation"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/exitFloatingActionButton"
@@ -148,18 +163,14 @@
 
     <Button
         android:id="@+id/editbutton"
-        android:layout_width="wrap_content"
+        android:layout_width="109dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginStart="289dp"
-        android:layout_marginLeft="289dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="34dp"
-        android:layout_marginRight="34dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginRight="21dp"
         android:text="EDIT" />
 
 

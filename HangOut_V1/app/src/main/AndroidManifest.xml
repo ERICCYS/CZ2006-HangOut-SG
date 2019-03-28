@@ -20,6 +20,7 @@
         <activity android:name=".Vendor.VendorShop"></activity>
         <activity android:name=".Me.PlanDetailActivity"></activity>
         <activity android:name=".Me.PlanHistoryActivity"></activity>
+        <activity android:name=".Vendor.ReservationPage"></activity>
 
         <activity android:name=".Login.LoginActivity">
             <intent-filter>

@@ -13,6 +13,7 @@ import com.example.hangout_v0.R;
 public class VendorShop extends AppCompatActivity {
     TextView shopName;
     Button editButton;
+    Button vendorReservationButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +29,15 @@ public class VendorShop extends AppCompatActivity {
             public void onClick(View v) {
                 Intent editshop = new Intent(VendorShop.this, com.example.hangout_v0.Vendor.EditShop.class);
                 startActivity(editshop);
+            }
+        });
+
+        vendorReservationButton = (Button) findViewById(R.id.vendorReserveButton);
+        vendorReservationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent viewReservation = new Intent(VendorShop.this, ReservationPage.class);
+                startActivity(viewReservation);
             }
         });
 
