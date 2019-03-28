@@ -1,5 +1,6 @@
 package com.example.hangout_v0.Me.avator;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -87,9 +88,17 @@ public class EditCustomerProfile extends AppCompatActivity {
                 toast.show();
                 retriveAvatorURLIntent.putExtra("key", avatarUrl);
                 setResult(RESULT_OK, retriveAvatorURLIntent);
+
+                // pass the avatar url back
+                Intent intent = new Intent();
+                intent.putExtra("custAvatarUrl", avatarUrl);
+                setResult(Activity.RESULT_OK, intent);
                 finish();
             }
         });
+
+
+
 
         // date selection
         profileDisplayDate = findViewById(R.id.editDOB);
@@ -156,7 +165,7 @@ public class EditCustomerProfile extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             //get url
                             avatarUrl = task.getResult().toString();
-                            Log.d("upload",avatarUrl);
+                            Log.d("upload customer avatar",avatarUrl);
                             progressDialog.dismiss();
                             Toast.makeText(EditCustomerProfile.this,"Image uploaded",Toast.LENGTH_SHORT).show();
                         } else {
