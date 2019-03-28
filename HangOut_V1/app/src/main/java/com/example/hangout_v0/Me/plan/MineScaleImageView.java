@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.hangout_v0.Me.plan;
 
 
 import android.content.Context;

@@ -1,4 +1,4 @@
-package com.example.hangout_v0.Me;
+package com.example.hangout_v0.Me.plan;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.hangout_v0.Me.plan.PlanHistoryAdapter;
 import com.example.hangout_v0.R;
 
 

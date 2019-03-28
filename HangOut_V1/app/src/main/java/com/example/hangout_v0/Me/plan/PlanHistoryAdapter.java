@@ -1,4 +1,4 @@
-package com.example.hangout_v0.Me;
+package com.example.hangout_v0.Me.plan;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -1,4 +1,4 @@
-package com.example.hangout_v0.Me;
+package com.example.hangout_v0.Me.plan;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.hangout_v0.Me.plan.PlanHistoryActivity;
 import com.example.hangout_v0.R;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class PlanDetailActivity extends AppCompatActivity {
         shopAddress = planDataStub.getAllShopAddress(planName);
         shopDateTime = planDataStub.getAllShopDateTime(planName);
 
-        final com.example.hangout_v0.Me.ShopInPlanAdapter shopInPlanAdapter = new com.example.hangout_v0.Me.ShopInPlanAdapter(this, shopName,shopAddress, shopDateTime);
+        final com.example.hangout_v0.Me.plan.ShopInPlanAdapter shopInPlanAdapter = new com.example.hangout_v0.Me.plan.ShopInPlanAdapter(this, shopName,shopAddress, shopDateTime);
         shopsInPlansListView.setAdapter(shopInPlanAdapter);
 
        shopsInPlansListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

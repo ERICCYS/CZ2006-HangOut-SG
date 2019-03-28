@@ -42,9 +42,22 @@ dependencies {
     // login page added
     implementation 'de.hdodenhof:circleimageview:2.1.0'
 
+    // me avator
+    implementation 'com.google.firebase:firebase-core:16.0.8'
+    implementation 'com.google.firebase:firebase-storage:16.1.0'
 
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
+
+
+repositories {
+    mavenCentral()
+}
+
+apply plugin: 'com.google.gms.google-services'
+
+
+
