@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.hangout_v0.Me.avator.UserProfile;
+import com.example.hangout_v0.Me.plan.PlanDetailActivity;
 import com.example.hangout_v0.R;
 import com.example.hangout_v0.UserMainActivity;
 
@@ -36,7 +38,8 @@ public class MeFragment extends Fragment {
         avator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "this is to change avator", Toast.LENGTH_SHORT).show();
+                Intent profileActivity = new Intent(getActivity(), UserProfile.class);
+                getActivity().startActivity(profileActivity);
             }
         });
 
