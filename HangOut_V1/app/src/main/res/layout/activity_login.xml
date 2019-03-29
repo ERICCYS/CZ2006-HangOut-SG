@@ -195,7 +195,7 @@
 
     <Button
     android:id="@+id/login_login_button"
-    android:layout_width="340dp"
+    android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:layout_below="@id/login_checkBox_linearLayout"
     android:layout_centerHorizontal="true"
@@ -209,15 +209,29 @@
 
     <Button
         android:id="@+id/login_skip_button"
-        android:layout_width="340dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/login_login_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/login_round_corner_bg"
         android:gravity="center"
         android:padding="10dp"
         android:text="Skip"
+        android:textColor="#fff"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/login_signup_button"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_skip_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/login_round_corner_bg"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Sign Up"
         android:textColor="#fff"
         android:textSize="18sp" />
 
