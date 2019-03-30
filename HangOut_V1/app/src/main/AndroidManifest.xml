@@ -3,7 +3,6 @@
     package="com.example.hangout_v0">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -12,29 +11,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
-        <activity android:name=".ShopDetail.ShopInDetail"></activity>
-        <activity android:name=".UserMainActivity"></activity>
-        <activity android:name=".Vendor.VendorMainActivity"></activity>
-        <activity android:name=".Vendor.AddShop"></activity>
-        <activity android:name=".Vendor.EditShop"></activity>
-        <activity android:name=".Vendor.VendorShop"></activity>
-        <activity android:name=".Me.plan.PlanDetailActivity"></activity>
-        <activity android:name=".Me.plan.PlanHistoryActivity"></activity>
-        <!--<activity android:name=".Me.avator.UserProfile"></activity>-->
-        <activity android:name=".Me.avator.EditCustomerProfile"></activity>
-
-        <!--<activity android:name=".Login.LoginActivity">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
-
-        <activity android:name=".Me.avator.UserProfile">
+        <activity android:name=".Login.SignUp"></activity>
+        <activity android:name=".ShopDetail.ShopInDetail" />
+        <activity android:name=".UserMainActivity" />
+        <activity android:name=".Vendor.VendorMainActivity" />
+        <activity android:name=".Vendor.AddShop" />
+        <activity android:name=".Vendor.EditShop" />
+        <activity android:name=".Vendor.VendorShop" />
+        <activity android:name=".Me.PlanDetailActivity" />
+        <activity android:name=".Me.PlanHistoryActivity" />
+        <activity android:name=".Vendor.ReservationPage" />
+        <activity android:name=".Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

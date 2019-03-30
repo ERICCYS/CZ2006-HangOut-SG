@@ -20,6 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etUserPassword;
     private Button btn_login;
     private Button btn_skip;
+    private Button btn_signup;
     private String userName;
     private String userPassword;
     private CheckBox cb_vendor;
@@ -35,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         btn_login = (Button) findViewById(R.id.login_login_button);
         btn_skip = (Button) findViewById(R.id.login_skip_button);
         cb_vendor = (CheckBox) findViewById(R.id.login_vendorTunnel_checkbox);
+        btn_signup = findViewById(R.id.login_signup_button);
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +48,14 @@ public class LoginActivity extends AppCompatActivity {
                     switchToVendorPage();
 
                 }
+            }
+        });
+
+        btn_signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, com.example.hangout_v0.Login.SignUp.class);
+                startActivity(intent);
             }
         });
 

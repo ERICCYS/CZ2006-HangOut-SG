@@ -23,7 +23,6 @@ public class UserProfile extends AppCompatActivity {
     int avatorCode=1;
     ImageView avator;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +55,8 @@ public class UserProfile extends AppCompatActivity {
 
             if (requestCode == avatorCode  && resultCode  == RESULT_OK) {
 
-                avatorURL = data.getStringExtra("key");
-//                Toast.makeText(UserProfile.this,avatorURL,Toast.LENGTH_LONG);
+                avatorURL = data.getStringExtra("custAvatarUrl");
+                Toast.makeText(UserProfile.this,avatorURL,Toast.LENGTH_LONG);
 
             }
         } catch (Exception ex) {
