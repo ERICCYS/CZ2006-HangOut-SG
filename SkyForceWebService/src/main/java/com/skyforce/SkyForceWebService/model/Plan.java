@@ -1,6 +1,7 @@
 package com.skyforce.SkyForceWebService.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -21,6 +22,7 @@ public class Plan {
     private String name;
 
     @Column(name = "DATE", nullable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date;
 
     @ManyToOne(fetch = FetchType.LAZY)
