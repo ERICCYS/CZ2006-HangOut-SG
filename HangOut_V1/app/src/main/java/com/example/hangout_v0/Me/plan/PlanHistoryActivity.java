@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.hangout_v0.Me.plan.PlanHistoryAdapter;
 import com.example.hangout_v0.R;
@@ -40,10 +41,7 @@ public class PlanHistoryActivity extends AppCompatActivity {
         plansListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent showPlanDetailActivity
-                        = new Intent(getApplicationContext(),PlanDetailActivity.class);
-                showPlanDetailActivity.putExtra("PlanName",planName[1]);
-                startActivity(showPlanDetailActivity);
+                Toast.makeText(getBaseContext(),"This is a past plan",Toast.LENGTH_SHORT);
             }
         });
 

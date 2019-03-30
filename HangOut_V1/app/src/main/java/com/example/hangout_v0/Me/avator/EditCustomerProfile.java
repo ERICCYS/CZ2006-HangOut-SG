@@ -57,6 +57,8 @@ public class EditCustomerProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.me_profile_edit);
 
+        this.getSupportActionBar().hide();
+
         final Intent retriveAvatorURLIntent = getIntent();
 
         editPhoto = findViewById(R.id.editAvatarButton);
@@ -96,8 +98,6 @@ public class EditCustomerProfile extends AppCompatActivity {
                 finish();
             }
         });
-
-
 
 
         // date selection

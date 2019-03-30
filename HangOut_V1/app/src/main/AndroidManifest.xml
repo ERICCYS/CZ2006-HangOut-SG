@@ -11,16 +11,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".Login.SignUp"></activity>
         <activity android:name=".ShopDetail.ShopInDetail" />
         <activity android:name=".UserMainActivity" />
+
         <activity android:name=".Vendor.VendorMainActivity" />
         <activity android:name=".Vendor.AddShop" />
         <activity android:name=".Vendor.EditShop" />
         <activity android:name=".Vendor.VendorShop" />
-        <activity android:name=".Me.PlanDetailActivity" />
-        <activity android:name=".Me.PlanHistoryActivity" />
         <activity android:name=".Vendor.ReservationPage" />
+
+        <activity android:name=".Me.plan.PlanDetailActivity" />
+        <activity android:name=".Me.plan.PlanHistoryActivity" />
+        <activity android:name=".Me.avator.UserProfile" />
+        <activity android:name=".Me.avator.EditCustomerProfile" />
+
+
         <activity android:name=".Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/nameTextView"
+        android:id="@+id/me_plan_planHistoryNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -19,11 +19,11 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.049"
-        app:layout_constraintStart_toEndOf="@+id/mine_plan_icon"
+        app:layout_constraintStart_toEndOf="@+id/me_plan_planHistoryIcon"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/descriptionTextView"
+        android:id="@+id/me_plan_planHistoryDescriptionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -34,11 +34,11 @@
         android:text="planDescription"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.058"
-        app:layout_constraintStart_toEndOf="@+id/mine_plan_icon"
-        app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
+        app:layout_constraintStart_toEndOf="@+id/me_plan_planHistoryIcon"
+        app:layout_constraintTop_toBottomOf="@+id/me_plan_planHistoryNameTextView" />
 
     <TextView
-        android:id="@+id/planHistoryDateTimeTV"
+        android:id="@+id/me_plan_planHistoryDateTimeTV"
         android:gravity="right"
         android:textAlignment="gravity"
         android:layout_width="0dp"
@@ -51,10 +51,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <com.example.myapplication.MineScaleImageView
-        android:id="@+id/mine_plan_icon"
-        android:layout_width="64dp"
-        android:layout_height="68dp"
+    <ImageView
+        android:id="@+id/me_plan_planHistoryIcon"
+        android:layout_width="74dp"
+        android:layout_height="78dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:clickable="false"
@@ -63,11 +63,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
         android:layout_width="307dp"
         android:layout_height="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.711"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/me_plan_planHistoryDescriptionTextView" />
 </android.support.constraint.ConstraintLayout>

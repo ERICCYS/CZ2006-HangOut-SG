@@ -19,7 +19,7 @@ public class ShopInPlanAdapter extends BaseAdapter {
     ArrayList<String> shopDateTime;
     LayoutInflater mInflater;
 
-    public ShopInPlanAdapter(Context c, ArrayList<String> name,ArrayList<String> shopAdd, ArrayList<String> shopDT){
+    public ShopInPlanAdapter(Context c, ArrayList<String> name, ArrayList<String> shopAdd, ArrayList<String> shopDT){
         shopDateTime = shopDT;
         shopAddress = shopAdd;
         shopName = name;
@@ -44,17 +44,20 @@ public class ShopInPlanAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View v= mInflater.inflate(R.layout.me_plan_shop_in_plan,null);
-        TextView shopNameTextView = (TextView) v.findViewById(R.id.shopNameTextView);
-        TextView shopDateTimeTextView = (TextView) v.findViewById(R.id.shopDateTimeTextView);
+        TextView shopNameTextView =  v.findViewById(R.id.me_plan_shopNameTextView);
+        TextView shopDateTimeTextView =  v.findViewById(R.id.me_plan_shopDateTimeTextView);
+        TextView shopAddressTextView = v.findViewById(R.id.me_plan_shopAddressTextView);
 
         String name = shopName.get(position);
         String dt = shopDateTime.get(position);
+        String address = shopAddress.get(position);
 
         shopNameTextView.setText(name);
         shopDateTimeTextView.setText(dt);
+        shopAddressTextView.setText(address);
 
         //Handle buttons and add onClickListeners
-        ImageButton deleteBtn = (ImageButton) v.findViewById(R.id.deleteBtn);
+        ImageButton deleteBtn = (ImageButton) v.findViewById(R.id.me_plan_shop_deleteBtn);
         deleteBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {

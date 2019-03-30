@@ -40,17 +40,17 @@ public class PlanHistoryAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v= mInflater.inflate(R.layout.me_plan_plan_list,null);
-        TextView nameTextView = (TextView) v.findViewById(R.id.nameTextView);
-        TextView descriptionTextView = (TextView) v.findViewById(R.id.descriptionTextView);
-        TextView dateTimeTextView = (TextView) v.findViewById(R.id.planHistoryDateTimeTV);
+        TextView nameTextView = (TextView) v.findViewById(R.id.me_plan_planHistoryNameTextView);
+        TextView descriptionTextView = (TextView) v.findViewById(R.id.me_plan_planHistoryDescriptionTextView);
+        TextView dateTimeTextView = (TextView) v.findViewById(R.id.me_plan_planHistoryDateTimeTV);
 
         String name = planName[position];
         String desc = planDescription[position];
-        String dati = planDateTime[position];
+        String date = planDateTime[position];
 
         nameTextView.setText(name);
         descriptionTextView.setText(desc);
-        dateTimeTextView.setText(dati);
+        dateTimeTextView.setText(date);
         return v;
     }
 }
