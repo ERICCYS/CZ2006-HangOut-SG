@@ -1,9 +1,10 @@
 package com.skyforce.SkyForceWebService.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
-import java.time.*;
 
 @Entity
 @Table(name = "Reservation")
@@ -14,36 +15,32 @@ public class Reservation {
     @Column(name = "ID", unique = true)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CUSTOMER_ID")
-    private Customer customer;
+    private Long customerId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SHOP_ID")
-    private Shop shop;
+    @Column(name = "SHOP_ID")
+    private Long shopId;
 
-    @Column(name = "ARRV_TIME", nullable = false)
-    private Timestamp arrivalTime;
+    @Column(name = "ARRIVAL_TIME", nullable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date arrivalTime;
 
     public Reservation() {
     }
 
-    public Reservation(Long id, Customer customer, Shop shop) {
+    public Reservation(Long id, Long customerId, Long shopId, Date arrivalTime) {
         this.id = id;
-        this.customer = customer;
-        this.shop = shop;
-        // get current timestamp
-        Date date = new Date();
-        long time = date.getTime();
-        arrivalTime = new Timestamp(time);
+        this.customerId = customerId;
+        this.shopId = shopId;
+        this.arrivalTime = arrivalTime;
     }
 
     @Override
     public String toString() {
         return "Reservation{" +
                 "id=" + id +
-                ", customer=" + customer +
-                ", shop=" + shop +
+                ", customerId=" + customerId +
+                ", shopId=" + shopId +
                 ", arrivalTime='" + arrivalTime + '\'' +
                 '}';
     }
@@ -56,24 +53,27 @@ public class Reservation {
         this.id = id;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public Long getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
-    public Shop getShop() {
-        return shop;
+    public Long getShopId() {
+        return shopId;
     }
 
-    public void setShop(Shop shop) {
-        this.shop = shop;
+    public void setShopId(Long shopId) {
+        this.shopId = shopId;
     }
 
     public Date getArrivalTime() {
         return arrivalTime;
     }
-    
+
+    public void setArrivalTime(Date arrivalTime) {
+        this.arrivalTime = arrivalTime;
+    }
 }
