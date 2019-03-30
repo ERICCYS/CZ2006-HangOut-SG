@@ -1,9 +1,10 @@
 package com.skyforce.SkyForceWebService.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
-import java.sql.Time;
+import java.util.Date;
 
 @Entity
 @Table(name = "PlanItem")
@@ -14,9 +15,9 @@ public class PlanItem {
     @Column(name = "ID")
     private Long id;
 
-
     @Column(name = "TIME")
-    private Time scheduledVisitTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date scheduledVisitTime;
 
     @Column(name = "SHOP_ID")
     private Long shopId;
@@ -29,7 +30,7 @@ public class PlanItem {
     public PlanItem() {
     }
 
-    public PlanItem(Time time) {
+    public PlanItem(Date time) {
         this.scheduledVisitTime = time;
     }
 
@@ -49,11 +50,11 @@ public class PlanItem {
         this.shopId = shopId;
     }
 
-    public Time getScheduledVisitTime() {
+    public Date getScheduledVisitTime() {
         return this.scheduledVisitTime;
     }
 
-    public void setScheduledVisitTime(Time time) {
+    public void setScheduledVisitTime(Date time) {
         this.scheduledVisitTime = time;
     }
 
@@ -64,6 +65,4 @@ public class PlanItem {
     public void setPlan(Plan plan) {
         this.plan = plan;
     }
-
-
 }

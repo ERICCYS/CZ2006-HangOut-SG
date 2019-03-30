@@ -5,6 +5,7 @@ import com.skyforce.SkyForceWebService.model.Customer;
 import com.skyforce.SkyForceWebService.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -77,14 +78,13 @@ public class CustomerController {
             oldCustomer.setRegionalPreference(customer.getRegionalPreference());
             customerService.save(oldCustomer);
             return "OK";
-        }
-        else {
+        } else {
             throw new IllegalArgumentException();
         }
     }
 
     @DeleteMapping("/customer")
-    public String deleteCustomer(
+    public ResponseEntity<?> deleteCustomer(
             @RequestParam Long customerId,
             @RequestHeader(value = "Authorization") String accessToken
     ) {
@@ -94,7 +94,7 @@ public class CustomerController {
         if (Long.parseLong(info[0]) == customerId && info[1].equals("CUSTOMER")) {
             Customer customer = customerService.findCustomerById(customerId);
             customerService.delete(customer);
-            return "OK";
+            return ResponseEntity.ok().build();
         } else {
             throw new IllegalArgumentException();
         }

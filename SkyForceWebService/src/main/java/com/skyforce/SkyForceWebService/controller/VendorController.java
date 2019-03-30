@@ -16,8 +16,6 @@ import java.util.List;
 @RestController
 public class VendorController {
 
-    // TODO:  Change http status for different exceptions
-
     @Autowired
     VendorService vendorService;
 
@@ -29,24 +27,13 @@ public class VendorController {
         List<Vendor> vendors = vendorService.findAll();
         return JSONConvert.JSONConverter(vendors);
     }
-    // pass
-
-
 
     @GetMapping("/vendor")
     public String getVendorById(
-            @RequestParam Long vendorId,
-            @RequestHeader(value = "Authorization") String accessToken
+            @RequestParam Long vendorId
     ) {
-        String[] info = ValidationController.decryptAccessToken(accessToken);
-        if (info.length != 2)
-            throw new IllegalArgumentException();
-        if (Long.parseLong(info[0]) == vendorId && info[1].equals("VENDOR")) {
-            Vendor vendor = vendorService.findVendorById(vendorId);
-            return JSONConvert.JSONConverter(vendor);
-        } else {
-            throw new IllegalArgumentException();
-        }
+        Vendor vendor = vendorService.findVendorById(vendorId);
+        return JSONConvert.JSONConverter(vendor);
     }
 
     @GetMapping("/vendor/signin")
@@ -57,7 +44,6 @@ public class VendorController {
         Vendor vendor = vendorService.findVendorByEmail(email);
         return ValidationController.UserSignIn(vendor, password);
     }
-    // pass
 
     @ResponseStatus(value = HttpStatus.UNAUTHORIZED,
             reason = "Email or password incorrect")
@@ -65,6 +51,7 @@ public class VendorController {
     public void badAuthenticationException() {
 
     }
+
 
     @PostMapping("/vendor")
     @ResponseStatus(HttpStatus.CREATED)
@@ -76,7 +63,6 @@ public class VendorController {
         JSONConvert.JSONConverter(vendorService.save(vendor));
         return ValidationController.getAccessToken(vendor.getId(), "VENDOR");
     }
-
 
     @PutMapping("/vendor")
     public String updateVendorById(
@@ -98,7 +84,6 @@ public class VendorController {
             throw new IllegalArgumentException();
         }
     }
-    // pass
 
     @DeleteMapping("/vendor")
     public ResponseEntity<?> deleteVendor(
@@ -116,6 +101,4 @@ public class VendorController {
             throw new IllegalArgumentException();
         }
     }
-    // one null pointer exp when wrong access token was given
-    // partially passed
 }
