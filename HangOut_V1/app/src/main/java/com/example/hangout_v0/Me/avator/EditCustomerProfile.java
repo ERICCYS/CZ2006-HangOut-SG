@@ -40,7 +40,7 @@ import java.util.UUID;
 
 public class EditCustomerProfile extends AppCompatActivity {
 
-    public static final int PICK_IMAGE = 1;
+    public static final int PICK_IMAGE = 8;
     Button submit;
     private TextView profileDisplayDate;
     private DatePickerDialog.OnDateSetListener profileDateSetListener;
@@ -57,9 +57,9 @@ public class EditCustomerProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.me_profile_edit);
 
-        this.getSupportActionBar().hide();
+  //      this.getSupportActionBar().hide();
 
-        final Intent retriveAvatorURLIntent = getIntent();
+ //       final Intent retriveAvatorURLIntent = getIntent();
 
         editPhoto = findViewById(R.id.editAvatarButton);
         submit = (Button) findViewById(R.id.submitProfileButton);
@@ -88,14 +88,13 @@ public class EditCustomerProfile extends AppCompatActivity {
                 //TODO: call api to store information
                 Toast toast = Toast.makeText(getApplicationContext(), "Successfully submitted!", Toast.LENGTH_SHORT);
                 toast.show();
-                retriveAvatorURLIntent.putExtra("key", avatarUrl);
-                setResult(RESULT_OK, retriveAvatorURLIntent);
+
 
                 // pass the avatar url back
                 Intent intent = new Intent();
                 intent.putExtra("custAvatarUrl", avatarUrl);
                 setResult(Activity.RESULT_OK, intent);
-                finish();
+                  finish();
             }
         });
 
@@ -138,7 +137,7 @@ public class EditCustomerProfile extends AppCompatActivity {
                     && data != null && data.getData() != null ) {
                 // set image
                 avatarUri = data.getData();
-                custAvatar.setImageURI(avatarUri);
+                //custAvatar.setImageURI(avatarUri);
 
                 //upload image
                 final ProgressDialog progressDialog = new ProgressDialog(this);

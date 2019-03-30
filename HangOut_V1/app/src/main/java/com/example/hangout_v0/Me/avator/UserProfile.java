@@ -20,7 +20,7 @@ public class UserProfile extends AppCompatActivity {
 
     Button editProfile;
     String avatorURL;
-    int avatorCode=1;
+    int avatorCode=3;
     ImageView avator;
 
     @Override
@@ -41,6 +41,7 @@ public class UserProfile extends AppCompatActivity {
             public void onClick(View v) {
                 Intent editProfileIntent = new Intent(UserProfile.this, com.example.hangout_v0.Me.avator.EditCustomerProfile.class);
                 startActivityForResult(editProfileIntent , avatorCode);
+                //startActivity(editProfileIntent);
             }
         });
 
