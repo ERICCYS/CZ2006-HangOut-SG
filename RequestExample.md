@@ -1,3 +1,14 @@
+# SkyForce API Call
+
+### Variables and constant needed:
+
+```java
+public static final String baseUrl = "http://10.27.51.140:9090/api/";
+private String accessToken = "kldMaIf99i6G+0JvLQGwfw==";
+private String vendorAT = "UPXDxfiMf2SNu/D/GQBkAg==";
+public static final MediaType JSON = MediaType.parse("application/json");
+```
+
 ### Get Customer by customer id
 
 #### Function call
