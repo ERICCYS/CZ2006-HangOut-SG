@@ -15,6 +15,7 @@ import com.example.hangout_v0.ApiCall.HangOutData;
 import com.example.hangout_v0.R;
 import com.example.hangout_v0.UserMainActivity;
 import com.example.hangout_v0.Vendor.VendorMainActivity;
+import com.example.hangout_v0.welcome_page.IntroActivity;
 
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
@@ -45,12 +46,16 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        Intent intro = new Intent(this, IntroActivity.class);
+        startActivity(intro);
+
         init();
 
         this.getSupportActionBar().hide();
-        btn_login = (Button) findViewById(R.id.login_login_button);
-        btn_skip = (Button) findViewById(R.id.login_skip_button);
-        cb_vendor = (CheckBox) findViewById(R.id.login_vendorTunnel_checkbox);
+        btn_login = findViewById(R.id.login_login_button);
+        btn_skip = findViewById(R.id.login_skip_button);
+        cb_vendor = findViewById(R.id.login_vendorTunnel_checkbox);
         btn_signup = findViewById(R.id.login_signup_button);
 
         btn_login.setOnClickListener(new View.OnClickListener() {
@@ -109,10 +114,16 @@ public class LoginActivity extends AppCompatActivity {
         btn_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, com.example.hangout_v0.Login.SignUp.class);
-                startActivity(intent);
+                if(is_vendor == false){
+                    switchToUserSignUpPage();
+                }
+                else{
+                    switchToVendorSignUpPage();
+
+                }
             }
         });
+
 
         btn_skip.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,5 +167,14 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(myIntent);
     }
 
+    private void switchToUserSignUpPage(){
+        Intent myIntent = new Intent(this, SignUpAsCustomer.class);
+        startActivity(myIntent);
+    }
+
+    private void switchToVendorSignUpPage(){
+       Intent myIntent = new Intent(this, SignUpAsVendor.class);
+        startActivity(myIntent);
+    }
 
 }
