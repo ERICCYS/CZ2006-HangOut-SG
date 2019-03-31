@@ -25,6 +25,11 @@ public class PlanDataStub {
     }
 
     public ArrayList<String> getAllShopName(String planName){
+        if(planName.equals("New Plan")){
+            ArrayList<String> shopName = new ArrayList<String>(
+                    Arrays.asList("Shop A1", "Shop A2","Shop A3"));
+            return shopName;
+        }
         if(planName.equals("Plan A")){
             ArrayList<String> shopName = new ArrayList<String>(
                     Arrays.asList("Shop A1", "Shop A2","Shop A3"));
@@ -54,7 +59,7 @@ public class PlanDataStub {
     public ArrayList<String> getAllShopDateTime(String planName){
 
         ArrayList<String> shopDT = new ArrayList<String>(
-                Arrays.asList("Mar 8  10:00 Am", "Marc 8  10:00 Am","Mar 8  10:00 Am"));
+                Arrays.asList("Mar 8  10:00", "Mar 8  10:00","Mar 8  10:00"));
 //        return shopName;
 //        if(planName.equals("Plan A")){
 //            String[] shopDT={"Mar 8  10:00 Am", "Marc 8  10:00 Am","Mar 8  10:00 Am"};

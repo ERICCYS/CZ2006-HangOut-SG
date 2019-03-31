@@ -41,7 +41,11 @@ public class PlanHistoryActivity extends AppCompatActivity {
         plansListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getBaseContext(),"This is a past plan",Toast.LENGTH_SHORT);
+                //Toast.makeText(getBaseContext(),"This is a past plan",Toast.LENGTH_SHORT).show();
+                Intent showPlanDetailActivity
+                        = new Intent(getApplicationContext(),PlanDetailActivity.class);
+                showPlanDetailActivity.putExtra("PlanName",planName[1]); //todo 1 change to position
+                startActivity(showPlanDetailActivity);
             }
         });
 

@@ -30,29 +30,29 @@ public class PlanDetailActivity extends AppCompatActivity {
 
         shopsInPlansListView =  findViewById(R.id.shopsInPlanListView);
 
-//        Intent in= getIntent();
-//        String planName= in.getStringExtra("PlanName");
+        Intent in= getIntent();
+        String planName= in.getStringExtra("PlanName");
 
         PlanDataStub planDataStub = new PlanDataStub("User1");
-//
-        shopName= planDataStub.getAllShopName("Plan A"); // planName to replace hardcode "Plan A"
-        shopAddress = planDataStub.getAllShopAddress("Plan A");
-        shopDateTime = planDataStub.getAllShopDateTime("Plan A");
+
+        shopName= planDataStub.getAllShopName(planName); // planName to replace hardcode "Plan A"
+        shopAddress = planDataStub.getAllShopAddress(planName);
+        shopDateTime = planDataStub.getAllShopDateTime(planName);
 //
         com.example.hangout_v0.Me.plan.ShopInPlanAdapter shopInPlanAdapter = new com.example.hangout_v0.Me.plan.ShopInPlanAdapter(this, shopName,shopAddress, shopDateTime);
         shopsInPlansListView.setAdapter(shopInPlanAdapter);
 
-       shopsInPlansListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-           @Override
-           public void onItemClick(AdapterView<?> parent, View view,
-                                   int position, long id) {
-               shopName.remove(position);
-               shopDateTime.remove(position);
-               shopAddress.remove(position);
+//       shopsInPlansListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//           @Override
+//           public void onItemClick(AdapterView<?> parent, View view,
+//                                   int position, long id) {
+//               shopName.remove(position);
+//               shopDateTime.remove(position);
+//               shopAddress.remove(position);
 //               shopInPlanAdapter.notifyDataSetChanged();
-
-           }
-       });
+//
+//           }
+//       });
 
        historyButton = findViewById(R.id.planHistoryButton);
        historyButton.setOnClickListener(new View.OnClickListener() {
