@@ -81,7 +81,8 @@ public class PlanDetailActivity extends AppCompatActivity {
                         System.out.println(planItems);
                         for (int i = 0; i < planItems.length(); i++) {
                             JSONObject planItem = (JSONObject)planItems.get(i);
-                            shopDateTime.add(planItem.get("shopDateTime").toString());
+                            //shopDateTime.add(planItem.get("shopDateTime").toString());
+                            shopDateTime.add(planItem.get("shopDateTime").toString().substring(5,16));
                             shopName.add(planItem.get("shopName").toString());
                             shopAddress.add(planItem.get("shopAddress").toString());
                         }
@@ -100,20 +101,6 @@ public class PlanDetailActivity extends AppCompatActivity {
             }
         });
 
-
-//
-//        com.example.hangout_v0.Me.plan.ShopInPlanAdapter shopInPlanAdapter = new com.example.hangout_v0.Me.plan.ShopInPlanAdapter(this, shopName,shopAddress, shopDateTime);
-//        shopsInPlansListView.setAdapter(shopInPlanAdapter);
-
-
-       historyButton = findViewById(R.id.planHistoryButton);
-       historyButton.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Intent myIntent = new Intent(PlanDetailActivity.this, PlanHistoryActivity.class);
-               PlanDetailActivity.this.startActivity(myIntent);
-           }
-       });
     }
 
 }

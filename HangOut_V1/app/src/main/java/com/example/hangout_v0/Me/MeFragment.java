@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.hangout_v0.Me.avator.UserProfile;
 import com.example.hangout_v0.Me.plan.PlanDetailActivity;
+import com.example.hangout_v0.Me.plan.PlanHistoryActivity;
 import com.example.hangout_v0.Me.reservation.ReservationActivity;
 import com.example.hangout_v0.R;
 import com.example.hangout_v0.UserMainActivity;
@@ -63,9 +64,8 @@ public class MeFragment extends Fragment {
         plan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent planDetailActivity = new Intent(getActivity(), PlanDetailActivity.class);
-                planDetailActivity.putExtra("PlanName","New Plan");
-                getActivity().startActivity(planDetailActivity);
+                Intent myIntent = new Intent(getActivity(), PlanHistoryActivity.class);
+                getActivity().startActivity(myIntent);
 
             }
         });

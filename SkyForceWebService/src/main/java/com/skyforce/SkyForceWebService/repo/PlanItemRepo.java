@@ -14,3 +14,7 @@ public interface PlanItemRepo extends JpaRepository<PlanItem,Integer>{
     void delete(PlanItem planItem);
 
 }
+
+
+
+

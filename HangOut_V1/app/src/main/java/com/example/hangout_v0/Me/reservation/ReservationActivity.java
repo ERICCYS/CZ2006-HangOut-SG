@@ -59,7 +59,7 @@ public class ReservationActivity extends AppCompatActivity {
                         JSONArray reservations = new JSONArray(myResponse);
                         for (int i = 0; i < reservations.length(); i++) {
                             JSONObject reservation = (JSONObject)reservations.get(i);
-                            reservationShopDateTime.add((String) reservation.get("arrivalTime"));
+                            reservationShopDateTime.add(((String) reservation.get("arrivalTime")).substring(5,16));
                             reservationShopName.add((String)reservation.get("shopName"));
                             reservationShopAddress.add((String)reservation.get("shopAddress"));
                         }
@@ -78,20 +78,6 @@ public class ReservationActivity extends AppCompatActivity {
             }
         });
 
-
-//
-//        com.example.hangout_v0.Me.reservation.ReservationAdaptor reservationAdaptor = new com.example.hangout_v0.Me.reservation.ReservationAdaptor(this, reservationShopName,reservationShopAddress,reservationShopDateTime);
-//        reservationListView.setAdapter(reservationAdaptor);
-
-//        reservationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view,
-//                                    int position, long id) {
-//                reservationShopName.remove(position);
-//                reservationShopAddress.remove(position);
-//
-//            }
-//        });
 
 
     }
