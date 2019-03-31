@@ -38,7 +38,7 @@ dependencies {
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'com.github.johnkil.android-robototextview:robototextview:4.0.0'
     implementation 'com.github.markushi:circlebutton:1.1'
-
+    implementation 'com.squareup.okhttp3:okhttp:3.9.1'
 
     // login page added
     implementation 'de.hdodenhof:circleimageview:2.1.0'

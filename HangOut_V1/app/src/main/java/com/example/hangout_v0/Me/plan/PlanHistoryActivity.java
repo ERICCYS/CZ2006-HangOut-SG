@@ -8,16 +8,18 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.hangout_v0.ApiCall.HangOutApi;
 import com.example.hangout_v0.Me.plan.PlanHistoryAdapter;
 import com.example.hangout_v0.R;
+
+import java.util.ArrayList;
 
 
 public class PlanHistoryActivity extends AppCompatActivity {
 
     ListView plansListView;
-    String[] planName;
-    String[] planDescription;
-    String[] planDateTime;
+    ArrayList<String> planName;
+    ArrayList<String> planDateTime;
 
     public static PlanDataStub planDataStub;
 
@@ -32,10 +34,9 @@ public class PlanHistoryActivity extends AppCompatActivity {
         plansListView = (ListView) findViewById(R.id.planListView);
 
         planName = planDataStub.getAllPlanName();
-        planDescription = planDataStub.getAllPlanDescription();
         planDateTime =  planDataStub.getAllPlanDateTime();
 
-        PlanHistoryAdapter planHistoryAdapter = new PlanHistoryAdapter(this, planName, planDescription,planDateTime);
+        PlanHistoryAdapter planHistoryAdapter = new PlanHistoryAdapter(this, planName,planDateTime);
         plansListView.setAdapter(planHistoryAdapter);
 
         plansListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -44,7 +45,7 @@ public class PlanHistoryActivity extends AppCompatActivity {
                 //Toast.makeText(getBaseContext(),"This is a past plan",Toast.LENGTH_SHORT).show();
                 Intent showPlanDetailActivity
                         = new Intent(getApplicationContext(),PlanDetailActivity.class);
-                showPlanDetailActivity.putExtra("PlanName",planName[1]); //todo 1 change to position
+                showPlanDetailActivity.putExtra("PlanName",planName.get(position)); //todo 1 change to position
                 startActivity(showPlanDetailActivity);
             }
         });
