@@ -13,8 +13,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".Login.SignUpAsCustomer"/>
-        <activity android:name=".Login.SignUpAsVendor"/>
+        <activity android:name=".Login.SignUp"></activity>
         <activity android:name=".ShopDetail.ShopInDetail" />
         <activity android:name=".UserMainActivity" />
 
@@ -28,9 +27,8 @@
         <activity android:name=".Me.plan.PlanHistoryActivity" />
         <activity android:name=".Me.avator.UserProfile" />
         <activity android:name=".Me.avator.EditCustomerProfile" />
-        <activity android:name=".Me.reservation.ReservationActivity"/>
-        <activity android:name=".welcome_page.IntroActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".Me.reservation.ReservationActivity" />
 
 
         <activity android:name=".Login.LoginActivity">

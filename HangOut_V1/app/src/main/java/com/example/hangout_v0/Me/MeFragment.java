@@ -1,5 +1,6 @@
 package com.example.hangout_v0.Me;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.hangout_v0.Me.avator.UserProfile;
 import com.example.hangout_v0.Me.plan.PlanDetailActivity;
+import com.example.hangout_v0.Me.reservation.ReservationActivity;
 import com.example.hangout_v0.R;
 import com.example.hangout_v0.UserMainActivity;
 
@@ -52,15 +54,19 @@ public class MeFragment extends Fragment {
         reservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "this is to RESERVATION", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(v.getContext(), "this is to RESERVATION", Toast.LENGTH_SHORT).show();
+                Intent reservationActivity = new Intent(getActivity(), ReservationActivity.class);
+                getActivity().startActivity(reservationActivity);
             }
         });
 
         plan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent planActivity = new Intent(getActivity(), PlanDetailActivity.class);
-                getActivity().startActivity(planActivity);
+                Intent planDetailActivity = new Intent(getActivity(), PlanDetailActivity.class);
+                planDetailActivity.putExtra("PlanName","New Plan");
+                getActivity().startActivity(planDetailActivity);
+
             }
         });
 
