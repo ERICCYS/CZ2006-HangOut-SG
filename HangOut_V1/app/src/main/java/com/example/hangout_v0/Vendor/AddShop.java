@@ -13,8 +13,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.hangout_v0.ApiCall.HangOutApi;
-import com.example.hangout_v0.ApiCall.HangOutData;
-import com.example.hangout_v0.Me.avator.EditCustomerProfile;
 import com.example.hangout_v0.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;

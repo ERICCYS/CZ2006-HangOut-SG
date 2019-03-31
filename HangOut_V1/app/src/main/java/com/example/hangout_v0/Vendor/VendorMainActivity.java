@@ -6,10 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -17,19 +14,16 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.hangout_v0.ApiCall.HangOutApi;
 import com.example.hangout_v0.ApiCall.HangOutData;
-import com.example.hangout_v0.Me.avator.EditCustomerProfile;
 import com.example.hangout_v0.R;
+import com.example.hangout_v0.Vendor.Utils.ShopAdapterVendor;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.skyforce.SkyForceWebService.model.Shop;
-
-import com.example.hangout_v0.Vendor.Utils.ShopAdapterVendor;
+import com.example.hangout_v0.Vendor.Shop;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -100,7 +94,7 @@ public class VendorMainActivity extends AppCompatActivity {
                             if (shopList != null) {
                                 for (int i=0;i<shopList.length();i++){
                                     JSONObject shop = shopList.getJSONObject(i);
-                                    arrayList.add(new Shop(shop.getString("name"), shop.getString("contactNumber")));
+                                    arrayList.add(new Shop(shop.getString("name"), shop.getString("contactNumber"), shop.getLong("id")));
                                 }
                             }
                         } catch (JSONException e) {
@@ -116,9 +110,9 @@ public class VendorMainActivity extends AppCompatActivity {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id){
 
-                                String tempListView = arrayList.get(position).getName();
+                                Long tempListView = arrayList.get(position).getShopId();
                                 Intent intent = new Intent(VendorMainActivity.this, com.example.hangout_v0.Vendor.VendorShop.class);
-                                intent.putExtra("ClickedValue", tempListView);
+                                intent.putExtra("shopId", tempListView);
                                 startActivity(intent);
 
                             }

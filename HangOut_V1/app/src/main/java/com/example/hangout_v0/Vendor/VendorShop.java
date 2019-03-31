@@ -8,10 +8,24 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.hangout_v0.ApiCall.HangOutData;
 import com.example.hangout_v0.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class VendorShop extends AppCompatActivity {
-    TextView shopName;
+    public static final String baseUrl = "http://10.27.51.140:9090/api/";
+    TextView shopName, shopLocation, shopNumber, shopEmail, shopCategory;
     Button editButton;
     Button vendorReservationButton;
     @Override
@@ -19,9 +33,50 @@ public class VendorShop extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_in_detail_vendor);
 
-        String tempHolder = getIntent().getStringExtra("ClickedValue");
-        shopName = (TextView) findViewById(R.id.shopNameTextView);
-        shopName.setText(tempHolder);
+        Long shopId = getIntent().getLongExtra("shopId",0);
+
+        OkHttpClient client = new OkHttpClient();
+        String url = baseUrl + "shop";
+        HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
+        httpBuilder.addQueryParameter("shopId", shopId.toString());
+
+        Request request = new Request.Builder().url(httpBuilder.build()).build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String myResponse = response.body().string();
+                    System.out.println(myResponse);
+                    try {
+                        JSONObject shop = new JSONObject(myResponse);
+                        HangOutData.setShop(shop);
+                        shopName = (TextView) findViewById(R.id.shopNameTextView);
+                        shopName.setText(shop.getString("name"));
+                        shopLocation = (TextView) findViewById(R.id.shopLocationTextView);
+                        shopLocation.setText(shop.getString("location"));
+                        shopNumber = (TextView) findViewById(R.id.shopNumberTextView);
+                        shopNumber.setText(shop.getString("contactNumber"));
+                        shopEmail = (TextView) findViewById(R.id.shopWebTextView);
+                        shopEmail.setText(shop.getString("contactEmail"));
+
+
+                    } catch (JSONException e) {
+                        //textView.setText("Error");
+                    }
+                }
+            }
+        });
+
+
+
+
+
 
         editButton = (Button) findViewById(R.id.editbutton);
         editButton.setOnClickListener(new View.OnClickListener() {

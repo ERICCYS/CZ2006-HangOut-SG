@@ -107,9 +107,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/shopLocationIcon"
-        android:layout_marginLeft="20dp"
-        android:textSize="20sp"
-        android:text="Jurong point"/>
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="-30dp"
+        android:layout_toEndOf="@+id/shopLocationIcon"
+        android:layout_toRightOf="@+id/shopLocationIcon"
+        android:text="Jurong point"
+        android:textSize="20sp" />
 
     <!--phone-->
     <ImageView
@@ -127,9 +131,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/shopPhoneNumberIcon"
-        android:layout_marginLeft="20dp"
-        android:textSize="20sp"
-        android:text="1234 5678"/>
+        android:layout_marginStart="17dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="-31dp"
+        android:layout_toEndOf="@+id/shopPhoneNumberIcon"
+        android:layout_toRightOf="@+id/shopPhoneNumberIcon"
+        android:text="1234 5678"
+        android:textSize="20sp" />
 
     <!--website-->
     <ImageView
@@ -147,9 +155,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/shopWebIcon"
-        android:layout_marginLeft="20dp"
-        android:textSize="20sp"
-        android:text="www.123.com"/>
+        android:layout_marginStart="17dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="-29dp"
+        android:layout_toEndOf="@+id/shopWebIcon"
+        android:layout_toRightOf="@+id/shopWebIcon"
+        android:text="www.123.com"
+        android:textSize="20sp" />
 
 
     <ListView

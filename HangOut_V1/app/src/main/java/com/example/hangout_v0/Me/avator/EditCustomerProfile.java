@@ -18,7 +18,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +43,7 @@ import java.util.UUID;
 public class EditCustomerProfile extends AppCompatActivity {
 
     public static final int PICK_IMAGE = 8;
+    // all buttons
     Button submit;
     private TextView profileDisplayDate;
     private DatePickerDialog.OnDateSetListener profileDateSetListener;
@@ -49,7 +52,11 @@ public class EditCustomerProfile extends AppCompatActivity {
     Button editPhoto;
     private Uri avatarUri;
     private StorageReference storageRef;
-    private String avatarUrl;
+    EditText firstNameEt, lastNameEt, emailEt, passwordEt, regionalEt;
+    RadioGroup genderSelection;
+    // all customer info
+    private String firstname, lastname, gender, email, password, avatarUrl, dob, hahalpref, vegpref, regionalpref;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,15 +64,19 @@ public class EditCustomerProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.me_profile_edit);
 
-  //      this.getSupportActionBar().hide();
-
- //       final Intent retriveAvatorURLIntent = getIntent();
-
+        // get all buttons
         editPhoto = findViewById(R.id.editAvatarButton);
         submit = (Button) findViewById(R.id.submitProfileButton);
         custAvatar = findViewById(R.id.customerAvatar);
         storageRef = FirebaseStorage.getInstance().getReference();
+        firstNameEt = findViewById(R.id.editCustomerFirstName);
+        lastNameEt = findViewById(R.id.editCustomerLastName);
+        emailEt = findViewById(R.id.editCustomerEmail);
+        passwordEt = findViewById(R.id.editCustomerPassword);
+        regionalEt = findViewById(R.id.editCustomerRegion);
+        genderSelection = findViewById(R.id.editCustomerGender);
 
+        // set all customer info to original ones on the edit page
 
         editPhoto.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -74,27 +85,6 @@ public class EditCustomerProfile extends AppCompatActivity {
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
-            }
-        });
-
-        //submit button
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //switch status check
-                halalOp = findViewById(R.id.editHalalOption);
-                vegOp = findViewById(R.id.editVegOption);
-                Log.d("switchCheck", "halal option: " + halalOp.isChecked() + "\nveg option: " + vegOp.isChecked());
-                //TODO: call api to store information
-                Toast toast = Toast.makeText(getApplicationContext(), "Successfully submitted!", Toast.LENGTH_SHORT);
-                toast.show();
-
-
-                // pass the avatar url back
-                Intent intent = new Intent();
-                intent.putExtra("custAvatarUrl", avatarUrl);
-                setResult(Activity.RESULT_OK, intent);
-                  finish();
             }
         });
 
@@ -123,10 +113,32 @@ public class EditCustomerProfile extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month++;
-                String date = Integer.toString(month) +'/' + Integer.toString(dayOfMonth) + '/'+ Integer.toString(year);
-                profileDisplayDate.setText(date);
+                dob = Integer.toString(year) + '-' + Integer.toString(month) + '-' + Integer.toString(dayOfMonth);
+                profileDisplayDate.setText(dob);
             }
         };
+
+
+        //submit button
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //switch status check
+                halalOp = findViewById(R.id.editHalalOption);
+                vegOp = findViewById(R.id.editVegOption);
+                Log.d("switchCheck", "halal option: " + halalOp.isChecked() + "\nveg option: " + vegOp.isChecked());
+                Toast toast = Toast.makeText(getApplicationContext(), "Successfully submitted!", Toast.LENGTH_SHORT);
+                toast.show();
+                // pass the avatar url back
+//                Intent intent = new Intent();
+//                intent.putExtra("custAvatarUrl", avatarUrl);
+//                setResult(Activity.RESULT_OK, intent);
+
+                // submit: pass all customer info to backend
+
+                finish();
+            }
+        });
     }
 
 
