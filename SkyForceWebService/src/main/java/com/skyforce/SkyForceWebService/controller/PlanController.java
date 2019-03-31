@@ -4,14 +4,20 @@ import com.skyforce.SkyForceWebService.config.JSONConvert;
 import com.skyforce.SkyForceWebService.model.Customer;
 import com.skyforce.SkyForceWebService.model.Plan;
 import com.skyforce.SkyForceWebService.model.PlanItem;
+import com.skyforce.SkyForceWebService.model.Shop;
 import com.skyforce.SkyForceWebService.service.CustomerService;
 import com.skyforce.SkyForceWebService.service.PlanItemService;
 import com.skyforce.SkyForceWebService.service.PlanService;
+import com.skyforce.SkyForceWebService.service.ShopService;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -22,6 +28,9 @@ public class PlanController {
 
     @Autowired
     PlanItemService planItemService;
+
+    @Autowired
+    ShopService shopService;
 
     @Autowired
     CustomerService customerService;
@@ -35,20 +44,50 @@ public class PlanController {
 
     @GetMapping("/customer/plan")
     public String getPlanById(
-            @RequestParam Long planId,
-            @RequestHeader(value = "Authorization") String accessToken
+            @RequestParam Long planId
     ) {
         Plan plan = planService.findPlanById(planId);
-        String[] info = ValidationController.decryptAccessToken(accessToken);
-        if (info.length != 2)
-            throw new IllegalArgumentException();
-
-        if (Long.parseLong(info[0]) == plan.getCustomer().getId() && info[1].equals("CUSTOMER")) {
-            return JSONConvert.JSONConverter(plan);
-        } else {
-            throw new IllegalArgumentException();
-        }
+        return JSONConvert.JSONConverter(plan);
     }
+
+    @GetMapping("plan-items-formatted")
+    public String getPlanItemsByPlanId(
+            @RequestParam Long planId
+    ) {
+        Plan plan = planService.findPlanById(planId);
+        List<PlanItem> planItems = plan.getPlanItems();
+        JSONArray formattedItems = new JSONArray();
+        for (PlanItem planItem : planItems) {
+            JSONObject newPlanItem = new JSONObject();
+            Shop shop = shopService.findShopById(planItem.getShopId());
+            newPlanItem.put("shopName", shop.getName());
+            newPlanItem.put("shopAddress", shop.getLocation());
+            newPlanItem.put("shopDateTime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(planItem.getScheduledVisitTime()));
+            formattedItems.add(newPlanItem);
+        }
+        return JSONConvert.JSONConverter(formattedItems);
+    }
+
+    @GetMapping("customer-plan-formatted")
+    public String getCustomerPlanFormatted(
+            @RequestParam Long customerId
+    ) {
+        List<Plan> plans = planService.findAll();
+        List<Plan> customerPlan = new ArrayList<>();
+        JSONArray relatedPlan = new JSONArray();
+        for (Plan plan : plans) {
+            if (plan.getCustomer().getId().equals(customerId)) {
+                customerPlan.add(plan);
+                JSONObject newPlan = new JSONObject();
+                newPlan.put("planId", plan.getId());
+                newPlan.put("planName", plan.getName());
+                newPlan.put("planDateTime", new SimpleDateFormat("yyyy-MM-dd").format(plan.getDate()));
+                relatedPlan.add(newPlan);
+            }
+        }
+        return JSONConvert.JSONConverter(relatedPlan);
+    }
+
 
     @PostMapping("/customer/plan")
     public String createPlan(

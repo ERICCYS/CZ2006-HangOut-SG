@@ -5,6 +5,10 @@ import com.skyforce.SkyForceWebService.model.Admin;
 import com.skyforce.SkyForceWebService.model.Customer;
 import com.skyforce.SkyForceWebService.model.User;
 import com.skyforce.SkyForceWebService.model.Vendor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -12,6 +16,7 @@ import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
+@RestController
 public class ValidationController {
 
     private static final String key = "Bar12345Bar12345";
@@ -72,5 +77,18 @@ public class ValidationController {
             e.printStackTrace();
         }
         return info;
+    }
+
+    @GetMapping("/accessToken")
+    public static String getUserId(
+            @RequestHeader(value = "Authorization") String accessToken
+    ) {
+        System.out.println(accessToken);
+        String[] result = decryptAccessToken(accessToken);
+        System.out.println(result);
+        for (int i = 0; i < result.length; i++) {
+            System.out.println(result[i]);
+        }
+        return result[0];
     }
 }
