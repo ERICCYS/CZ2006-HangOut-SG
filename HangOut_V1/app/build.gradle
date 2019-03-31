@@ -53,6 +53,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:16.1.0'
 
 
+    // intro
+    implementation 'com.github.paolorotolo:appintro:4.2.3'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
