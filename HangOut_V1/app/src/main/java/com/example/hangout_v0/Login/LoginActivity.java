@@ -16,7 +16,16 @@ import com.example.hangout_v0.R;
 import com.example.hangout_v0.UserMainActivity;
 import com.example.hangout_v0.Vendor.VendorMainActivity;
 
+import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 import static com.google.android.gms.tasks.Tasks.await;
 
@@ -48,9 +57,47 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(is_vendor == false){
-                    HangOutApi.signInCustomer(userName.getText().toString(), userPassword.getText().toString());
-                    switchToUserPage();
+                if(is_vendor == false) {
+
+                    OkHttpClient client = new OkHttpClient();
+                    String url = HangOutApi.baseUrl + "customer/signin";
+                    HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
+                    httpBuilder.addQueryParameter("email", userName.getText().toString());
+                    httpBuilder.addQueryParameter("password", userPassword.getText().toString());
+                    Request request = new Request.Builder().url(httpBuilder.build()).build();
+
+                    client.newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            if (response.isSuccessful()) {
+                                String myResponse = response.body().string();
+                                System.out.println(myResponse);
+                                HangOutData.setAccessToken(myResponse);
+                                switchToUserPage();
+
+                                //textView.setText("Customer Access Token is " + myResponse);
+
+                                // Able to get the access token.
+                            } else {
+                                System.out.println("****************************Log in failed***************************");
+                            }
+                        }
+                    });
+
+//                    CountDownLatch countDownLatch = new CountDownLatch(1);
+//                    HangOutApi.signInCustomer(userName.getText().toString(), userPassword.getText().toString());
+//                    try {
+//                        countDownLatch.await();
+//                        System.out.println(HangOutData.getAccessToken());
+//                        switchToUserPage();
+//                    } catch (Exception e) {
+//
+//                    }
                 }
                 else{
                     switchToVendorPage();
