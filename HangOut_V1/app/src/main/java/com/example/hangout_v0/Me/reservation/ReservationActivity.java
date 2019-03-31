@@ -6,18 +6,27 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.hangout_v0.ApiCall.HangOutApi;
 import com.example.hangout_v0.Me.plan.PlanDataStub;
 import com.example.hangout_v0.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.*;
 
 public class ReservationActivity extends AppCompatActivity {
 
     ListView reservationListView;
 
-    ArrayList<String> reservationShopName;
-    ArrayList<String> reservationShopAddress;
-    ArrayList<String> reservationShopDateTime;
+    private ArrayList<String> reservationShopName = new ArrayList<>();
+    private ArrayList<String> reservationShopAddress = new ArrayList<>();
+    private ArrayList<String> reservationShopDateTime = new ArrayList<>();
 
 
     @Override
@@ -29,14 +38,50 @@ public class ReservationActivity extends AppCompatActivity {
 
         reservationListView = findViewById(R.id.me_reservation_reservationListView);
 
-        PlanDataStub planDataStub = new PlanDataStub("User1");
+        Long customerId = 3l;
+
+        OkHttpClient client = new OkHttpClient();
+        String url = HangOutApi.baseUrl + "reservation-customer-formatted";
+        HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
+        httpBuilder.addQueryParameter("customerId", customerId.toString());
+        Request request = new Request.Builder().url(httpBuilder.build()).build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String myResponse = response.body().string();
+                    try {
+                        JSONArray reservations = new JSONArray(myResponse);
+                        for (int i = 0; i < reservations.length(); i++) {
+                            JSONObject reservation = (JSONObject)reservations.get(i);
+                            reservationShopDateTime.add((String) reservation.get("arrivalTime"));
+                            reservationShopName.add((String)reservation.get("shopName"));
+                            reservationShopAddress.add((String)reservation.get("shopAddress"));
+                        }
+                        ReservationActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                com.example.hangout_v0.Me.reservation.ReservationAdaptor reservationAdaptor = new com.example.hangout_v0.Me.reservation.ReservationAdaptor(ReservationActivity.this, reservationShopName,reservationShopAddress,reservationShopDateTime);
+                                reservationListView.setAdapter(reservationAdaptor);
+                            }
+                        });
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+
 //
-        reservationShopName= planDataStub.getReservationShopName(); // planName to replace hardcode "Plan A"
-        reservationShopAddress = planDataStub.getReservationShopAddress();
-        reservationShopDateTime = planDataStub.getReservationShopDateTime();
-//
-        com.example.hangout_v0.Me.reservation.ReservationAdaptor reservationAdaptor = new com.example.hangout_v0.Me.reservation.ReservationAdaptor(this, reservationShopName,reservationShopAddress,reservationShopDateTime);
-        reservationListView.setAdapter(reservationAdaptor);
+//        com.example.hangout_v0.Me.reservation.ReservationAdaptor reservationAdaptor = new com.example.hangout_v0.Me.reservation.ReservationAdaptor(this, reservationShopName,reservationShopAddress,reservationShopDateTime);
+//        reservationListView.setAdapter(reservationAdaptor);
 
 //        reservationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
