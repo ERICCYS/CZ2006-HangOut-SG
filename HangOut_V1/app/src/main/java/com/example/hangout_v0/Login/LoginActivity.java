@@ -10,9 +10,15 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.example.hangout_v0.ApiCall.HangOutApi;
+import com.example.hangout_v0.ApiCall.HangOutData;
 import com.example.hangout_v0.R;
 import com.example.hangout_v0.UserMainActivity;
 import com.example.hangout_v0.Vendor.VendorMainActivity;
+
+import java.util.concurrent.TimeUnit;
+
+import static com.google.android.gms.tasks.Tasks.await;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -21,8 +27,8 @@ public class LoginActivity extends AppCompatActivity {
     private Button btn_login;
     private Button btn_skip;
     private Button btn_signup;
-    private String userName;
-    private String userPassword;
+    private EditText userName;
+    private EditText userPassword;
     private CheckBox cb_vendor;
     private boolean is_vendor = false;
 
@@ -41,7 +47,9 @@ public class LoginActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if(is_vendor == false){
+                    HangOutApi.signInCustomer(userName.getText().toString(), userPassword.getText().toString());
                     switchToUserPage();
                 }
                 else{
@@ -82,13 +90,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void init(){
-        EditText userName = (EditText) findViewById(R.id.login_userName_editText);
-        EditText password = (EditText) findViewById(R.id.login_userPassword_editText);
+        userName = (EditText) findViewById(R.id.login_userName_editText);
+        userPassword = (EditText) findViewById(R.id.login_userPassword_editText);
         ImageView unameClear = (ImageView) findViewById(R.id.login_userName_clear);
         ImageView pwdClear = (ImageView) findViewById(R.id.login_userPassword_clear);
 
         com.example.hangout_v0.Login.EditTextClearTools.addClearListener(userName,unameClear);
-        com.example.hangout_v0.Login.EditTextClearTools.addClearListener(password,pwdClear);
+        com.example.hangout_v0.Login.EditTextClearTools.addClearListener(userPassword,pwdClear);
     }
 
     private void switchToUserPage(){
