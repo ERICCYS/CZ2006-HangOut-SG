@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:layout_toLeftOf="@id/signUpAsCustomerEmail"
+            android:textSize="18sp"
+            android:layout_marginRight="10dp"/>
+        <EditText
+            android:id="@+id/signUpAsCustomerEmail"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="13dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            android:layout_below="@id/signUpAsCustomerEmail"
+            android:layout_marginTop="7dp"
+            android:layout_toLeftOf="@id/signUpAsCustomerPassword"
+            android:textSize="18sp"
+            android:layout_marginRight="10dp"/>
+        <EditText
+            android:id="@+id/signUpAsCustomerPassword"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:ems="10"
+            android:layout_below="@id/signUpAsCustomerEmail"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="40dp"/>
+
+        <View
+            android:id="@+id/lineSeparator"
+            android:layout_width="50dp"
+            android:layout_height="1dp"
+            android:background="@android:color/holo_blue_dark"
+            android:layout_below="@id/signUpAsCustomerPassword"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="30dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="First Name"
+            android:layout_below="@id/lineSeparator"
+            android:layout_marginTop="7dp"
+            android:layout_toLeftOf="@id/signUpAsCustomerFirstName"
+            android:textSize="18sp"
+            android:layout_marginRight="10dp"/>
+        <EditText
+            android:id="@+id/signUpAsCustomerFirstName"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_below="@id/lineSeparator"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="40dp"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Last Name"
+            android:layout_below="@id/signUpAsCustomerFirstName"
+            android:layout_marginTop="7dp"
+            android:layout_toLeftOf="@id/signUpAsCustomerLastName"
+            android:textSize="18sp"
+            android:layout_marginRight="10dp"/>
+        <EditText
+            android:id="@+id/signUpAsCustomerLastName"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="40dp"
+            android:layout_below="@id/signUpAsCustomerFirstName"/>
+
+        <RadioGroup
+            android:id="@+id/signUpAsCustomerSelectGender"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/signUpAsCustomerLastName"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            >
+
+            <RadioButton
+                android:id="@+id/signUpAsCustomerRadioMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male"
+                android:checked="true" />
+
+            <RadioButton
+                android:id="@+id/signUpAsCustomerRadioFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female" />
+
+            <RadioButton
+                android:id="@+id/signUpAsCustomerRadioOther"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Others" />
+
+        </RadioGroup>
+
+
+        <View
+            android:id="@+id/lineSeparator2"
+            android:layout_width="50dp"
+            android:layout_height="1dp"
+            android:background="@android:color/holo_blue_dark"
+            android:layout_below="@id/signUpAsCustomerSelectGender"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Region"
+            android:layout_below="@id/lineSeparator2"
+            android:layout_marginTop="7dp"
+            android:layout_toLeftOf="@id/signUpAsCustomerRegion"
+            android:textSize="18sp"
+            android:layout_marginRight="10dp"/>
+        <EditText
+            android:id="@+id/signUpAsCustomerRegion"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_below="@id/lineSeparator2"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="40dp"
+            />
+
+        <TextView
+            android:id="@+id/signUpAsCustomerSelectDOB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date of Birthday"
+            android:layout_below="@id/signUpAsCustomerRegion"
+            android:layout_centerHorizontal="true"
+            android:textSize="15sp"
+            android:layout_marginTop="18dp"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="8dp"
+            android:background="@layout/textview_border"
+            />
+
+
+        <CheckBox
+            android:id="@+id/signUpAsCustomerHalalOption"
+            android:layout_width="90dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="60dp"
+            android:checked="false"
+            android:textSize="15sp"
+            android:text="Halal"
+            android:layout_below="@+id/signUpAsCustomerSelectDOB"
+            />
+
+        <CheckBox
+            android:id="@+id/signUpAsCustomerVegOption"
+            android:layout_width="120dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/signUpAsCustomerHalalOption"
+            android:layout_below="@id/signUpAsCustomerSelectDOB"
+            android:layout_marginLeft="50dp"
+            android:checked="false"
+            android:ems="10"
+            android:text="Vegetarian" />
+
+        <Button
+            android:id="@+id/signUpAsCustomerSignUpBtn"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Sign up"
+            android:background="@drawable/add_plan_round_corner_bg"
+            android:textSize="20sp"
+            android:paddingHorizontal="20dp"
+            android:layout_below="@id/signUpAsCustomerHalalOption"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:clickable="true"/>
+
+        <!--<EditText-->
+            <!--android:id="@+id/customerSignUpTest"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@id/signUpAsCustomerSignUpBtn"/>-->
+
+
+        <TextView
+            android:id="@+id/signUpAsCustomerChangeToCustomer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Please check 'Vendor tunnel' to sign up as a vendor"
+            android:textColor="@color/colorLoginButton"
+            android:textSize="13sp"
+            android:layout_below="@+id/signUpAsCustomerSignUpBtn"
+            android:layout_marginBottom="20dp"
+            />
+    </RelativeLayout>
+</ScrollView>

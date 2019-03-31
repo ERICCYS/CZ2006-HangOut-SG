@@ -1,12 +1,5 @@
 package com.example.hangout_v0.ApiCall;
 
-
-
-import android.app.DownloadManager;
-import android.view.textclassifier.TextClassification;
-
-import com.android.volley.toolbox.JsonObjectRequest;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
