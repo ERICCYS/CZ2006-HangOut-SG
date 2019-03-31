@@ -58,7 +58,7 @@ public class PlanDetailActivity extends AppCompatActivity {
         // Then, see the plans detail, (shops etc.)
         // Because after we get all the plans, we know each plan id
         // here we use a dummy planId
-        Long planId = 1l;
+        Long planId = 3l;
 
 
         OkHttpClient client = new OkHttpClient();
@@ -77,12 +77,13 @@ public class PlanDetailActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     String myResponse = response.body().string();
                     try {
-                        JSONArray plans = new JSONArray(myResponse);
-                        for (int i = 0; i < plans.length(); i++) {
-                            JSONObject plan = (JSONObject)plans.get(i);
-                            shopDateTime.add((String) plan.get("shopDateTime"));
-                            shopAddress.add((String)plan.get("shopName"));
-                            shopAddress.add((String)plan.get("shopAddress"));
+                        JSONArray planItems = new JSONArray(myResponse);
+                        System.out.println(planItems);
+                        for (int i = 0; i < planItems.length(); i++) {
+                            JSONObject planItem = (JSONObject)planItems.get(i);
+                            shopDateTime.add(planItem.get("shopDateTime").toString());
+                            shopName.add(planItem.get("shopName").toString());
+                            shopAddress.add(planItem.get("shopAddress").toString());
                         }
                         PlanDetailActivity.this.runOnUiThread(new Runnable() {
                             @Override
