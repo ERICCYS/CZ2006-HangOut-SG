@@ -30,7 +30,7 @@ public class MeFragment extends Fragment {
 //        AppCompatButton signInSignUp = view.findViewById(R.id.meSignInSignUpButton);
         LinearLayout reservation = view.findViewById(R.id.MeReservationLinearLayout);
         LinearLayout plan = view.findViewById(R.id.MePlanLinearLayout);
-        LinearLayout preference = view.findViewById(R.id.fragmentPreferences);
+//        LinearLayout preference = view.findViewById(R.id.fragmentPreferences);
         LinearLayout account = view.findViewById(R.id.fragmentMyAccount);
         LinearLayout helpCenter = view.findViewById(R.id.fragmentHelpCenter);
         LinearLayout more = view.findViewById(R.id.fragmentMore);
@@ -38,8 +38,7 @@ public class MeFragment extends Fragment {
         avator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent profileActivity = new Intent(getActivity(), UserProfile.class);
-                getActivity().startActivity(profileActivity);
+
             }
         });
 
@@ -65,17 +64,18 @@ public class MeFragment extends Fragment {
             }
         });
 
-        preference.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(), "this is to change PREFERENCE", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        preference.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(v.getContext(), "this is to change PREFERENCE", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "this is to ACCOUNT", Toast.LENGTH_SHORT).show();
+                Intent profileActivity = new Intent(getActivity(), UserProfile.class);
+                getActivity().startActivity(profileActivity);
             }
         });
 

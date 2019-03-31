@@ -102,34 +102,34 @@
         </LinearLayout>
 
 
-        <LinearLayout
-            android:id="@+id/fragmentPreferences"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@drawable/selector_lin"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="15dp">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/fragmentPreferences"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="60dp"-->
+            <!--android:background="@drawable/selector_lin"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:padding="15dp">-->
 
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/mine_preferences" />
+            <!--<ImageView-->
+                <!--android:layout_width="25dp"-->
+                <!--android:layout_height="25dp"-->
+                <!--android:src="@drawable/mine_preferences" />-->
 
-            <TextView
-                android:layout_width="1dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:text="Preferences"
-                android:textSize="18sp" />
+            <!--<TextView-->
+                <!--android:layout_width="1dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:text="Preferences"-->
+                <!--android:textSize="18sp" />-->
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/mine_arrow" />
+            <!--<ImageView-->
+                <!--android:layout_width="20dp"-->
+                <!--android:layout_height="20dp"-->
+                <!--android:src="@drawable/mine_arrow" />-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
         <View
             android:layout_width="match_parent"
