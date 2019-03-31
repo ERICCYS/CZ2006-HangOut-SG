@@ -1,6 +1,13 @@
 # SkyForce API Call
 
-### Variables and constant needed:
+## First things first
+To make your request work, please add this dependency in the build.gradle(Module.app)
+
+implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+
+
+
+## Variables and constant needed:
 
 ```java
 public static final String baseUrl = "http://10.27.51.140:9090/api/";
@@ -8,6 +15,8 @@ private String accessToken = "kldMaIf99i6G+0JvLQGwfw==";
 private String vendorAT = "UPXDxfiMf2SNu/D/GQBkAg==";
 public static final MediaType JSON = MediaType.parse("application/json");
 ```
+
+### API Calls
 
 ### Get Customer by customer id
 
