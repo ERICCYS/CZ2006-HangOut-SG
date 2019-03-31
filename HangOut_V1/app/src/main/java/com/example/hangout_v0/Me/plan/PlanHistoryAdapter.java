@@ -9,27 +9,27 @@ import android.widget.TextView;
 
 import com.example.hangout_v0.R;
 
+import java.util.ArrayList;
+
 public class PlanHistoryAdapter extends BaseAdapter {
-    String[] planName;
-    String[] planDescription;
-    String[] planDateTime;
+    ArrayList<String> planName;
+    ArrayList<String> planDateTime;
     LayoutInflater mInflater;
 
-    public PlanHistoryAdapter(Context c, String[] name, String[] desc, String[] dateTime ){
+    public PlanHistoryAdapter(Context c, ArrayList<String> name, ArrayList<String> dateTime ){
         planName = name;
-        planDescription = desc;
         planDateTime = dateTime;
         mInflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return planName.length;
+        return planName.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return planName[position];
+        return planName.get(position);
     }
 
     @Override
@@ -41,15 +41,12 @@ public class PlanHistoryAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View v= mInflater.inflate(R.layout.me_plan_plan_list,null);
         TextView nameTextView = (TextView) v.findViewById(R.id.me_plan_planHistoryNameTextView);
-        TextView descriptionTextView = (TextView) v.findViewById(R.id.me_plan_planHistoryDescriptionTextView);
         TextView dateTimeTextView = (TextView) v.findViewById(R.id.me_plan_planHistoryDateTimeTV);
 
-        String name = planName[position];
-        String desc = planDescription[position];
-        String date = planDateTime[position];
+        String name = planName.get(position);
+        String date = planDateTime.get(position);
 
         nameTextView.setText(name);
-        descriptionTextView.setText(desc);
         dateTimeTextView.setText(date);
         return v;
     }

@@ -12,41 +12,26 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="Name"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintHorizontal_bias="0.047"
         app:layout_constraintStart_toEndOf="@+id/me_plan_planHistoryIcon"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/me_plan_planHistoryDescriptionTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="planDescription"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.058"
-        app:layout_constraintStart_toEndOf="@+id/me_plan_planHistoryIcon"
-        app:layout_constraintTop_toBottomOf="@+id/me_plan_planHistoryNameTextView" />
-
-    <TextView
         android:id="@+id/me_plan_planHistoryDateTimeTV"
-        android:gravity="right"
-        android:textAlignment="gravity"
         android:layout_width="0dp"
         android:layout_height="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="28dp"
         android:layout_marginRight="28dp"
+        android:gravity="right"
         android:text="DateTime"
+        android:textAlignment="gravity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -68,5 +53,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.711"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/me_plan_planHistoryDescriptionTextView" />
+        tools:layout_editor_absoluteY="66dp" />
 </android.support.constraint.ConstraintLayout>

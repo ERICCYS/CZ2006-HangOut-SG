@@ -16,11 +16,13 @@ public class ReservationAdaptor extends BaseAdapter{
 
     ArrayList<String> shopName;
     ArrayList<String> shopAddress;
+    ArrayList<String> shopDateTime;
     LayoutInflater mInflater;
 
-    public ReservationAdaptor(Context c, ArrayList<String> name, ArrayList<String> shopAdd){
+    public ReservationAdaptor(Context c, ArrayList<String> name, ArrayList<String> shopAdd,ArrayList<String> shopDT){
         shopAddress = shopAdd;
         shopName = name;
+        shopDateTime = shopDT;
         mInflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -44,12 +46,15 @@ public class ReservationAdaptor extends BaseAdapter{
         View v= mInflater.inflate(R.layout.me_reservation_shop_in_list,null);
         TextView shopNameTextView =  v.findViewById(R.id.me_reservation_shopNameTextView);
         TextView shopAddressTextView = v.findViewById(R.id.me_reservation_shopAddressTextView);
+        TextView shopDateTimeTextView = v.findViewById(R.id.me_reservation_shopDateTimeTextView);
 
         String name = shopName.get(position);
         String address = shopAddress.get(position);
+        String dateTime= shopDateTime.get(position);
 
         shopNameTextView.setText(name);
         shopAddressTextView.setText(address);
+        shopDateTimeTextView.setText(dateTime);
 
         //Handle buttons and add onClickListeners
         ImageButton deleteBtn = (ImageButton) v.findViewById(R.id.me_reservation_shop_deleteBtn);
@@ -58,6 +63,8 @@ public class ReservationAdaptor extends BaseAdapter{
             public void onClick(View v) {
                 shopName.remove(position);
                 shopAddress.remove(position);
+                shopDateTime.remove(position);
+                notifyDataSetChanged();
             }
         });
 

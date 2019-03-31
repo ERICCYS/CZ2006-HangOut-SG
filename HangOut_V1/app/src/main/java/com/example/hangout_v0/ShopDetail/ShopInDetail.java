@@ -17,15 +17,16 @@ import android.widget.Toast;
 import com.example.hangout_v0.R;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
 
     AppCompatButton addPlanButton;
     AppCompatButton reserveButton;
-    String planDateString;
+    String shopDateString;
+    String shopTimeString;
     int hour, minute, hour_x, minute_x;
-    String ampm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,12 +86,18 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
     }
 
     public void addToPlan(View view) {
-        DialogFragment datePicker = new com.example.hangout_v0.ShopDetail.DatePickerFragment();
-        datePicker.show(getSupportFragmentManager(),"date picker");
+        setDateTime();
+        //add to plan backend;
     }
 
     public void reserve(View view){
-        Toast.makeText(ShopInDetail.this,"This is reserve button",Toast.LENGTH_SHORT).show();
+        setDateTime();
+        //add reservation backend;
+    }
+
+    public void setDateTime(){
+        DialogFragment datePicker = new com.example.hangout_v0.ShopDetail.DatePickerFragment();
+        datePicker.show(getSupportFragmentManager(),"date picker");
     }
 
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -98,22 +105,22 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
         c.set(Calendar.YEAR,year);
         c.set(Calendar.MONTH,month);
         c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-        planDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        shopDateString = dateFormat.format(c.getTime());
 
         hour = c.get(Calendar.HOUR);
         minute = c.get(Calendar.MINUTE);
         TimePickerDialog timePickerDialog = new TimePickerDialog(ShopInDetail.this, ShopInDetail.this,
-                hour,minute,false);
+                hour,minute,true);
         timePickerDialog.show();
 
     }
-
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         hour_x =hourOfDay;
         minute_x = minute;
-        ampm= hourOfDay<12? "AM":"PM";
-        Toast.makeText(ShopInDetail.this,planDateString+"\n"+"hour: "+hour_x+"  minute"+minute_x+ "  "+ ampm,Toast.LENGTH_SHORT).show();
+        shopTimeString = hour_x+":"+minute_x+":00";
+        Toast.makeText(ShopInDetail.this,shopDateString+"\n"+ shopTimeString,Toast.LENGTH_SHORT).show();
     }
 }

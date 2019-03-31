@@ -32,7 +32,6 @@
         <activity android:name=".welcome_page.IntroActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-
         <activity android:name=".Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
