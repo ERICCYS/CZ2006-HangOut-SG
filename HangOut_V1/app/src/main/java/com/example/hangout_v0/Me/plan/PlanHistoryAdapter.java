@@ -12,24 +12,24 @@ import com.example.hangout_v0.R;
 import java.util.ArrayList;
 
 public class PlanHistoryAdapter extends BaseAdapter {
-    ArrayList<String> planName;
-    ArrayList<String> planDateTime;
+    ArrayList<String> planNames;
+    ArrayList<String> planDateTimes;
     LayoutInflater mInflater;
 
     public PlanHistoryAdapter(Context c, ArrayList<String> name, ArrayList<String> dateTime ){
-        planName = name;
-        planDateTime = dateTime;
+        planNames = name;
+        planDateTimes = dateTime;
         mInflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return planName.size();
+        return planNames.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return planName.get(position);
+        return planNames.get(position);
     }
 
     @Override
@@ -43,8 +43,8 @@ public class PlanHistoryAdapter extends BaseAdapter {
         TextView nameTextView = (TextView) v.findViewById(R.id.me_plan_planHistoryNameTextView);
         TextView dateTimeTextView = (TextView) v.findViewById(R.id.me_plan_planHistoryDateTimeTV);
 
-        String name = planName.get(position);
-        String date = planDateTime.get(position);
+        String name = planNames.get(position);
+        String date = planDateTimes.get(position);
 
         nameTextView.setText(name);
         dateTimeTextView.setText(date);
