@@ -23,7 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.skyforce.SkyForceWebService.model.Shop;
+import com.example.hangout_v0.Vendor.Shop;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -94,7 +94,7 @@ public class VendorMainActivity extends AppCompatActivity {
                             if (shopList != null) {
                                 for (int i=0;i<shopList.length();i++){
                                     JSONObject shop = shopList.getJSONObject(i);
-                                    arrayList.add(new Shop(shop.getString("name"), shop.getString("contactNumber")));
+                                    arrayList.add(new Shop(shop.getString("name"), shop.getString("contactNumber"), shop.getLong("id")));
                                 }
                             }
                         } catch (JSONException e) {
@@ -110,9 +110,9 @@ public class VendorMainActivity extends AppCompatActivity {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id){
 
-                                String tempListView = arrayList.get(position).getName();
+                                Long tempListView = arrayList.get(position).getShopId();
                                 Intent intent = new Intent(VendorMainActivity.this, com.example.hangout_v0.Vendor.VendorShop.class);
-                                intent.putExtra("ClickedValue", tempListView);
+                                intent.putExtra("shopId", tempListView);
                                 startActivity(intent);
 
                             }
