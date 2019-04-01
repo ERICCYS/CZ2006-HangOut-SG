@@ -11,7 +11,7 @@
         android:id="@+id/vendorReserveButton"
         android:layout_width="107dp"
         android:layout_height="33dp"
-        android:layout_below="@+id/editbutton"
+        android:layout_below="@+id/vendorEditbutton"
         android:layout_alignParentRight="true"
         android:layout_marginTop="7dp"
         android:layout_marginEnd="20dp"
@@ -39,15 +39,14 @@
 
 
     <TextView
-        android:id="@+id/shopNameTextView"
+        android:id="@+id/vendorShopNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PUTIEN"
-        android:textSize="36sp"
         android:layout_below="@+id/exitFloatingActionButton"
+        android:text="shopname"
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="10dp"
-        />
+        android:textSize="36sp" />
 
     <RatingBar
         android:id="@+id/shopRatingBar"
@@ -58,7 +57,7 @@
         android:rating="5"
         android:max="5"
         style="?android:attr/ratingBarStyleSmall"
-        android:layout_below="@id/shopNameTextView"
+        android:layout_below="@id/vendorShopNameTextView"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
         />
@@ -93,7 +92,7 @@
 
     <!--location-->
     <ImageView
-        android:id="@+id/shopLocationIcon"
+        android:id="@+id/vendorShopLocationIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_location"
@@ -103,66 +102,78 @@
         />
 
     <TextView
-        android:id="@+id/shopLocationTextView"
+        android:id="@+id/vendorShopLocationTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/shopLocationIcon"
-        android:layout_marginLeft="20dp"
-        android:textSize="20sp"
-        android:text="Jurong point"/>
+        android:layout_below="@id/vendorShopLocationIcon"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="-30dp"
+        android:layout_toEndOf="@+id/vendorShopLocationIcon"
+        android:layout_toRightOf="@+id/vendorShopLocationIcon"
+        android:text="Jurong point"
+        android:textSize="20sp" />
 
     <!--phone-->
     <ImageView
-        android:id="@+id/shopPhoneNumberIcon"
+        android:id="@+id/vendorShopPhoneNumberIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_shop_phone_number"
-        android:layout_below="@id/shopLocationTextView"
+        android:layout_below="@id/vendorShopLocationTextView"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         />
 
     <TextView
-        android:id="@+id/shopPhoneNumberTextView"
+        android:id="@+id/vendorShopPhoneNumberTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/shopPhoneNumberIcon"
-        android:layout_marginLeft="20dp"
-        android:textSize="20sp"
-        android:text="1234 5678"/>
+        android:layout_below="@id/vendorShopPhoneNumberIcon"
+        android:layout_marginStart="17dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="-31dp"
+        android:layout_toEndOf="@+id/vendorShopPhoneNumberIcon"
+        android:layout_toRightOf="@+id/vendorShopPhoneNumberIcon"
+        android:text="1234 5678"
+        android:textSize="20sp" />
 
     <!--website-->
     <ImageView
-        android:id="@+id/shopWebIcon"
+        android:id="@+id/vendorShopWebIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_web"
-        android:layout_below="@id/shopPhoneNumberTextView"
+        android:layout_below="@id/vendorShopPhoneNumberTextView"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         />
 
     <TextView
-        android:id="@+id/shopWebTextView"
+        android:id="@+id/vendorShopWebTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/shopWebIcon"
-        android:layout_marginLeft="20dp"
-        android:textSize="20sp"
-        android:text="www.123.com"/>
+        android:layout_below="@id/vendorShopWebIcon"
+        android:layout_marginStart="17dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="-29dp"
+        android:layout_toEndOf="@+id/vendorShopWebIcon"
+        android:layout_toRightOf="@+id/vendorShopWebIcon"
+        android:text="www.123.com"
+        android:textSize="20sp" />
 
 
     <ListView
+        android:id="@+id/vendorShopDishListView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_below="@+id/shopWebTextView"
-        android:layout_marginTop="20dp"
-        android:id="@+id/shopDishListView">
+        android:layout_below="@+id/vendorShopWebTextView"
+        android:layout_marginTop="20dp">
 
     </ListView>
 
     <Button
-        android:id="@+id/editbutton"
+        android:id="@+id/vendorEditbutton"
         android:layout_width="109dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"

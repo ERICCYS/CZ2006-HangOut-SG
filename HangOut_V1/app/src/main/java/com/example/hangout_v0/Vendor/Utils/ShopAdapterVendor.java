@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.hangout_v0.R;
-import com.skyforce.SkyForceWebService.model.Shop;
+import com.example.hangout_v0.Vendor.Shop;
 
 import java.util.ArrayList;
 
@@ -34,6 +34,7 @@ public class ShopAdapterVendor extends BaseAdapter {
         Shop selectedShop = shops.get(position);
         shopName.setText(selectedShop.getName());
         shopNumber.setText(selectedShop.getContactNumber());
+        //selectedShop.getShopId();
         return itemView;
     }
     @Override

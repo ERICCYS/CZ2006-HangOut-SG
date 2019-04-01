@@ -17,6 +17,8 @@ public class ReservationActivity extends AppCompatActivity {
 
     ArrayList<String> reservationShopName;
     ArrayList<String> reservationShopAddress;
+    ArrayList<String> reservationShopDateTime;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +31,11 @@ public class ReservationActivity extends AppCompatActivity {
 
         PlanDataStub planDataStub = new PlanDataStub("User1");
 //
-        reservationShopName= planDataStub.getAllShopName("Plan A"); // planName to replace hardcode "Plan A"
-        reservationShopAddress = planDataStub.getAllShopAddress("Plan A");
+        reservationShopName= planDataStub.getReservationShopName(); // planName to replace hardcode "Plan A"
+        reservationShopAddress = planDataStub.getReservationShopAddress();
+        reservationShopDateTime = planDataStub.getReservationShopDateTime();
 //
-        com.example.hangout_v0.Me.reservation.ReservationAdaptor reservationAdaptor = new com.example.hangout_v0.Me.reservation.ReservationAdaptor(this, reservationShopName,reservationShopAddress);
+        com.example.hangout_v0.Me.reservation.ReservationAdaptor reservationAdaptor = new com.example.hangout_v0.Me.reservation.ReservationAdaptor(this, reservationShopName,reservationShopAddress,reservationShopDateTime);
         reservationListView.setAdapter(reservationAdaptor);
 
 //        reservationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
