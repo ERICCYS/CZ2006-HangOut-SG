@@ -12,5 +12,6 @@ public class MeHelpCenter extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.me_help_center);
+        this.getSupportActionBar().hide();
     }
 }

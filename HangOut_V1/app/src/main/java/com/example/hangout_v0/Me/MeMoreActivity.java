@@ -11,5 +11,6 @@ public class MeMoreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.me_more_layout);
+        this.getSupportActionBar().hide();
     }
 }
