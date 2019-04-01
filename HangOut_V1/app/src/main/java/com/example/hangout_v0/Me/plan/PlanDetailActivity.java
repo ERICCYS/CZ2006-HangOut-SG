@@ -47,19 +47,13 @@ public class PlanDetailActivity extends AppCompatActivity {
         Intent in= getIntent();
         String planName= in.getStringExtra("PlanName");
 
-//        PlanDataStub planDataStub = new PlanDataStub("User1");
-//
-//        shopName= planDataStub.getPlanShopName(planName);
-//        shopAddress = planDataStub.getPlanShopAddress(planName);
-//        shopDateTime = planDataStub.getPlanShopDateTime(planName);
 
 
         // My suggestion is that we should see the plans histories (a list of plans)
         // Then, see the plans detail, (shops etc.)
         // Because after we get all the plans, we know each plan id
         // here we use a dummy planId
-        Long planId = 3l;
-
+        Long planId = 1l;
 
         OkHttpClient client = new OkHttpClient();
         String url = HangOutApi.baseUrl + "plan-items-formatted";

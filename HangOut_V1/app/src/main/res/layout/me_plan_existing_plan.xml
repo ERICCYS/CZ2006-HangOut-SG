@@ -8,16 +8,15 @@
 
     <TextView
         android:id="@+id/planNameTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:background="#f46e42"
-        android:textColor="@color/white"
-        android:padding="10dp"
+        android:layout_width="369dp"
+        android:layout_height="53dp"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="15dp"
+        android:background="#f46e42"
+        android:padding="10dp"
         android:text="Plan"
-        android:textSize="24sp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

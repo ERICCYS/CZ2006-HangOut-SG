@@ -34,12 +34,17 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
+import static com.example.hangout_v0.ApiCall.HangOutApi.JSON;
+import static com.example.hangout_v0.ApiCall.HangOutData.accessToken;
+
+public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
+
 
     AppCompatButton addPlanButton;
     AppCompatButton reserveButton;
     String shopDateString;
     String shopTimeString;
+    String shopDateTimeString;
     int hour, minute, hour_x, minute_x;
 
     @Override
@@ -58,21 +63,21 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
         shopPhoto3.setImageResource(R.drawable.image3);
 
         // later call API to get data
-        String[] name = {"peach","mango","apple","pear","watermelon","cherry"};
+        String[] name = {"peach", "mango", "apple", "pear", "watermelon", "cherry"};
         String[] description = {"She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
                 "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
                 "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
                 "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
                 "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
                 "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. "};
-        Integer[] imgid = {R.drawable.image1,R.drawable.image2,R.drawable.image3,R.drawable.image4,R.drawable.image5,R.drawable.image6};
-        Float[] rating = {4.0f,3.0f,4.3f,4.0f,4.2f,4.1f};
-        String[] distance = {"4.0","3.0","4.3","4.0","4.2","4.1"};
-        String[] carParkCapacity = {"90%","80%","80%","80%","80%","80%"};
+        Integer[] imgid = {R.drawable.image1, R.drawable.image2, R.drawable.image3, R.drawable.image4, R.drawable.image5, R.drawable.image6};
+        Float[] rating = {4.0f, 3.0f, 4.3f, 4.0f, 4.2f, 4.1f};
+        String[] distance = {"4.0", "3.0", "4.3", "4.0", "4.2", "4.1"};
+        String[] carParkCapacity = {"90%", "80%", "80%", "80%", "80%", "80%"};
 
 
         ListView shopDishListView = (ListView) findViewById(R.id.shopDishListView);
-        com.example.hangout_v0.Recommendation.ShopInListAdapter shopDishAdapter = new com.example.hangout_v0.Recommendation.ShopInListAdapter(this,name,description,imgid,rating,distance,carParkCapacity);
+        com.example.hangout_v0.Recommendation.ShopInListAdapter shopDishAdapter = new com.example.hangout_v0.Recommendation.ShopInListAdapter(this, name, description, imgid, rating, distance, carParkCapacity);
         shopDishListView.setAdapter(shopDishAdapter);
 
         final FloatingActionButton addPlanFloatingActionButton = (FloatingActionButton) findViewById(R.id.addPlanFloatingActionButton);
@@ -102,29 +107,29 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
     public void addToPlan(View view) {
         setDateTime();
         //add to plan backend;
-        JSONObject newReservation = new JSONObject();
+
+        Long planId = 1l;
+        Long shopId = 2l;
+
+        JSONObject newPlanItem = new JSONObject();
         try {
-            newReservation.put("shopId", "3");
-            newReservation.put("arrivalTime", "2019-03-30 11:50:00");
+            newPlanItem.put("scheduledVisitTime", "2019-04-05 10:00:00");
+            newPlanItem.put("shopId", shopId.toString());
         } catch(JSONException e){
             e.printStackTrace();
         }
 
-        // Dummy customer Id
 
-        Long customerId = 1l;
-        Long shopId = 1l;
+        RequestBody body = RequestBody.create(JSON, newPlanItem.toString());
 
-        RequestBody body = RequestBody.create(HangOutApi.JSON, newReservation.toString());
         OkHttpClient client = new OkHttpClient();
-        String url = HangOutApi.baseUrl + "reservation";
+        String url = HangOutApi.baseUrl + "customer/plan/addPlanItem";
         HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
-        httpBuilder.addQueryParameter("customerId", customerId.toString());
-        httpBuilder.addQueryParameter("shopId", shopId.toString());
+        httpBuilder.addQueryParameter("planId", planId.toString());
         Request request = new Request.Builder()
                 .url(httpBuilder.build())
+                .addHeader("Authorization", "kldMaIf99i6G+0JvLQGwfw==")
                 .post(body)
-                .addHeader("Authorization", HangOutData.getAccessToken())
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -137,49 +142,93 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     String myResponse = response.body().string();
-
-                    //
-
-                    
+                    System.out.println(myResponse);
+                    // get full plan
+                } else {
+                    System.out.println("*************************");
                 }
             }
         });
 
 
+
     }
 
-    public void reserve(View view){
+    public void reserve(View view) {
         setDateTime();
         //add reservation backend;
 
+        JSONObject newReservation = new JSONObject();
+        try {
+            newReservation.put("shopId", "2");
+            newReservation.put("arrivalTime", "2019-04-05 10:00:00");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Long shopId = 2l;
+        Long customerId = 3l;
+
+        RequestBody body = RequestBody.create(JSON, newReservation.toString());
+        OkHttpClient client = new OkHttpClient();
+        String url = HangOutApi.baseUrl + "reservation";
+        HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
+        httpBuilder.addQueryParameter("customerId", customerId.toString());
+        httpBuilder.addQueryParameter("shopId", shopId.toString());
+        Request request = new Request.Builder()
+                .url(httpBuilder.build())
+                .post(body)
+                .addHeader("Authorization", "kldMaIf99i6G+0JvLQGwfw==")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String myResponse = response.body().string();
+                  //  textView.setText("Customer add reservation Successfully, here is the new reservation " + myResponse);
+                }
+            }
+        });
     }
 
-    public void setDateTime(){
+
+    public void setDateTime() {
         DialogFragment datePicker = new com.example.hangout_v0.ShopDetail.DatePickerFragment();
-        datePicker.show(getSupportFragmentManager(),"date picker");
+        datePicker.show(getSupportFragmentManager(), "date picker");
     }
 
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        Calendar c= Calendar.getInstance();
-        c.set(Calendar.YEAR,year);
-        c.set(Calendar.MONTH,month);
-        c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         shopDateString = dateFormat.format(c.getTime());
 
         hour = c.get(Calendar.HOUR);
         minute = c.get(Calendar.MINUTE);
         TimePickerDialog timePickerDialog = new TimePickerDialog(ShopInDetail.this, ShopInDetail.this,
-                hour,minute,true);
+                hour, minute, true);
         timePickerDialog.show();
 
     }
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        hour_x =hourOfDay;
+        hour_x = hourOfDay;
         minute_x = minute;
-        shopTimeString = hour_x+":"+minute_x+":00";
-        Toast.makeText(ShopInDetail.this,"Add shop successully",Toast.LENGTH_SHORT).show();
+
+        String hours = String.format("%02d",hour_x);
+        String minutes = String.format("%02d",minute_x);
+
+        shopTimeString = hours + ":" + minutes + ":00";
+        shopDateTimeString = shopDateString + " "+ shopTimeString;
+        Toast.makeText(ShopInDetail.this, "Add shop successully " + shopDateTimeString, Toast.LENGTH_SHORT).show();
     }
 }

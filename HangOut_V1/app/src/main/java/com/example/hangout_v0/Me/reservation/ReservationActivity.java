@@ -59,9 +59,9 @@ public class ReservationActivity extends AppCompatActivity {
                         JSONArray reservations = new JSONArray(myResponse);
                         for (int i = 0; i < reservations.length(); i++) {
                             JSONObject reservation = (JSONObject)reservations.get(i);
-                            reservationShopDateTime.add(((String) reservation.get("arrivalTime")).substring(5,16));
-                            reservationShopName.add((String)reservation.get("shopName"));
-                            reservationShopAddress.add((String)reservation.get("shopAddress"));
+                            reservationShopDateTime.add((reservation.get("arrivalTime").toString()).substring(5,16));
+                            reservationShopName.add(reservation.get("shopName").toString());
+                            reservationShopAddress.add(reservation.get("shopAddress").toString());
                         }
                         ReservationActivity.this.runOnUiThread(new Runnable() {
                             @Override
