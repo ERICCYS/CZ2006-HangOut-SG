@@ -21,12 +21,10 @@ import okhttp3.Response;
 
 public class HangOutApi {
     public static final String baseUrl = "http://10.27.51.140:9090/api/";
-    //public static final String baseUrl = "http://10.27.236.203:9090/api/";
+
     private String accessToken = "kldMaIf99i6G+0JvLQGwfw==";
-
-
     public static String vendorAT = "UPXDxfiMf2SNu/D/GQBkAg==";
-    //public static String vendorAT = "vDDMqrKyYoleQ+fmM4p7bQ==";
+
     private static final String key = "Bar12345Bar12345";
     public static final MediaType JSON = MediaType.parse("application/json");
 
