@@ -73,9 +73,18 @@ public class RecommendationFragment extends Fragment {
         recShopListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String chosenShopId = ids.get(position);
+
+
                 Intent shopDetailActivity = new Intent(view.getContext(), ShopInDetail.class);
-                shopDetailActivity.putExtra("shopId",chosenShopId);
+
+                shopDetailActivity.putExtra("chosenShopId",ids.get(position));
+                shopDetailActivity.putExtra("chosenShopName",names.get(position));
+                shopDetailActivity.putExtra("chosenShopLocation",locations.get(position));
+                shopDetailActivity.putExtra("chosenShopPhone",contactNumbers.get(position));
+                shopDetailActivity.putExtra("chosenShopEmail",contactEmails.get(position));
+                shopDetailActivity.putExtra("chosenShopRating", Float.toString(rating[position]));
+                shopDetailActivity.putExtra("chosenShopCarpark", carParkNumbers.get(position));
+
                 startActivity(shopDetailActivity);
             }
         });
