@@ -10,16 +10,29 @@ import android.widget.Toast;
 
 import com.example.hangout_v0.ApiCall.HangOutApi;
 import com.example.hangout_v0.Me.plan.PlanHistoryAdapter;
+import com.example.hangout_v0.Me.reservation.ReservationActivity;
 import com.example.hangout_v0.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 
 public class PlanHistoryActivity extends AppCompatActivity {
 
     ListView plansListView;
-    ArrayList<String> planName;
-    ArrayList<String> planDateTime;
+    ArrayList<String> planNames = new ArrayList<>();
+    ArrayList<String> planDateTimes = new ArrayList<>();
 
     public static PlanDataStub planDataStub;
 
@@ -27,17 +40,57 @@ public class PlanHistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.me_plan_plan_history);
-
         this.getSupportActionBar().hide();
-
-        planDataStub = new PlanDataStub("user");
         plansListView = (ListView) findViewById(R.id.planListView);
 
-        planName = planDataStub.getAllPlanName();
-        planDateTime =  planDataStub.getAllPlanDateTime();
 
-        PlanHistoryAdapter planHistoryAdapter = new PlanHistoryAdapter(this, planName,planDateTime);
-        plansListView.setAdapter(planHistoryAdapter);
+
+        Long customerId = 3l;
+
+        OkHttpClient client = new OkHttpClient();
+        String url = HangOutApi.baseUrl + "customer-plan-formatted";
+        HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
+        httpBuilder.addQueryParameter("customerId", customerId.toString());
+        Request request = new Request.Builder().url(httpBuilder.build()).build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String myResponse = response.body().string();
+                    try {
+                        JSONArray plans = new JSONArray(myResponse);
+                        for (int i = 0; i < plans.length(); i++) {
+                            JSONObject plan = (JSONObject)plans.get(i);
+                            // Plan Id is needed in plan detail
+                            // here plan id can be added to using (create a new planId array
+                            // planId.add((String) plan.get("planId"));
+                            planNames.add((String) plan.get("planName"));
+                            planDateTimes.add((String)plan.get("planDateTime"));
+                        }
+                        PlanHistoryActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                PlanHistoryAdapter planHistoryAdapter = new PlanHistoryAdapter(PlanHistoryActivity.this, planNames,planDateTimes);
+                                plansListView.setAdapter(planHistoryAdapter);
+                            }
+                        });
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+
+
+//        PlanHistoryAdapter planHistoryAdapter = new PlanHistoryAdapter(this, planName,planDateTime);
+//        plansListView.setAdapter(planHistoryAdapter);
 
         plansListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -45,7 +98,7 @@ public class PlanHistoryActivity extends AppCompatActivity {
                 //Toast.makeText(getBaseContext(),"This is a past plan",Toast.LENGTH_SHORT).show();
                 Intent showPlanDetailActivity
                         = new Intent(getApplicationContext(),PlanDetailActivity.class);
-                showPlanDetailActivity.putExtra("PlanName",planName.get(position)); //todo 1 change to position
+                showPlanDetailActivity.putExtra("PlanName",planNames.get(position)); //todo 1 change to position
                 startActivity(showPlanDetailActivity);
             }
         });

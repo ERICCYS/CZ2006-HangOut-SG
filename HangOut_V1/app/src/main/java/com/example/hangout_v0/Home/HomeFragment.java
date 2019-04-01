@@ -13,9 +13,13 @@ import android.view.ViewGroup;
 import android.text.TextUtils;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
+
+import com.example.hangout_v0.Login.LoginActivity;
 import com.youth.banner.Banner;
 import java.util.ArrayList;
 
@@ -26,10 +30,12 @@ public class HomeFragment extends Fragment {
     private SearchView mSearchView = null;
     private ListView mListView = null;
     private String[] mDatas = {};
+
     private ImageView imageButton_1;
     private ImageView imageButton_2;
     private ImageView imageButton_3;
     private ImageView imageButton_4;
+
 
     private ArrayList<Integer> images;
 
@@ -44,6 +50,15 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.homepage_layout, container, false);
 
+        icon1 = view.findViewById(R.id.home_icon1_food);
+        icon1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(),"unexisting account or incorrect password", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_UNSPECIFIED);
         ///////////////////////////////////////////////////////////////////////////////////
 
@@ -52,6 +67,7 @@ public class HomeFragment extends Fragment {
         banner.setImageLoader(new com.example.hangout_v0.Home.GlideImageLoader());
         banner.setImages(images);
         banner.start();
+
 
         imageButton_1 = view.findViewById(R.id.home_icon_food);
         imageButton_2 = view.findViewById(R.id.home_icon_entertainment);
@@ -109,6 +125,7 @@ public class HomeFragment extends Fragment {
 //            }
 //        });
 
+
         ///////////////////////////////////////////////////////////////////////////////////
 
         mViewPager = (ViewPager) view.findViewById(R.id.home_cardViewPager);
@@ -139,5 +156,6 @@ public class HomeFragment extends Fragment {
         images.add(R.drawable.home_banner_shop_folklore);
         images.add(R.drawable.home_banner_shop_humpback);
     }
+
 }
 

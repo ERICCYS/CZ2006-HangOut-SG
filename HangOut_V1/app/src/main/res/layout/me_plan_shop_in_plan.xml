@@ -18,7 +18,7 @@
 
     <TextView
         android:id="@+id/me_plan_shopDateTimeTextView"
-        android:layout_width="123dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/me_shop_in_plan_icon"
         android:layout_marginTop="3dp"

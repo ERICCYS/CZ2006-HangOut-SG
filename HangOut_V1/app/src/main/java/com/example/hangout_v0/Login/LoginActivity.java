@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.hangout_v0.ApiCall.HangOutApi;
 import com.example.hangout_v0.ApiCall.HangOutData;
@@ -92,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                                 // Able to get the access token.
                             } else {
                                 System.out.println("****************************Log in failed***************************");
+                                Toast.makeText(LoginActivity.this,"unexisting account or incorrect password", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
