@@ -23,7 +23,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.example.hangout_v0.Vendor.Shop;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -108,11 +107,14 @@ public class VendorMainActivity extends AppCompatActivity {
                         //listview end
                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
                             @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id){
+                            public void onItemClick(AdapterView<?> adapterView, View view, int position, long idd){
 
                                 Long tempListView = arrayList.get(position).getShopId();
                                 Intent intent = new Intent(VendorMainActivity.this, com.example.hangout_v0.Vendor.VendorShop.class);
-                                intent.putExtra("shopId", tempListView);
+                                Bundle extras = new Bundle();
+                                extras.putLong("shopId", tempListView);
+                                extras.putLong("vendorId", id);
+                                intent.putExtras(extras);
                                 startActivity(intent);
 
                             }
