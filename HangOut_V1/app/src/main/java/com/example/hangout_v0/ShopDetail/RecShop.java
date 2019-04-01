@@ -1,4 +1,6 @@
-package com.example.hangout_v0.Recommendation;
+package com.example.hangout_v0.ShopDetail;
+
+
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Random;
