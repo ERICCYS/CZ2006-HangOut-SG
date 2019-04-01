@@ -14,11 +14,25 @@ import android.widget.ListView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.hangout_v0.ApiCall.HangOutApi;
+import com.example.hangout_v0.ApiCall.HangOutData;
 import com.example.hangout_v0.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
 
@@ -88,11 +102,56 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
     public void addToPlan(View view) {
         setDateTime();
         //add to plan backend;
+        JSONObject newReservation = new JSONObject();
+        try {
+            newReservation.put("shopId", "3");
+            newReservation.put("arrivalTime", "2019-03-30 11:50:00");
+        } catch(JSONException e){
+            e.printStackTrace();
+        }
+
+        // Dummy customer Id
+
+        Long customerId = 1l;
+        Long shopId = 1l;
+
+        RequestBody body = RequestBody.create(HangOutApi.JSON, newReservation.toString());
+        OkHttpClient client = new OkHttpClient();
+        String url = HangOutApi.baseUrl + "reservation";
+        HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
+        httpBuilder.addQueryParameter("customerId", customerId.toString());
+        httpBuilder.addQueryParameter("shopId", shopId.toString());
+        Request request = new Request.Builder()
+                .url(httpBuilder.build())
+                .post(body)
+                .addHeader("Authorization", HangOutData.getAccessToken())
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String myResponse = response.body().string();
+
+                    //
+
+                    
+                }
+            }
+        });
+
+
     }
 
     public void reserve(View view){
         setDateTime();
         //add reservation backend;
+
     }
 
     public void setDateTime(){
