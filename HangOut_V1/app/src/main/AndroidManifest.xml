@@ -15,7 +15,7 @@
 
         <activity android:name=".Login.SignUpAsCustomer"/>
         <activity android:name=".Login.SignUpAsVendor"/>
-        <activity android:name=".ShopDetail.ShopInDetail" />
+        <!--<activity android:name=".ShopDetail.ShopInDetail" />-->
         <activity android:name=".UserMainActivity" />
 
         <activity android:name=".Vendor.VendorMainActivity" />
@@ -30,11 +30,12 @@
         <activity android:name=".Me.MeMoreActivity" />
         <activity android:name=".Me.avator.EditCustomerProfile" />
         <activity android:name=".Me.reservation.ReservationActivity"/>
+        <activity android:name=".Login.LoginActivity"/>
         <activity android:name=".Me.MeHelpCenter"/>
         <activity android:name=".welcome_page.IntroActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-        <activity android:name=".Login.LoginActivity">
+        <activity android:name=".ShopDetail.ShopInDetail">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

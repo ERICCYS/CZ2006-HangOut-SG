@@ -17,13 +17,23 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hangout_v0.ApiCall.HangOutApi;
+import com.example.hangout_v0.ApiCall.HangOutData;
 import com.example.hangout_v0.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.io.IOException;
 import java.util.Calendar;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class SignUpAsCustomer extends AppCompatActivity {
 
@@ -36,8 +46,7 @@ public class SignUpAsCustomer extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener signupDateSetListener;
 
     String firstName, lastName, email, password, region, dob, gender;
-    Boolean halal=false, veg=false;
-
+    Boolean halal = false, veg = false;
 
 
     @Override
@@ -58,7 +67,7 @@ public class SignUpAsCustomer extends AppCompatActivity {
         signUpBtn = findViewById(R.id.signUpAsCustomerSignUpBtn);
 
         halalCb = findViewById(R.id.signUpAsCustomerHalalOption);
-        vegCb =  findViewById(R.id.signUpAsCustomerVegOption);
+        vegCb = findViewById(R.id.signUpAsCustomerVegOption);
 
         DOBtv = findViewById(R.id.signUpAsCustomerSelectDOB);
 
@@ -67,7 +76,7 @@ public class SignUpAsCustomer extends AppCompatActivity {
         DOBtv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar cal  = Calendar.getInstance();
+                Calendar cal = Calendar.getInstance();
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
@@ -85,7 +94,7 @@ public class SignUpAsCustomer extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month++;
-                dob = Integer.toString(month) +'/' + Integer.toString(dayOfMonth) + '/'+ Integer.toString(year);
+                dob = Integer.toString(year) + '-' + String.format("%02d", month)  + '-' + String.format("%02d", dayOfMonth);
                 DOBtv.setText(dob);
             }
         };
@@ -103,7 +112,7 @@ public class SignUpAsCustomer extends AppCompatActivity {
                 // sex
                 int selectedId = radioSexGroup.getCheckedRadioButtonId();
                 selectedSexBtn = findViewById(selectedId);
-                gender = selectedSexBtn.getText().toString();
+                gender = selectedSexBtn.getText().toString().toUpperCase();
 
                 // store data
                 JSONObject newCustomer = new JSONObject();
@@ -118,38 +127,75 @@ public class SignUpAsCustomer extends AppCompatActivity {
                     newCustomer.put("halaPreference", halal);
                     newCustomer.put("vegPreference", veg);
                     newCustomer.put("regionalPreference", region);
-                } catch(JSONException e){
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                // Call API to sign up
+                System.out.println(newCustomer);
+                RequestBody body = RequestBody.create(HangOutApi.JSON, newCustomer.toString());
+                OkHttpClient client = new OkHttpClient();
+                String url = HangOutApi.baseUrl + "customer";
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(body)
+                        .build();
 
-                Toast.makeText(SignUpAsCustomer.this,"sign up successfully", Toast.LENGTH_SHORT).show();
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        if (response.isSuccessful()) {
+                            String myResponse = response.body().string();
+                            HangOutData.setAccessToken(myResponse);
+                            SignUpAsCustomer.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(SignUpAsCustomer.this, "sign up successfully", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else {
+                            SignUpAsCustomer.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(SignUpAsCustomer.this, "sign up failed", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }
+                });
+
+//                Toast.makeText(SignUpAsCustomer.this,"sign up successfully", Toast.LENGTH_SHORT).show();
 
                 finish();
             }
         });
 
 
-        halalCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+        halalCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView,
                                          boolean isChecked) {
                 // TODO Auto-generated method stub
-                if(isChecked){
+                if (isChecked) {
                     halal = true;
-                }else{
+                } else {
                     halal = false;
                 }
             }
         });
 
-        vegCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+        vegCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView,
                                          boolean isChecked) {
                 // TODO Auto-generated method stub
-                if(isChecked){
+                if (isChecked) {
                     veg = true;
-                }else{
+                } else {
                     veg = false;
                 }
             }

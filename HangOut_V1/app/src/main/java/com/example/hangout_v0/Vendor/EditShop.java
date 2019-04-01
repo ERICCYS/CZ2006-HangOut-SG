@@ -9,12 +9,14 @@ import android.widget.Toast;
 import com.example.hangout_v0.R;
 
 public class EditShop extends AppCompatActivity{
-
+    public Long shopId;
     Button submit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vendor_edit_shop);
+        //shopId = getIntent().getLongExtra("shopId", 1);
+        //TO DO: link front end and
         submit = (Button) findViewById(R.id.submitButton);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override

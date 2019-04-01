@@ -9,9 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.hangout_v0.Me.avator.EditCustomerProfile;
+import com.example.hangout_v0.ApiCall.HangOutApi;
 import com.example.hangout_v0.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,27 +21,119 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.UUID;
 
-public class AddShop extends AppCompatActivity{
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
+import static com.example.hangout_v0.ApiCall.HangOutApi.JSON;
+
+public class AddShop extends AppCompatActivity{
+    public static final String baseUrl = "http://10.27.51.140:9090/api/";
+    private Long vendorId;
     Button submit, addCertificate;
+    EditText shopname, contactnumber, address, contactemail, categori;
     public static final int PICK_IMAGE = 1;
     private Uri certifUri;
     private StorageReference storageRef;
     private String certifUrl;
+    private String shopName;
+    private String contactNumber;
+    private String contactEmail;
+    private String location;
+    private String category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vendor_add_shop);
+
+        final Long vendorId = getIntent().getLongExtra("vendorId", 0);
+        shopname = (EditText) findViewById(R.id.addShopName);
+        contactnumber = (EditText) findViewById(R.id.addContactNumber);
+        address = (EditText) findViewById(R.id.addAddress);
+        contactemail = (EditText) findViewById(R.id.addContactEmail);
+        categori = (EditText) findViewById(R.id.addCategory);
+
         submit = (Button) findViewById(R.id.submitButton);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO: call api to store information
-                Toast toast = Toast.makeText(getApplicationContext(), "Successfully submitted!", Toast.LENGTH_SHORT);
-                toast.show();
+                shopName = shopname.getText().toString();
+                contactNumber = contactnumber.getText().toString();
+                location = address.getText().toString();
+                contactEmail = contactemail.getText().toString();
+                category = categori.getText().toString();
+                JSONObject newShop = new JSONObject();
+                try {
+                    newShop.put("name", shopName);
+                    newShop.put("contactNumber", contactNumber);
+                    newShop.put("contactEmail", contactEmail);
+                    newShop.put("category", category);
+                    newShop.put("location", location);
+                    JSONArray carParks = new JSONArray();
+                    carParks.put("HLM");
+                    newShop.put("carParkNumbers", carParks);
+                } catch(JSONException e){
+                    e.printStackTrace();
+                }
+                RequestBody body = RequestBody.create(JSON, newShop.toString());
+                OkHttpClient client = new OkHttpClient();
+                String url = baseUrl + "vendor/shop";
+                HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
+                httpBuilder.addQueryParameter("vendorId", vendorId.toString());
+                Request request = new Request.Builder()
+                        .url(httpBuilder.build())
+                        .post(body)
+                        .addHeader("Authorization", HangOutApi.vendorAT)
+                        .build();
+
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        if (response.isSuccessful()) {
+                            String myResponse = response.body().string();
+                            try {
+                                System.out.println(myResponse);
+                                JSONObject shop = new JSONObject(myResponse);
+//                                JSONArray shopList = HangOutData.getShopList();
+                                AddShop.this.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast toast = Toast.makeText(getApplicationContext(), "Successfully submitted!", Toast.LENGTH_SHORT);
+                                        toast.show();
+                                        Intent mainActivity = new Intent(getApplicationContext(),VendorMainActivity.class);
+                                        startActivity(mainActivity);
+
+                                    }
+                                });
+//                                shopList.put(shop);
+//                                HangOutData.setShopList(shopList);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            //HangOutData.setVendor();
+                            //textView.setText("Vendor add shop Successfully, here is the new vendor info " + myResponse);
+                        }
+                    }
+                });
+
                 finish();
             }
         });

@@ -2,6 +2,7 @@ package com.example.hangout_v0.Recommendation;
 
 
 import android.app.Activity;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,26 +16,33 @@ import android.widget.TextView;
 
 import com.example.hangout_v0.R;
 
+import java.util.ArrayList;
+
 
 public class ShopInListAdapter extends ArrayAdapter<String> {
     private Activity context;
 
     private String[] name;
     private String[] description;
-    private Integer[] imgid;
+    private String[] imgid;
     private Float[] rating;
     private String[] distance;
     private String[] carParkCapacity;
 
-    public ShopInListAdapter(Activity context, String[] name, String[] description, Integer[] imgid, Float[] rating, String[] distance, String[] carParkCapacity) {
-        super(context, R.layout.shop_item_in_list, name);
+    public ShopInListAdapter(Activity context, ArrayList<RecShop> recShopList) {
+
+        super(context, R.layout.shop_item_in_list);
         this.context = context;
-        this.name=name;
-        this.description=description;
-        this.imgid=imgid;
-        this.rating=rating;
-        this.distance=distance;
-        this.carParkCapacity=carParkCapacity;
+
+        for (int i =0; i<recShopList.size(); i++){
+            this.name[i]=recShopList.get(i).getName();
+            this.description[i] = recShopList.get(i).getDescription();
+            this.imgid[i] = "https://static.boredpanda.com/blog/wp-content/uploads/2017/11/My-most-popular-pic-since-I-started-dog-photography-5a0b38cbd5e1e__880.jpg";
+            this.rating[i]=recShopList.get(i).getRating();
+            this.distance[i] = recShopList.get(i).getDistance();
+            this.carParkCapacity[i] = recShopList.get(i).getCarParkNumbers();
+
+        }
     }
 
     @NonNull
@@ -56,7 +64,7 @@ public class ShopInListAdapter extends ArrayAdapter<String> {
 
         viewHolder.nameView.setText(name[position]);
         viewHolder.descriptionView.setText(description[position]);
-        viewHolder.imageView.setImageResource(imgid[position]);
+        viewHolder.imageView.setImageURI(Uri.parse(imgid[position]));
         viewHolder.ratingView.setRating(rating[position]);
         viewHolder.distanceView.setText(distance[position]);
         viewHolder.carParkCapacityView.setText(carParkCapacity[position]);

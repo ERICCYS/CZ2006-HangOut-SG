@@ -85,6 +85,53 @@
             android:layout_marginTop="10dp"/>
 
         <EditText
+            android:id="@+id/editCustomerPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter New Password"
+            android:inputType="textVisiblePassword"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/editCustomerEmail"
+            android:layout_marginTop="10dp"/>
+
+        <RadioGroup
+            android:id="@+id/editCustomerGender"
+            android:layout_marginTop="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/editCustomerPassword"
+            android:orientation="horizontal"
+            >
+
+            <RadioButton
+                android:id="@+id/editRadioMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male"
+                android:checked="true" />
+
+            <RadioButton
+                android:id="@+id/editRadioFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female" />
+
+            <RadioButton
+                android:id="@+id/editRadioOther"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Others" />
+
+        </RadioGroup>
+
+
+        <EditText
             android:id="@+id/editCustomerRegion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -92,8 +139,11 @@
             android:hint="Enter Region"
             android:inputType="textAutoCorrect"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/editCustomerEmail"
+            android:layout_below="@id/editCustomerGender"
             android:layout_marginTop="10dp"/>
+
+
+
 
         <TextView
             android:id="@+id/editDOB"

@@ -48,39 +48,40 @@
         android:layout_marginRight="0dp"
         android:background="#fafafa" />
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="horizontal" >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="40dp">
 
-        <ImageView
-            android:id="@+id/home_icon_food"
+        <Button
+            android:id="@+id/home_icon1_food"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/home_icon_food"
-            android:layout_weight="1"
+            android:background="@drawable/home_icon_food"
+            android:layout_alignParentLeft="true"
+            />
+
+        <Button
+            android:id="@+id/home_icon2_entertainment"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/home_icon_entertainment"
+            android:layout_centerHorizontal="true"
+
+            />
+
+        <Button
+            android:id="@+id/home_icon3_plaza"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/home_icon_shopping"
             android:paddingLeft="20dp"
-            />
-
-        <ImageView
-            android:id="@+id/home_icon_entertainment"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/home_icon_entertainment"
-            android:layout_weight="1"
-            />
-
-        <ImageView
-            android:id="@+id/home_icon_plaza"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/home_icon_shopping"
-            android:layout_weight="1"
-            android:paddingRight="20dp"
+            android:layout_alignParentRight="true"
             />
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
     <View

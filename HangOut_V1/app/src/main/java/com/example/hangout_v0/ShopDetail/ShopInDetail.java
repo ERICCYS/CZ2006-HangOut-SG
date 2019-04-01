@@ -2,6 +2,7 @@ package com.example.hangout_v0.ShopDetail;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
@@ -19,6 +20,10 @@ import android.widget.Toast;
 import com.example.hangout_v0.ApiCall.HangOutApi;
 import com.example.hangout_v0.ApiCall.HangOutData;
 import com.example.hangout_v0.R;
+import com.example.hangout_v0.Recommendation.RecShop;
+
+
+import org.json.JSONArray;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +31,17 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.jar.JarException;
+
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -75,7 +90,6 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
         img2 = findViewById(R.id.shopPhoto2);
         img3 = findViewById(R.id.shopPhoto3);
 
-        //2 and 3
         if(shopId == 2){
             img1.setImageDrawable(getResources().getDrawable(R.drawable.huoguo));
             img2.setImageDrawable(getResources().getDrawable(R.drawable.huoguo2));
@@ -111,7 +125,9 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
                         jsonRecShop = HangOutData.getShop();
                         try {
                             System.out.print("Get success");
-                            shopDetail = new RecShop(
+
+                             shopDetail = new RecShop(
+
                                     jsonRecShop.get("id").toString(),
                                     jsonRecShop.get("name").toString(),
                                     jsonRecShop.get("contactNumber").toString(),
@@ -120,6 +136,7 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
                                     jsonRecShop.get("location").toString(),
                                     jsonRecShop.get("carParkNumbers").toString()
                             );
+
 
                             shopNameTv.setText(shopDetail.getName());
                             shopLocation.setText(shopDetail.getLocation());
@@ -141,7 +158,6 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
                     System.out.println("Response is not successful");
                 }
             }
-
 
         });
 
@@ -338,3 +354,24 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
         Toast.makeText(ShopInDetail.this, "Add shop successully " + shopDateTimeString, Toast.LENGTH_SHORT).show();
     }
 }
+
+//        ImageView shopPhoto1 = (ImageView) findViewById(R.id.shopPhoto1);
+//        ImageView shopPhoto2 = (ImageView) findViewById(R.id.shopPhoto2);
+//        ImageView shopPhoto3 = (ImageView) findViewById(R.id.shopPhoto3);
+//
+//        shopPhoto1.setImageResource(R.drawable.image1);
+//        shopPhoto2.setImageResource(R.drawable.image2);
+//        shopPhoto3.setImageResource(R.drawable.image3);
+
+// later call API to get data
+//        String[] name = {"peach","mango","apple","pear","watermelon","cherry"};
+//        String[] description = {"She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
+//                "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
+//                "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
+//                "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
+//                "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
+//                "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. "};
+//        Integer[] imgid = {R.drawable.image1,R.drawable.image2,R.drawable.image3,R.drawable.image4,R.drawable.image5,R.drawable.image6};
+//        Float[] rating = {4.0f,3.0f,4.3f,4.0f,4.2f,4.1f};
+//        String[] distance = {" ","","" ,"","",""};
+//        String[] carParkCapacity = {"","","","","",""};
