@@ -17,32 +17,31 @@ import android.widget.TextView;
 import com.example.hangout_v0.R;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class ShopInListAdapter extends ArrayAdapter<String> {
     private Activity context;
 
-    private String[] name;
-    private String[] description;
-    private String[] imgid;
-    private Float[] rating;
-    private String[] distance;
-    private String[] carParkCapacity;
+    private ArrayList<String> name;
+    private ArrayList<String> locations;
+    private ArrayList<String> carParkCapacity;
 
-    public ShopInListAdapter(Activity context, ArrayList<RecShop> recShopList) {
+    private int[] image;
+    private float[] rating;
 
-        super(context, R.layout.shop_item_in_list);
+
+
+    public ShopInListAdapter(Activity context, ArrayList<String> name, ArrayList<String> locations, int[] image, float[] rating, ArrayList<String> carParkCapacity) {
+        super(context, R.layout.shop_item_in_list, name);
         this.context = context;
 
-        for (int i =0; i<recShopList.size(); i++){
-            this.name[i]=recShopList.get(i).getName();
-            this.description[i] = recShopList.get(i).getDescription();
-            this.imgid[i] = "https://static.boredpanda.com/blog/wp-content/uploads/2017/11/My-most-popular-pic-since-I-started-dog-photography-5a0b38cbd5e1e__880.jpg";
-            this.rating[i]=recShopList.get(i).getRating();
-            this.distance[i] = recShopList.get(i).getDistance();
-            this.carParkCapacity[i] = recShopList.get(i).getCarParkNumbers();
+        this.name=name;
+        this.locations=locations;
+        this.image=image;
+        this.rating=rating;
+        this.carParkCapacity=carParkCapacity;
 
-        }
     }
 
     @NonNull
@@ -62,12 +61,17 @@ public class ShopInListAdapter extends ArrayAdapter<String> {
             viewHolder=(ViewHolder) r.getTag();
         }
 
-        viewHolder.nameView.setText(name[position]);
-        viewHolder.descriptionView.setText(description[position]);
-        viewHolder.imageView.setImageURI(Uri.parse(imgid[position]));
-        viewHolder.ratingView.setRating(rating[position]);
-        viewHolder.distanceView.setText(distance[position]);
-        viewHolder.carParkCapacityView.setText(carParkCapacity[position]);
+        viewHolder.nameView.setText(name.get(position));
+        viewHolder.descriptionView.setText(locations.get(position));
+        if (position==0)
+            viewHolder.imageView.setImageResource(image[0]);
+        else if (position==1)
+            viewHolder.imageView.setImageResource(image[1]);
+        else
+            viewHolder.imageView.setImageResource(image[2]);
+        viewHolder.ratingView.setRating(rating[new Random().nextInt(5)]);
+        viewHolder.distanceView.setText("");
+        viewHolder.carParkCapacityView.setText(carParkCapacity.get(position));
 
         return r;
     }
@@ -91,3 +95,4 @@ class ViewHolder{
         carParkCapacityView = v.findViewById(R.id.carParkCapacityTextView);
     }
 }
+

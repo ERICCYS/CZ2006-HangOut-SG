@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.example.hangout_v0.ApiCall.HangOutApi;
 import com.example.hangout_v0.ApiCall.HangOutData;
 import com.example.hangout_v0.R;
-import com.example.hangout_v0.Recommendation.RecShop;
+//import com.example.hangout_v0.Recommendation.RecShop;
 
 
 import org.json.JSONArray;
@@ -69,14 +69,15 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
     RatingBar ratingBar;
     ImageView img1, img2, img3;
 
+    String shopId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_in_detail_user);
 
-//        Intent intent = getIntent();
-//        Long shopId = Long.parseLong(intent.getStringExtra("chosenShopId"));
-        final Long shopId = Long.valueOf(2);
+        Intent intent = getIntent();
+        shopId =intent.getStringExtra("chosenShopId");
 
         this.getSupportActionBar().hide();
 
