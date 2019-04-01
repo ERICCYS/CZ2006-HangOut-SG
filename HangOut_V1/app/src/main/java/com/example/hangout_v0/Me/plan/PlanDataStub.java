@@ -1,12 +1,6 @@
 package com.example.hangout_v0.Me.plan;
 
-import android.app.DownloadManager;
-import android.widget.Toast;
-
-import com.example.hangout_v0.ApiCall.HangOutApi;
 import com.example.hangout_v0.ApiCall.HangOutData;
-import com.example.hangout_v0.Me.plan.PlanHistoryAdapter;
-import com.example.hangout_v0.Vendor.AddShop;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,9 +8,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -268,8 +259,5 @@ public class PlanDataStub {
             //todo
         }
     }
-
-
-
 }
 
