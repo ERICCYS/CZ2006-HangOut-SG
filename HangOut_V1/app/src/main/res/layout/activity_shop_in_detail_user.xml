@@ -215,14 +215,33 @@
         android:text="www.123.com"/>
 
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/shopWebTextView"
-        android:layout_marginTop="20dp"
-        android:id="@+id/shopDishListView">
+    <!--<ListView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_below="@+id/shopWebTextView"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:id="@+id/shopDishListView">-->
 
-    </ListView>
+    <!--</ListView>-->
+
+    <ImageView
+        android:id="@+id/shopCarParkIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/shopdetail_carpark_icon"
+        android:layout_below="@id/shopWebTextView"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/shopCarParkTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/shopCarParkIcon"
+        android:layout_marginLeft="20dp"
+        android:textSize="20sp"
+        android:text="Nearby Car Parks: "/>
 
 
 

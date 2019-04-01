@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -29,6 +31,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.jar.JarException;
 
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -45,23 +48,50 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
     String shopDateString;
     String shopTimeString;
     int hour, minute, hour_x, minute_x;
+    JSONObject jsonRecShop;
+    RecShop shopDetail;
+    TextView shopNameTv, shopLocation, phoneNo, email;
+    RatingBar ratingBar;
+    ImageView img1, img2, img3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_in_detail_user);
 
-        Intent intent = getIntent();
-        Long shopId = Long.parseLong(intent.getStringExtra("chosenShopId"));
+//        Intent intent = getIntent();
+//        Long shopId = Long.parseLong(intent.getStringExtra("chosenShopId"));
+        final Long shopId = Long.valueOf(2);
 
         this.getSupportActionBar().hide();
 
+        // find views
+        shopNameTv = findViewById(R.id.shopNameTextView);
+        shopLocation = findViewById(R.id.shopLocationTextView);
+        phoneNo = findViewById(R.id.shopPhoneNumberTextView);
+        email = findViewById(R.id.shopWebTextView);
+        ratingBar = findViewById(R.id.shopRatingBar);
+        img1 = findViewById(R.id.shopPhoto1);
+        img2 = findViewById(R.id.shopPhoto2);
+        img3 = findViewById(R.id.shopPhoto3);
 
+         //2 and 3
+        if(shopId == 2){
+            img1.setImageDrawable(getResources().getDrawable(R.drawable.huoguo));
+            img2.setImageDrawable(getResources().getDrawable(R.drawable.huoguo2));
+            img3.setImageDrawable(getResources().getDrawable(R.drawable.huoguo3));
+        }
+        else{
+            img1.setImageDrawable(getResources().getDrawable(R.drawable.macd1));
+            img2.setImageDrawable(getResources().getDrawable(R.drawable.macd2));
+            img3.setImageDrawable(getResources().getDrawable(R.drawable.macd3));
+        }
+
+        ////
         OkHttpClient client = new OkHttpClient();
         String url = HangOutApi.baseUrl + "shop";
         HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
         httpBuilder.addQueryParameter("shopId", shopId.toString());
-
         Request request = new Request.Builder().url(httpBuilder.build()).build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -76,26 +106,88 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
                     String myResponse = response.body().string();
                     System.out.println(myResponse);
                     try {
-                        JSONObject shopDetail = new JSONObject(myResponse);
-
+                        JSONObject jsonShop = new JSONObject(myResponse);
+                        HangOutData.setShop(jsonShop);
+                        jsonRecShop = HangOutData.getShop();
                         try {
                             System.out.print("Get success");
-                            Recshop shopDetail = new RecShop(
-                                        jsonRecShop.getLong("Id"),
-                                        jsonRecShop.getString("name"),
-                                        jsonRecShop.getString("contactNumber"),
-                                        jsonRecShop.getString("contactEmail"),
-                                        jsonRecShop.getString("category"),
-                                        jsonRecShop.getString("location"),
-                                        jsonRecShop.getString("carParkNumbers"),
-                                        jsonRecShop.getString("imageId")
-                                );
-                            }
-                    } catch (JSONException e) {
+                             shopDetail = new RecShop(
+                                    jsonRecShop.get("id").toString(),
+                                    jsonRecShop.get("name").toString(),
+                                    jsonRecShop.get("contactNumber").toString(),
+                                    jsonRecShop.get("contactEmail").toString(),
+                                    jsonRecShop.get("category").toString(),
+                                    jsonRecShop.get("location").toString(),
+                                    jsonRecShop.get("carParkNumbers").toString()
+                            );
+
+                            shopNameTv.setText(shopDetail.getName());
+                            shopLocation.setText(shopDetail.getLocation());
+                            phoneNo.setText(shopDetail.getContactNumber());
+                            ratingBar.setNumStars(shopDetail.getRating().intValue());
+                            email.setText(shopDetail.getContactEmail());
+
+
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    } catch (Exception e) {
+                        //textView.setText("Error");
+                        // set xml view
                     }
+
+                }
+                else{
+                    System.out.println("Response is not successful");
                 }
             }
+
+
         });
+
+        //print data
+//        System.out.println(shopDetail.getName());
+
+        ////
+//        OkHttpClient client = new OkHttpClient();
+//        String url = HangOutApi.baseUrl + "shop";
+//        HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
+//        httpBuilder.addQueryParameter("shopId", shopId.toString());
+//
+//        Request request = new Request.Builder().url(httpBuilder.build()).build();
+//
+//        client.newCall(request).enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                if (response.isSuccessful()) {
+//                    String myResponse = response.body().string();
+//                    System.out.println(myResponse);
+//                    try {
+//                        JSONObject jsonShopDeatil = new JSONObject(myResponse);
+//
+//                        try {
+//                            System.out.print("Get success");
+//                            RecShop shopDetail = new RecShop(
+//
+//                                        jsonRecShop.getString("name"),
+//                                        jsonRecShop.getString("contactNumber"),
+//                                        jsonRecShop.getString("contactEmail"),
+//                                        jsonRecShop.getString("category"),
+//                                        jsonRecShop.getString("location"),
+//                                        jsonRecShop.getString("carParkNumbers"),
+//                                        jsonRecShop.getString("imageId")
+//                                );
+//
+//                    } catch (JSONException e) {
+//                    }
+//                }
+//            }
+//        });
 
 
 //
