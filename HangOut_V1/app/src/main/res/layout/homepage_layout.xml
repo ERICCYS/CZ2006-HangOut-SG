@@ -60,6 +60,7 @@
             android:src="@drawable/home_icon_food"
             android:layout_weight="1"
             android:paddingLeft="20dp"
+            android:clickable="true"
             />
 
         <ImageView
@@ -68,6 +69,7 @@
             android:layout_height="40dp"
             android:src="@drawable/home_icon_entertainment"
             android:layout_weight="1"
+            android:clickable="true"
             />
 
         <ImageView
@@ -77,6 +79,7 @@
             android:src="@drawable/home_icon_shopping"
             android:layout_weight="1"
             android:paddingRight="20dp"
+            android:clickable="true"
             />
 
 

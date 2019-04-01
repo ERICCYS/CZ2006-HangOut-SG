@@ -52,14 +52,18 @@ public class VendorMainActivity extends AppCompatActivity {
     public Long id = new Long(1);
     private StorageReference storageRef;
     public static final int PICK_IMAGE = 1;
-
+    public String accessToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main_vendor);
-
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        id = extras.getLong("vendorId", 1);
+        accessToken = extras.getString("AccessToken");
+        HangOutApi.vendorAT = accessToken;
         //HangOutData.getVendor().getLong("id");
 //        getVendor(id);
 //        JSONObject vendorSelf = new JSONObject();

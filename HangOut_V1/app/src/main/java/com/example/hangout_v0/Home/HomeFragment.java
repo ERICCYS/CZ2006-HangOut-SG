@@ -1,5 +1,7 @@
 package com.example.hangout_v0.Home;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 import android.text.TextUtils;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import com.youth.banner.Banner;
@@ -23,6 +26,10 @@ public class HomeFragment extends Fragment {
     private SearchView mSearchView = null;
     private ListView mListView = null;
     private String[] mDatas = {};
+    private ImageView imageButton_1;
+    private ImageView imageButton_2;
+    private ImageView imageButton_3;
+    private ImageView imageButton_4;
 
     private ArrayList<Integer> images;
 
@@ -46,6 +53,36 @@ public class HomeFragment extends Fragment {
         banner.setImages(images);
         banner.start();
 
+        imageButton_1 = view.findViewById(R.id.home_icon_food);
+        imageButton_2 = view.findViewById(R.id.home_icon_entertainment);
+        imageButton_3 = view.findViewById(R.id.home_icon_plaza);
+
+        imageButton_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("https://www.google.com/maps/search/restaurants/@1.3509345,103.6767959,15z/data=!3m1!4b1");
+                Intent it = new Intent(Intent.ACTION_VIEW, uri);
+                v.getContext().startActivity(it);
+            }
+        });
+
+        imageButton_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("https://www.google.com/maps/search/entertainment/@1.3509314,103.6155102,12z/data=!3m1!4b1");
+                Intent it = new Intent(Intent.ACTION_VIEW, uri);
+                v.getContext().startActivity(it);
+            }
+        });
+
+        imageButton_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("https://www.google.com/maps/search/plaza/@1.3509294,103.6155101,12z/data=!3m1!4b1");
+                Intent it = new Intent(Intent.ACTION_VIEW, uri);
+                v.getContext().startActivity(it);
+            }
+        });
         ///////////////////////////////////////////////////////////////////////////////////
 //
 //        mSearchView = (SearchView) view.findViewById(R.id.home_searchView);

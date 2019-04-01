@@ -118,8 +118,9 @@ public class AddShop extends AppCompatActivity{
                                     public void run() {
                                         Toast toast = Toast.makeText(getApplicationContext(), "Successfully submitted!", Toast.LENGTH_SHORT);
                                         toast.show();
-                                        Intent mainActivity = new Intent(getApplicationContext(),VendorMainActivity.class);
-                                        startActivity(mainActivity);
+                                        finish();
+//                                        Intent mainActivity = new Intent(getApplicationContext(),VendorMainActivity.class);
+//                                        startActivity(mainActivity);
 
                                     }
                                 });
