@@ -27,6 +27,7 @@
         <activity android:name=".Me.plan.PlanDetailActivity" />
         <activity android:name=".Me.plan.PlanHistoryActivity" />
         <activity android:name=".Me.avator.UserProfile" />
+        <activity android:name=".Me.MeMoreActivity" />
         <activity android:name=".Me.avator.EditCustomerProfile" />
         <activity android:name=".Me.reservation.ReservationActivity"/>
         <activity android:name=".welcome_page.IntroActivity"

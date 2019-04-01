@@ -7,6 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".Me.MeFragment">
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:background="#EBEBEB" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -133,7 +139,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="6dp"
             android:background="#EBEBEB" />
 
         <LinearLayout
@@ -170,38 +176,38 @@
             android:layout_height="1dp"
             android:background="#EBEBEB" />
 
-        <LinearLayout
-            android:id="@+id/fragmentHelpCenter"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@drawable/selector_lin"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="15dp">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/fragmentHelpCenter"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="60dp"-->
+            <!--android:background="@drawable/selector_lin"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:padding="15dp">-->
 
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/mine_helpcenter" />
+            <!--<ImageView-->
+                <!--android:layout_width="25dp"-->
+                <!--android:layout_height="25dp"-->
+                <!--android:src="@drawable/mine_helpcenter" />-->
 
-            <TextView
-                android:layout_width="1dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:text="Help Center"
-                android:textSize="18sp" />
+            <!--<TextView-->
+                <!--android:layout_width="1dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:text="Help Center"-->
+                <!--android:textSize="18sp" />-->
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/mine_arrow" />
+            <!--<ImageView-->
+                <!--android:layout_width="20dp"-->
+                <!--android:layout_height="20dp"-->
+                <!--android:src="@drawable/mine_arrow" />-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="6dp"
+            android:layout_height="1dp"
             android:background="#EBEBEB" />
 
         <LinearLayout

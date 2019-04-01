@@ -121,6 +121,6 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
         hour_x =hourOfDay;
         minute_x = minute;
         shopTimeString = hour_x+":"+minute_x+":00";
-        Toast.makeText(ShopInDetail.this,shopDateString+"\n"+ shopTimeString,Toast.LENGTH_SHORT).show();
+        Toast.makeText(ShopInDetail.this,"Add shop successully",Toast.LENGTH_SHORT).show();
     }
 }

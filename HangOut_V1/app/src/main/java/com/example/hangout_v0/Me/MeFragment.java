@@ -35,7 +35,7 @@ public class MeFragment extends Fragment {
         LinearLayout plan = view.findViewById(R.id.MePlanLinearLayout);
 //        LinearLayout preference = view.findViewById(R.id.fragmentPreferences);
         LinearLayout account = view.findViewById(R.id.fragmentMyAccount);
-        LinearLayout helpCenter = view.findViewById(R.id.fragmentHelpCenter);
+       // LinearLayout helpCenter = view.findViewById(R.id.fragmentHelpCenter);
         LinearLayout more = view.findViewById(R.id.fragmentMore);
 
         avator.setOnClickListener(new View.OnClickListener() {
@@ -85,17 +85,19 @@ public class MeFragment extends Fragment {
             }
         });
 
-        helpCenter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(), "this is to HELP CENTER", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        helpCenter.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(v.getContext(), "this is to HELP CENTER", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "this is to MORE", Toast.LENGTH_SHORT).show();
+                Intent myIntent = new Intent(getActivity(), MeMoreActivity.class);
+                getActivity().startActivity(myIntent);
+                //Toast.makeText(v.getContext(), "this is to MORE", Toast.LENGTH_SHORT).show();
             }
         });
         return view;
