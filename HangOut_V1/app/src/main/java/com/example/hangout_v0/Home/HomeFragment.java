@@ -50,14 +50,7 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.homepage_layout, container, false);
 
-        icon1 = view.findViewById(R.id.home_icon1_food);
-        icon1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(),"unexisting account or incorrect password", Toast.LENGTH_SHORT).show();
 
-            }
-        });
 
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_UNSPECIFIED);
         ///////////////////////////////////////////////////////////////////////////////////

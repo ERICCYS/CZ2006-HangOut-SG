@@ -77,6 +77,13 @@ public class LoginActivity extends AppCompatActivity {
                     client.newCall(request).enqueue(new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
+                            System.out.println("****************************Log in failed***************************");
+                            LoginActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(LoginActivity.this,"unexisting account or incorrect password", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                             e.printStackTrace();
                         }
 
@@ -93,7 +100,12 @@ public class LoginActivity extends AppCompatActivity {
                                 // Able to get the access token.
                             } else {
                                 System.out.println("****************************Log in failed***************************");
-                                Toast.makeText(LoginActivity.this,"unexisting account or incorrect password", Toast.LENGTH_SHORT).show();
+                                LoginActivity.this.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(LoginActivity.this,"unexisting account or incorrect password", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             }
                         }
                     });
@@ -119,32 +131,35 @@ public class LoginActivity extends AppCompatActivity {
                     client.newCall(request).enqueue(new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
+                            System.out.println("****************************Log in failed***************************");
+                            LoginActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(LoginActivity.this,"unexisting account or incorrect password", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                             e.printStackTrace();
                         }
 
-                        @RequiresApi(api = Build.VERSION_CODES.O)
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
                             if (response.isSuccessful()) {
                                 String myResponse = response.body().string();
                                 System.out.println(myResponse);
                                 HangOutData.setAccessToken(myResponse);
-                                Intent myIntent = new Intent(LoginActivity.this, VendorMainActivity.class);
-                                Long vendorId = new Long(1);
-                                vendorId = Long.parseLong(HangOutApi.getUserId(myResponse));
-
-                                Bundle extras = new Bundle();
-                                extras.putString("AccessToken", myResponse);
-                                extras.putLong("vendorId", vendorId);
-
-                                myIntent.putExtras(extras);
-                                startActivity(myIntent);
+                                switchToUserPage();
 
                                 //textView.setText("Customer Access Token is " + myResponse);
 
                                 // Able to get the access token.
                             } else {
                                 System.out.println("****************************Log in failed***************************");
+                                LoginActivity.this.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(LoginActivity.this,"unexisting account or incorrect password", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             }
                         }
                     });
