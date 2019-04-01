@@ -28,12 +28,17 @@ public class VendorShop extends AppCompatActivity {
     TextView shopName, shopLocation, shopNumber, shopEmail, shopCategory;
     Button editButton;
     Button vendorReservationButton;
+    public Long shopId = new Long(1);
+    public Long vendorId = new Long(1);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_in_detail_vendor);
 
-        Long shopId = getIntent().getLongExtra("shopId",0);
+        Intent intent0 = getIntent();
+        Bundle extras = intent0.getExtras();
+        shopId = extras.getLong("shopId",2);
+        vendorId = extras.getLong("vendorId", 1);
 
         OkHttpClient client = new OkHttpClient();
         String url = baseUrl + "shop";
@@ -52,22 +57,23 @@ public class VendorShop extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     String myResponse = response.body().string();
-                    System.out.println(myResponse);
+
                     try {
                         JSONObject shop = new JSONObject(myResponse);
                         HangOutData.setShop(shop);
-                        shopName = (TextView) findViewById(R.id.shopNameTextView);
+                        shopName = (TextView) findViewById(R.id.vendorShopNameTextView);
                         shopName.setText(shop.getString("name"));
-                        shopLocation = (TextView) findViewById(R.id.shopLocationTextView);
+                        shopLocation = (TextView) findViewById(R.id.vendorShopLocationTextView);
                         shopLocation.setText(shop.getString("location"));
-                        shopNumber = (TextView) findViewById(R.id.shopNumberTextView);
+                        shopNumber = (TextView) findViewById(R.id.vendorShopPhoneNumberTextView);
                         shopNumber.setText(shop.getString("contactNumber"));
-                        shopEmail = (TextView) findViewById(R.id.shopWebTextView);
+                        shopEmail = (TextView) findViewById(R.id.vendorShopWebTextView);
                         shopEmail.setText(shop.getString("contactEmail"));
 
 
+
                     } catch (JSONException e) {
-                        //textView.setText("Error");
+                        e.printStackTrace();
                     }
                 }
             }
@@ -78,11 +84,12 @@ public class VendorShop extends AppCompatActivity {
 
 
 
-        editButton = (Button) findViewById(R.id.editbutton);
+        editButton = (Button) findViewById(R.id.vendorEditbutton);
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent editshop = new Intent(VendorShop.this, com.example.hangout_v0.Vendor.EditShop.class);
+                editshop.putExtra("shopId", shopId);
                 startActivity(editshop);
             }
         });
@@ -92,6 +99,10 @@ public class VendorShop extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent viewReservation = new Intent(VendorShop.this, ReservationPage.class);
+                Bundle extras = new Bundle();
+                extras.putLong("vendorId", vendorId);
+                extras.putLong("shopId", shopId);
+                viewReservation.putExtras(extras);
                 startActivity(viewReservation);
             }
         });
