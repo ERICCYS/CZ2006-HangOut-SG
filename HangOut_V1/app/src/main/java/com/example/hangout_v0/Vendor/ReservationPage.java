@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.example.hangout_v0.ApiCall.HangOutApi;
 import com.example.hangout_v0.ApiCall.HangOutData;
 import com.example.hangout_v0.R;
 
@@ -25,7 +26,7 @@ import okhttp3.Response;
 
 public class ReservationPage extends AppCompatActivity {
 
-    public static final String baseUrl = "http://10.27.51.140:9090/api/";
+    public static final String baseUrl = HangOutApi.baseUrl;
     public Long vendorId;
     public Long shopId;
     //customer names and times
@@ -74,10 +75,16 @@ public class ReservationPage extends AppCompatActivity {
                                 }
                             }
                         }
-                        RecyclerView recyclerView = findViewById(R.id.ReservationList);
-                        ReservationAdapterVendor adapter = new ReservationAdapterVendor(mNames, mTimes,ReservationPage.this);
-                        recyclerView.setAdapter(adapter);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(ReservationPage.this));
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                RecyclerView recyclerView = findViewById(R.id.ReservationList);
+                                ReservationAdapterVendor adapter = new ReservationAdapterVendor(mNames, mTimes,ReservationPage.this);
+                                recyclerView.setAdapter(adapter);
+                                recyclerView.setLayoutManager(new LinearLayoutManager(ReservationPage.this));
+                            }
+                        });
+
 
                     } catch (JSONException e) {
                         e.printStackTrace();

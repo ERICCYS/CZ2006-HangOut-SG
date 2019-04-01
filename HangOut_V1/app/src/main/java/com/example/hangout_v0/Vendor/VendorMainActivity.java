@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.hangout_v0.ApiCall.HangOutApi;
 import com.example.hangout_v0.ApiCall.HangOutData;
 import com.example.hangout_v0.R;
 import com.example.hangout_v0.Vendor.Utils.ShopAdapterVendor;
@@ -40,7 +41,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class VendorMainActivity extends AppCompatActivity {
-    public static final String baseUrl = "http://10.27.51.140:9090/api/";
+    public static final String baseUrl = HangOutApi.baseUrl;
     ListView listView;
     ImageView avator;
     //String url = "https://avatarfiles.alphacoders.com/873/thumb-87368.jpg";
@@ -48,7 +49,7 @@ public class VendorMainActivity extends AppCompatActivity {
     ShopAdapterVendor adapter;
     private String avatarUrl;
     private Uri avatarUri;
-    public Long id = new Long(1);
+    public Long id = new Long(6);
     private StorageReference storageRef;
     public static final int PICK_IMAGE = 1;
 
@@ -103,22 +104,28 @@ public class VendorMainActivity extends AppCompatActivity {
 //        arrayList.add(new Shop("PUTIEN Jurong", "12345678"));
 //        arrayList.add(new Shop("PUTIEN Changi", "91234567"));
                         adapter = new ShopAdapterVendor(VendorMainActivity.this, arrayList);
-                        listView.setAdapter(adapter);
-                        //listview end
-                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                        runOnUiThread(new Runnable() {
                             @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int position, long idd){
+                            public void run() {
+                                listView.setAdapter(adapter);
+                                //listview end
+                                listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                                    @Override
+                                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long idd){
 
-                                Long tempListView = arrayList.get(position).getShopId();
-                                Intent intent = new Intent(VendorMainActivity.this, com.example.hangout_v0.Vendor.VendorShop.class);
-                                Bundle extras = new Bundle();
-                                extras.putLong("shopId", tempListView);
-                                extras.putLong("vendorId", id);
-                                intent.putExtras(extras);
-                                startActivity(intent);
+                                        Long tempListView = arrayList.get(position).getShopId();
+                                        Intent intent = new Intent(VendorMainActivity.this, com.example.hangout_v0.Vendor.VendorShop.class);
+                                        Bundle extras = new Bundle();
+                                        extras.putLong("shopId", tempListView);
+                                        extras.putLong("vendorId", id);
+                                        intent.putExtras(extras);
+                                        startActivity(intent);
 
+                                    }
+                                });
                             }
                         });
+
 
 
 
