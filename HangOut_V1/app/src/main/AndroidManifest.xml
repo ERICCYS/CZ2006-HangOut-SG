@@ -20,6 +20,7 @@
         <activity android:name=".UserMainActivity"
             android:windowSoftInputMode="stateHidden"/>
 
+
         <activity android:name=".Vendor.VendorMainActivity" />
         <activity android:name=".Vendor.AddShop" />
         <activity android:name=".Vendor.EditShop" />
@@ -32,6 +33,7 @@
         <activity android:name=".Me.MeMoreActivity" />
         <activity android:name=".Me.avator.EditCustomerProfile" />
         <activity android:name=".Me.reservation.ReservationActivity"/>
+
 
         <activity android:name=".Me.MeHelpCenter"/>
         <activity android:name=".welcome_page.IntroActivity"

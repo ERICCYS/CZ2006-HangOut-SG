@@ -2,10 +2,15 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Recommendation.RecommendationFragment">
+    android:layout_height="match_parent">
 
     <!-- TODO: Update blank fragment layout -->
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:text="Hello"-->
+        <!--android:textSize="60sp"/>-->
+
     <ListView
         android:id="@+id/rec_shop_listView"
         android:layout_width="match_parent"

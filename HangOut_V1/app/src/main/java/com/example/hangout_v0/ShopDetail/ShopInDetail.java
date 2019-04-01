@@ -20,7 +20,8 @@ import android.widget.Toast;
 import com.example.hangout_v0.ApiCall.HangOutApi;
 import com.example.hangout_v0.ApiCall.HangOutData;
 import com.example.hangout_v0.R;
-import com.example.hangout_v0.Recommendation.RecShop;
+import com.example.hangout_v0.Vendor.Shop;
+//import com.example.hangout_v0.Recommendation.RecShop;
 
 
 import org.json.JSONArray;
@@ -64,31 +65,46 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
     public String shopDateTimeString;
     int hour, minute, hour_x, minute_x;
     JSONObject jsonRecShop;
-    RecShop shopDetail;
-    TextView shopNameTv, shopLocation, phoneNo, email;
+    TextView shopNameTv, shopLocationTv, phoneNoTv, emailTv, carparkTv;
     RatingBar ratingBar;
     ImageView img1, img2, img3;
+
+    int shopId;
+    String shopName;
+    String shopLocation;
+    String shopPhone;
+    String shopEmail;
+    float shopRating;
+    String shopCarpark;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_in_detail_user);
 
-//        Intent intent = getIntent();
-//        Long shopId = Long.parseLong(intent.getStringExtra("chosenShopId"));
-        final Long shopId = Long.valueOf(2);
+        Intent intent = getIntent();
+
+
+        shopId = Integer.parseInt(intent.getStringExtra("chosenShopId"));
+        shopName = intent.getStringExtra("chosenShopName");
+        shopLocation = intent.getStringExtra("chosenShopLocation");
+        shopPhone = intent.getStringExtra("chosenShopPhone");
+        shopEmail = intent.getStringExtra("chosenShopEmail");
+        shopRating = Float.parseFloat(intent.getStringExtra("chosenShopRating"));
+        shopCarpark = intent.getStringExtra("chosenShopCarpark");
 
         this.getSupportActionBar().hide();
 
         // find views
         shopNameTv = findViewById(R.id.shopNameTextView);
-        shopLocation = findViewById(R.id.shopLocationTextView);
-        phoneNo = findViewById(R.id.shopPhoneNumberTextView);
-        email = findViewById(R.id.shopWebTextView);
+        shopLocationTv = findViewById(R.id.shopLocationTextView);
+        phoneNoTv = findViewById(R.id.shopPhoneNumberTextView);
+        emailTv = findViewById(R.id.shopWebTextView);
         ratingBar = findViewById(R.id.shopRatingBar);
         img1 = findViewById(R.id.shopPhoto1);
         img2 = findViewById(R.id.shopPhoto2);
         img3 = findViewById(R.id.shopPhoto3);
+        carparkTv = findViewById(R.id.shopCarParkCapacityTextView);
 
         if(shopId == 2){
             img1.setImageDrawable(getResources().getDrawable(R.drawable.huoguo));
@@ -101,11 +117,19 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
             img3.setImageDrawable(getResources().getDrawable(R.drawable.macd3));
         }
 
-        ////
+
+        shopNameTv.setText(shopName);
+        shopLocationTv.setText(shopLocation);
+        phoneNoTv.setText(shopPhone);
+        emailTv.setText(shopEmail);
+        ratingBar.setRating(shopRating);
+        carparkTv.setText("before");
+
         OkHttpClient client = new OkHttpClient();
-        String url = HangOutApi.baseUrl + "shop";
+        String url = HangOutApi.baseUrl + "carpark";
         HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
-        httpBuilder.addQueryParameter("shopId", shopId.toString());
+        httpBuilder.addQueryParameter("carParkNumber", shopCarpark);
+
         Request request = new Request.Builder().url(httpBuilder.build()).build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -117,48 +141,21 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    String myResponse = response.body().string();
-                    System.out.println(myResponse);
-                    try {
-                        JSONObject jsonShop = new JSONObject(myResponse);
-                        HangOutData.setShop(jsonShop);
-                        jsonRecShop = HangOutData.getShop();
-                        try {
-                            System.out.print("Get success");
+                    final String myResponse = response.body().string();
 
-                             shopDetail = new RecShop(
+//                        // Deal with this object, below is an example
+//                        textView.setText(customer.toString());
 
-                                    jsonRecShop.get("id").toString(),
-                                    jsonRecShop.get("name").toString(),
-                                    jsonRecShop.get("contactNumber").toString(),
-                                    jsonRecShop.get("contactEmail").toString(),
-                                    jsonRecShop.get("category").toString(),
-                                    jsonRecShop.get("location").toString(),
-                                    jsonRecShop.get("carParkNumbers").toString()
-                            );
-
-
-                            shopNameTv.setText(shopDetail.getName());
-                            shopLocation.setText(shopDetail.getLocation());
-                            phoneNo.setText(shopDetail.getContactNumber());
-                            ratingBar.setNumStars(shopDetail.getRating().intValue());
-                            email.setText(shopDetail.getContactEmail());
-
-
-                        }catch (JSONException e){
-                            e.printStackTrace();
+                    ShopInDetail.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String res = myResponse;
+                            carparkTv.setText(shopCarpark+" : "+myResponse);
                         }
-                    } catch (Exception e) {
-                        //textView.setText("Error");
-                        // set xml view
-                    }
+                    });
 
-                }
-                else{
-                    System.out.println("Response is not successful");
                 }
             }
-
         });
         reserveButton = findViewById(R.id.reserveButton);
         reserveButton.setOnClickListener(new View.OnClickListener() {
@@ -166,54 +163,55 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
             public void onClick(View v) {
 
 
-                ShopInDetail.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        JSONObject newReservation = new JSONObject();
+//                 ShopInDetail.this.runOnUiThread(new Runnable() {
+//                     @Override
+//                     public void run() {
+//                         JSONObject newReservation = new JSONObject();
 
-                        try {
-                            setDateTime();
+//                         try {
+//                             setDateTime();
 
-                            newReservation.put("shopId", "2");
-                            newReservation.put("arrivalTime", shopDateTimeString);
+//                             newReservation.put("shopId", "2");
+//                             newReservation.put("arrivalTime", shopDateTimeString);
 
-                            Long shopId = 2l;
-                            Long customerId = 3l;
+//                             Long shopId = 2l;
+//                             Long customerId = 3l;
 
-                            RequestBody body = RequestBody.create(JSON, newReservation.toString());
-                            OkHttpClient client = new OkHttpClient();
-                            String url = HangOutApi.baseUrl + "reservation";
-                            HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
-                            httpBuilder.addQueryParameter("customerId", customerId.toString());
-                            httpBuilder.addQueryParameter("shopId", shopId.toString());
-                            Request request = new Request.Builder()
-                                    .url(httpBuilder.build())
-                                    .post(body)
-                                    .addHeader("Authorization", "kldMaIf99i6G+0JvLQGwfw==")
-                                    .build();
+//                             RequestBody body = RequestBody.create(JSON, newReservation.toString());
+//                             OkHttpClient client = new OkHttpClient();
+//                             String url = HangOutApi.baseUrl + "reservation";
+//                             HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
+//                             httpBuilder.addQueryParameter("customerId", customerId.toString());
+//                             httpBuilder.addQueryParameter("shopId", shopId.toString());
+//                             Request request = new Request.Builder()
+//                                     .url(httpBuilder.build())
+//                                     .post(body)
+//                                     .addHeader("Authorization", "kldMaIf99i6G+0JvLQGwfw==")
+//                                     .build();
 
-                            client.newCall(request).enqueue(new Callback() {
-                                @Override
-                                public void onFailure(Call call, IOException e) {
-                                    e.printStackTrace();
-                                }
+//                             client.newCall(request).enqueue(new Callback() {
+//                                 @Override
+//                                 public void onFailure(Call call, IOException e) {
+//                                     e.printStackTrace();
+//                                 }
 
-                                @Override
-                                public void onResponse(Call call, Response response) throws IOException {
-                                    if (response.isSuccessful()) {
-                                        String myResponse = response.body().string();
-                                        //  textView.setText("Customer add reservation Successfully, here is the new reservation " + myResponse);
-                                    }
-                                }
-                            });
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+//                                 @Override
+//                                 public void onResponse(Call call, Response response) throws IOException {
+//                                     if (response.isSuccessful()) {
+//                                         String myResponse = response.body().string();
+//                                         //  textView.setText("Customer add reservation Successfully, here is the new reservation " + myResponse);
+//                                     }
+//                                 }
+//                             });
+//                         } catch (JSONException e) {
+//                             e.printStackTrace();
+//                         }
 
-                    }
-                });
+//                     }
+//                 });
 
-            }});
+//             }});
+
 
 
 
@@ -323,24 +321,3 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
         Toast.makeText(ShopInDetail.this, "Add shop successully " + shopDateTimeString, Toast.LENGTH_SHORT).show();
     }
 }
-
-//        ImageView shopPhoto1 = (ImageView) findViewById(R.id.shopPhoto1);
-//        ImageView shopPhoto2 = (ImageView) findViewById(R.id.shopPhoto2);
-//        ImageView shopPhoto3 = (ImageView) findViewById(R.id.shopPhoto3);
-//
-//        shopPhoto1.setImageResource(R.drawable.image1);
-//        shopPhoto2.setImageResource(R.drawable.image2);
-//        shopPhoto3.setImageResource(R.drawable.image3);
-
-// later call API to get data
-//        String[] name = {"peach","mango","apple","pear","watermelon","cherry"};
-//        String[] description = {"She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
-//                "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
-//                "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
-//                "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
-//                "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
-//                "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. "};
-//        Integer[] imgid = {R.drawable.image1,R.drawable.image2,R.drawable.image3,R.drawable.image4,R.drawable.image5,R.drawable.image6};
-//        Float[] rating = {4.0f,3.0f,4.3f,4.0f,4.2f,4.1f};
-//        String[] distance = {" ","","" ,"","",""};
-//        String[] carParkCapacity = {"","","","","",""};
