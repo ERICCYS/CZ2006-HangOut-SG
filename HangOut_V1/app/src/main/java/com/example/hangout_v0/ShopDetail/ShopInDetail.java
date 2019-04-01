@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -46,54 +48,157 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
     String shopTimeString;
     String shopDateTimeString;
     int hour, minute, hour_x, minute_x;
+    JSONObject jsonRecShop;
+    RecShop shopDetail;
+    TextView shopNameTv, shopLocation, phoneNo, email;
+    RatingBar ratingBar;
+    ImageView img1, img2, img3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_in_detail_user);
 
+//        Intent intent = getIntent();
+//        Long shopId = Long.parseLong(intent.getStringExtra("chosenShopId"));
+        final Long shopId = Long.valueOf(2);
+
         this.getSupportActionBar().hide();
 
-        ImageView shopPhoto1 = (ImageView) findViewById(R.id.shopPhoto1);
-        ImageView shopPhoto2 = (ImageView) findViewById(R.id.shopPhoto2);
-        ImageView shopPhoto3 = (ImageView) findViewById(R.id.shopPhoto3);
+        // find views
+        shopNameTv = findViewById(R.id.shopNameTextView);
+        shopLocation = findViewById(R.id.shopLocationTextView);
+        phoneNo = findViewById(R.id.shopPhoneNumberTextView);
+        email = findViewById(R.id.shopWebTextView);
+        ratingBar = findViewById(R.id.shopRatingBar);
+        img1 = findViewById(R.id.shopPhoto1);
+        img2 = findViewById(R.id.shopPhoto2);
+        img3 = findViewById(R.id.shopPhoto3);
 
-        shopPhoto1.setImageResource(R.drawable.image1);
-        shopPhoto2.setImageResource(R.drawable.image2);
-        shopPhoto3.setImageResource(R.drawable.image3);
+        //2 and 3
+        if(shopId == 2){
+            img1.setImageDrawable(getResources().getDrawable(R.drawable.huoguo));
+            img2.setImageDrawable(getResources().getDrawable(R.drawable.huoguo2));
+            img3.setImageDrawable(getResources().getDrawable(R.drawable.huoguo3));
+        }
+        else{
+            img1.setImageDrawable(getResources().getDrawable(R.drawable.macd1));
+            img2.setImageDrawable(getResources().getDrawable(R.drawable.macd2));
+            img3.setImageDrawable(getResources().getDrawable(R.drawable.macd3));
+        }
 
-        // later call API to get data
-        String[] name = {"peach", "mango", "apple", "pear", "watermelon", "cherry"};
-        String[] description = {"She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
-                "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
-                "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
-                "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
-                "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
-                "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. "};
-        Integer[] imgid = {R.drawable.image1, R.drawable.image2, R.drawable.image3, R.drawable.image4, R.drawable.image5, R.drawable.image6};
-        Float[] rating = {4.0f, 3.0f, 4.3f, 4.0f, 4.2f, 4.1f};
-        String[] distance = {"4.0", "3.0", "4.3", "4.0", "4.2", "4.1"};
-        String[] carParkCapacity = {"90%", "80%", "80%", "80%", "80%", "80%"};
+        ////
+        OkHttpClient client = new OkHttpClient();
+        String url = HangOutApi.baseUrl + "shop";
+        HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
+        httpBuilder.addQueryParameter("shopId", shopId.toString());
+        Request request = new Request.Builder().url(httpBuilder.build()).build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String myResponse = response.body().string();
+                    System.out.println(myResponse);
+                    try {
+                        JSONObject jsonShop = new JSONObject(myResponse);
+                        HangOutData.setShop(jsonShop);
+                        jsonRecShop = HangOutData.getShop();
+                        try {
+                            System.out.print("Get success");
+                            shopDetail = new RecShop(
+                                    jsonRecShop.get("id").toString(),
+                                    jsonRecShop.get("name").toString(),
+                                    jsonRecShop.get("contactNumber").toString(),
+                                    jsonRecShop.get("contactEmail").toString(),
+                                    jsonRecShop.get("category").toString(),
+                                    jsonRecShop.get("location").toString(),
+                                    jsonRecShop.get("carParkNumbers").toString()
+                            );
+
+                            shopNameTv.setText(shopDetail.getName());
+                            shopLocation.setText(shopDetail.getLocation());
+                            phoneNo.setText(shopDetail.getContactNumber());
+                            ratingBar.setNumStars(shopDetail.getRating().intValue());
+                            email.setText(shopDetail.getContactEmail());
 
 
-        ListView shopDishListView = (ListView) findViewById(R.id.shopDishListView);
-        com.example.hangout_v0.Recommendation.ShopInListAdapter shopDishAdapter = new com.example.hangout_v0.Recommendation.ShopInListAdapter(this, name, description, imgid, rating, distance, carParkCapacity);
-        shopDishListView.setAdapter(shopDishAdapter);
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    } catch (Exception e) {
+                        //textView.setText("Error");
+                        // set xml view
+                    }
+
+                }
+                else{
+                    System.out.println("Response is not successful");
+                }
+            }
+
+
+        });
+
+        //print data
+//        System.out.println(shopDetail.getName());
+
+        ////
+//        OkHttpClient client = new OkHttpClient();
+//        String url = HangOutApi.baseUrl + "shop";
+//        HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
+//        httpBuilder.addQueryParameter("shopId", shopId.toString());
+//
+//        Request request = new Request.Builder().url(httpBuilder.build()).build();
+//
+//        client.newCall(request).enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                if (response.isSuccessful()) {
+//                    String myResponse = response.body().string();
+//                    System.out.println(myResponse);
+//                    try {
+//                        JSONObject jsonShopDeatil = new JSONObject(myResponse);
+//
+//                        try {
+//                            System.out.print("Get success");
+//                            RecShop shopDetail = new RecShop(
+//
+//                                        jsonRecShop.getString("name"),
+//                                        jsonRecShop.getString("contactNumber"),
+//                                        jsonRecShop.getString("contactEmail"),
+//                                        jsonRecShop.getString("category"),
+//                                        jsonRecShop.getString("location"),
+//                                        jsonRecShop.getString("carParkNumbers"),
+//                                        jsonRecShop.getString("imageId")
+//                                );
+//
+//                    } catch (JSONException e) {
+//                    }
+//                }
+//            }
+//        });
+
+
+//
+//        ListView shopDishListView = (ListView) findViewById(R.id.shopDishListView);
+//        com.example.hangout_v0.Recommendation.ShopInListAdapter shopDishAdapter = new com.example.hangout_v0.Recommendation.ShopInListAdapter(this,name,description,imgid,rating,distance,carParkCapacity);
+//        shopDishListView.setAdapter(shopDishAdapter);
 
         final FloatingActionButton addPlanFloatingActionButton = (FloatingActionButton) findViewById(R.id.addPlanFloatingActionButton);
         addPlanFloatingActionButton.setImageResource(R.drawable.ic_add_plan_not_sel);
         final FloatingActionButton addCollectionFloatingActionButton = (FloatingActionButton) findViewById(R.id.addCollectionFloatingActionButton);
         addCollectionFloatingActionButton.setImageResource(R.drawable.ic_add_collection_not_sel);
-
-//        addPlanFloatingActionButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (addPlanFloatingActionButton.getIm==R.drawable.ic_add_plan_sel)
-//                    addPlanFloatingActionButton.setImageResource(R.drawable.ic_add_plan_not_sel);
-//                else
-//                    addPlanFloatingActionButton.setImageResource(R.drawable.ic_add_plan_sel);
-//            }
-//        });
 
 
         addCollectionFloatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +207,7 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
                 addCollectionFloatingActionButton.setImageResource(R.drawable.ic_add_collection_sel);
             }
         });
+
     }
 
     public void addToPlan(View view) {
