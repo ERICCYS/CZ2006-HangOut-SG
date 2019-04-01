@@ -49,7 +49,7 @@ public class VendorMainActivity extends AppCompatActivity {
     ShopAdapterVendor adapter;
     private String avatarUrl;
     private Uri avatarUri;
-    public Long id = new Long(6);
+    public Long id = new Long(1);
     private StorageReference storageRef;
     public static final int PICK_IMAGE = 1;
 

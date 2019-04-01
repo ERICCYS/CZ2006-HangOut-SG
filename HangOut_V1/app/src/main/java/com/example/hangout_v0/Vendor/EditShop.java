@@ -45,7 +45,7 @@ public class EditShop extends AppCompatActivity{
     public static final String baseUrl = HangOutApi.baseUrl;
     public Long shopId;
     Button submit, addCertificate;
-    EditText shopname, contactnumber, address, contactemail, categori;
+    EditText shopname, contactnumber, addressEditText, contactemail, categori;
     public static final int PICK_IMAGE = 1;
     private Uri certifUri;
     private StorageReference storageRef;
@@ -64,7 +64,7 @@ public class EditShop extends AppCompatActivity{
         final Long shopId = getIntent().getLongExtra("shopId", 0);
         shopname = (EditText) findViewById(R.id.editShopName);
         contactnumber = (EditText) findViewById(R.id.editContactNumber);
-        address = (EditText) findViewById(R.id.editAddress);
+        addressEditText = (EditText) findViewById(R.id.editAddress);
         contactemail = (EditText) findViewById(R.id.editContactEmail);
         categori = (EditText) findViewById(R.id.editCategory);
 
@@ -75,7 +75,7 @@ public class EditShop extends AppCompatActivity{
                 //TODO: call api to store information
                 shopName = shopname.getText().toString();
                 contactNumber = contactnumber.getText().toString();
-                location = address.getText().toString();
+                location = addressEditText.getText().toString();
                 contactEmail = contactemail.getText().toString();
                 category = categori.getText().toString();
                 JSONObject newShop = new JSONObject();
