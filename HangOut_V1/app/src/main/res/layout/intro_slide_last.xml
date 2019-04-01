@@ -22,16 +22,16 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            app:srcCompat="@drawable/high_five" />
+            app:srcCompat="@drawable/app_icon" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:gravity="center"
             android:textSize="24sp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:text="An assisstant that makes you a better Hang-out day. Click done to enter."
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="An assisstant that makes a better Hang-out day for you. Click DONE to enter."
             android:textColor="#ffffff" />
 
     </LinearLayout>

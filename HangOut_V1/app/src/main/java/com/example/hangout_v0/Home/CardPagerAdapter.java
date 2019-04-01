@@ -1,9 +1,12 @@
 package com.example.hangout_v0.Home;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.hangout_v0.R;
@@ -16,6 +19,7 @@ public class CardPagerAdapter extends PagerAdapter implements com.example.hangou
     private List<CardView> mViews;
     private List<com.example.hangout_v0.Home.CardItem> mData;
     private float mBaseElevation;
+    Button detailBtn;
 
     public CardPagerAdapter() {
         mData = new ArrayList<>();
@@ -53,6 +57,16 @@ public class CardPagerAdapter extends PagerAdapter implements com.example.hangou
         container.addView(view);
         bind(mData.get(position), view);
         CardView cardView = (CardView) view.findViewById(R.id.cardView);
+
+        detailBtn = view.findViewById(R.id.homeCardButton);
+        detailBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("http://www.4fingers.com/Promotion-4FINGERS");
+                Intent it = new Intent(Intent.ACTION_VIEW, uri);
+                v.getContext().startActivity(it);
+            }
+        });
 
         if (mBaseElevation == 0) {
             mBaseElevation = cardView.getCardElevation();
