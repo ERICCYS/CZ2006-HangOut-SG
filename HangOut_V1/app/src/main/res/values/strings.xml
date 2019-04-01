@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HangOut_V0</string>
+    <string name="app_name">Hang Out</string>
 
     <!-- login page added -->
     <string name="action_settings">Action Settings</string>

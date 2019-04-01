@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.hangout_v0.ApiCall.HangOutApi;
 import com.example.hangout_v0.ApiCall.HangOutData;
 import com.example.hangout_v0.R;
 
@@ -24,7 +25,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class VendorShop extends AppCompatActivity {
-    public static final String baseUrl = "http://10.27.51.140:9090/api/";
+    public static final String baseUrl = HangOutApi.baseUrl;
     TextView shopName, shopLocation, shopNumber, shopEmail, shopCategory;
     Button editButton;
     Button vendorReservationButton;

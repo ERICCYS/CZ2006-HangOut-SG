@@ -1,6 +1,8 @@
 package com.example.hangout_v0.Login;
 
 import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -119,7 +121,48 @@ public class LoginActivity extends AppCompatActivity {
 //                    }
                 }
                 else{
-                    switchToVendorPage();
+                    OkHttpClient client = new OkHttpClient();
+                    String url = HangOutApi.baseUrl + "vendor/signin";
+                    HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
+                    httpBuilder.addQueryParameter("email", userName.getText().toString());
+                    httpBuilder.addQueryParameter("password", userPassword.getText().toString());
+                    Request request = new Request.Builder().url(httpBuilder.build()).build();
+
+                    client.newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            System.out.println("****************************Log in failed***************************");
+                            LoginActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(LoginActivity.this,"unexisting account or incorrect password", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            e.printStackTrace();
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            if (response.isSuccessful()) {
+                                String myResponse = response.body().string();
+                                System.out.println(myResponse);
+                                HangOutData.setAccessToken(myResponse);
+                                switchToUserPage();
+
+                                //textView.setText("Customer Access Token is " + myResponse);
+
+                                // Able to get the access token.
+                            } else {
+                                System.out.println("****************************Log in failed***************************");
+                                LoginActivity.this.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(LoginActivity.this,"unexisting account or incorrect password", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        }
+                    });
 
                 }
             }
@@ -178,6 +221,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void switchToVendorPage(){
         Intent myIntent = new Intent(this, VendorMainActivity.class);
+        Long vendorId = new Long(1);
+
         startActivity(myIntent);
     }
 

@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Enter New Password"
-            android:inputType="textVisiblePassword"
+            android:inputType="textPassword"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/editCustomerEmail"
             android:layout_marginTop="10dp"/>

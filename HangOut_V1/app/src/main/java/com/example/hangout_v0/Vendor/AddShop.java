@@ -39,7 +39,7 @@ import okhttp3.Response;
 import static com.example.hangout_v0.ApiCall.HangOutApi.JSON;
 
 public class AddShop extends AppCompatActivity{
-    public static final String baseUrl = "http://10.27.51.140:9090/api/";
+    public static final String baseUrl = HangOutApi.baseUrl;
     private Long vendorId;
     Button submit, addCertificate;
     EditText shopname, contactnumber, address, contactemail, categori;
@@ -118,8 +118,9 @@ public class AddShop extends AppCompatActivity{
                                     public void run() {
                                         Toast toast = Toast.makeText(getApplicationContext(), "Successfully submitted!", Toast.LENGTH_SHORT);
                                         toast.show();
-                                        Intent mainActivity = new Intent(getApplicationContext(),VendorMainActivity.class);
-                                        startActivity(mainActivity);
+                                        finish();
+//                                        Intent mainActivity = new Intent(getApplicationContext(),VendorMainActivity.class);
+//                                        startActivity(mainActivity);
 
                                     }
                                 });

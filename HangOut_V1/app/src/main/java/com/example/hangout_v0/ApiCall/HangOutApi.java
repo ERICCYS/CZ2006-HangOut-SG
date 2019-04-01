@@ -1,10 +1,19 @@
 package com.example.hangout_v0.ApiCall;
 
+import android.annotation.TargetApi;
+import android.os.Build;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.security.Key;
+import java.util.Base64;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+
 import okhttp3.*;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -12,11 +21,31 @@ import okhttp3.Response;
 
 public class HangOutApi {
     public static final String baseUrl = "http://10.27.51.140:9090/api/";
+
     private String accessToken = "kldMaIf99i6G+0JvLQGwfw==";
     public static String vendorAT = "UPXDxfiMf2SNu/D/GQBkAg==";
+
+    private static final String key = "Bar12345Bar12345";
     public static final MediaType JSON = MediaType.parse("application/json");
 
+    @android.support.annotation.RequiresApi(api = Build.VERSION_CODES.O)
+    public static String getUserId(String accessToken) {
 
+        String decrypted = "";
+        String[] info = null;
+        try {
+            Cipher cipher = Cipher.getInstance("AES");
+            Key aesKey = new SecretKeySpec(key.getBytes(), "AES");
+            cipher.init(Cipher.DECRYPT_MODE, aesKey);
+            Base64.Decoder decoder = Base64.getDecoder();
+            byte[] cipherText = decoder.decode(accessToken.getBytes("UTF8"));
+            decrypted = new String(cipher.doFinal(cipherText), "UTF-8");
+            info = decrypted.split("\\|");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return info[0];
+    }
     public static void getCustomer(Long customerId) {
         OkHttpClient client = new OkHttpClient();
         String url = baseUrl + "customer";
