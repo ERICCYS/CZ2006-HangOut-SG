@@ -23,6 +23,7 @@ import com.example.hangout_v0.ApiCall.HangOutApi;
 import com.example.hangout_v0.ApiCall.HangOutData;
 import com.example.hangout_v0.R;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -31,6 +32,14 @@ import java.lang.reflect.MalformedParametersException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class UserProfile extends AppCompatActivity {
 
@@ -67,42 +76,143 @@ public class UserProfile extends AppCompatActivity {
         String accessToken = HangOutData.getAccessToken();
         customerId = Long.parseLong(HangOutApi.getUserId(accessToken));
         HangOutApi.getCustomer(customerId);
-        customer = HangOutData.getCustomer();
-        try {
-            firstname = customer.get("firstName").toString();
-            lastname = customer.get("lastName").toString();
-            Log.d("nameInTry",firstname+lastname);
-            gender = customer.get("gender").toString();
-            email = customer.get("email").toString();
-            avatarUrl= customer.get("avatar").toString();
-            dob = customer.get("dob").toString();
-            hahalpref = customer.get("halaPreference").toString();
-            vegpref = customer.get("vegPreference").toString();
-            regionalpref = customer.get("regionalPreference").toString();
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
 
-        // set all text to info
-        Log.d("name",firstname+lastname);
-        nameTv.setText(firstname+" "+lastname);
-        genderTv.setText("Gender: "+gender);
-        emailTv.setText("Email: "+email);
-        dobTv.setText("DOB: "+dob);
-        if(hahalpref == "true")
-            halalOpTv.setText("Hahal Option: Yes");
-        else
-            halalOpTv.setText("Hahal Option: No");
-        if(vegpref == "true")
-            vegOpTv.setText("Vegitarian Option: Yes");
-        else
-            vegOpTv.setText("Vegitarian Option: No");
-        regionalTv.setText("Regional Info: "+regionalpref);
-        if(avatarUrl == null)
-            avatarUrl = "https://iupac.org/wp-content/uploads/2018/05/default-avatar-768x768.png";
-        // set avatar from url
-        new DownloadImageFromInternet(avatar).execute(avatarUrl);
+
+
+        OkHttpClient client = new OkHttpClient();
+        String url = HangOutApi.baseUrl + "customer";
+        HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
+        httpBuilder.addQueryParameter("customerId", customerId.toString());
+        Request request = new Request.Builder().url(httpBuilder.build()).build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String myResponse = response.body().string();
+                    try {
+                        JSONObject customer = new JSONObject(myResponse);
+
+                        HangOutData.setCustomer(customer);
+
+                        customer = HangOutData.getCustomer();
+                        try {
+                            firstname = customer.get("firstName").toString();
+                            lastname = customer.get("lastName").toString();
+                            Log.d("nameInTry",firstname+lastname);
+                            gender = customer.get("gender").toString();
+                            email = customer.get("email").toString();
+                            avatarUrl= customer.get("avatar").toString();
+                            dob = customer.get("dob").toString();
+                            hahalpref = customer.get("halaPreference").toString();
+                            vegpref = customer.get("vegPreference").toString();
+                            regionalpref = customer.get("regionalPreference").toString();
+                        }
+                        catch (Exception e){
+                            e.printStackTrace();
+                        }
+
+                        UserProfile.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                // set all text to info
+                                Log.d("name",firstname+lastname);
+                                nameTv.setText(firstname+" "+lastname);
+                                genderTv.setText("Gender: "+gender);
+                                emailTv.setText("Email: "+email);
+                                dobTv.setText("DOB: "+dob);
+                                if(hahalpref == "true")
+                                    halalOpTv.setText("Hahal Option: Yes");
+                                else
+                                    halalOpTv.setText("Hahal Option: No");
+                                if(vegpref == "true")
+                                    vegOpTv.setText("Vegitarian Option: Yes");
+                                else
+                                    vegOpTv.setText("Vegitarian Option: No");
+                                regionalTv.setText("Regional Info: "+regionalpref);
+                                if(avatarUrl == null)
+                                    avatarUrl = "https://iupac.org/wp-content/uploads/2018/05/default-avatar-768x768.png";
+                                // set avatar from url
+                                new DownloadImageFromInternet(avatar).execute(avatarUrl);
+                            }
+                        });
+
+                    } catch (JSONException e) {
+                        //textView.setText("Error");
+                    }
+                }
+            }
+        });
+
+//        RequestBody body = RequestBody.create(HangOutApi.JSON, updatedCustomer);
+//        OkHttpClient client = new OkHttpClient();
+//        String url = HangOutApi.baseUrl + "customer";
+//        HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
+//        httpBuilder.addQueryParameter("customerId", customerId.toString());
+//        Request request = new Request.Builder()
+//                .url(httpBuilder.build())
+//                .put(body)
+//                .addHeader("Authorization", HangOutData.getAccessToken())
+//                .build();
+//
+//        client.newCall(request).enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                if (response.isSuccessful()) {
+//                    String myResponse = response.body().string();
+//                    //textView.setText("Customer Updated Successfully, here is the new customer " + myResponse);
+//                }
+//            }
+//        });
+
+
+
+//        customer = HangOutData.getCustomer();
+//        try {
+//            firstname = customer.get("firstName").toString();
+//            lastname = customer.get("lastName").toString();
+//            Log.d("nameInTry",firstname+lastname);
+//            gender = customer.get("gender").toString();
+//            email = customer.get("email").toString();
+//            avatarUrl= customer.get("avatar").toString();
+//            dob = customer.get("dob").toString();
+//            hahalpref = customer.get("halaPreference").toString();
+//            vegpref = customer.get("vegPreference").toString();
+//            regionalpref = customer.get("regionalPreference").toString();
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//        }
+//
+//        // set all text to info
+//        Log.d("name",firstname+lastname);
+//        nameTv.setText(firstname+" "+lastname);
+//        genderTv.setText("Gender: "+gender);
+//        emailTv.setText("Email: "+email);
+//        dobTv.setText("DOB: "+dob);
+//        if(hahalpref == "true")
+//            halalOpTv.setText("Hahal Option: Yes");
+//        else
+//            halalOpTv.setText("Hahal Option: No");
+//        if(vegpref == "true")
+//            vegOpTv.setText("Vegitarian Option: Yes");
+//        else
+//            vegOpTv.setText("Vegitarian Option: No");
+//        regionalTv.setText("Regional Info: "+regionalpref);
+//        if(avatarUrl == null)
+//            avatarUrl = "https://iupac.org/wp-content/uploads/2018/05/default-avatar-768x768.png";
+//        // set avatar from url
+//        new DownloadImageFromInternet(avatar).execute(avatarUrl);
 
 
 
