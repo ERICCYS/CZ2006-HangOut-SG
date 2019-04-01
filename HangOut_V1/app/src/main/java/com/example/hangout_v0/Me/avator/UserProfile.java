@@ -7,6 +7,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -39,9 +41,10 @@ public class UserProfile extends AppCompatActivity {
 
     // all customer info
     private String firstname, lastname, gender, email, avatarUrl, dob, hahalpref, vegpref, regionalpref;
-    Long customerId = Long.valueOf(1);
+    Long customerId = Long.valueOf(3);
     JSONObject customer;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +64,8 @@ public class UserProfile extends AppCompatActivity {
         avatar = findViewById(R.id.customerAvatar);
 
         // set all customer info to original ones on the edit page
+        String accessToken = HangOutData.getAccessToken();
+        customerId = Long.parseLong(HangOutApi.getUserId(accessToken));
         HangOutApi.getCustomer(customerId);
         customer = HangOutData.getCustomer();
         try {
