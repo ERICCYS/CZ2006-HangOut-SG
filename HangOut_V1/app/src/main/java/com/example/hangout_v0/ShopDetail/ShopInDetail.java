@@ -2,6 +2,7 @@ package com.example.hangout_v0.ShopDetail;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
@@ -14,11 +15,28 @@ import android.widget.ListView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.hangout_v0.ApiCall.HangOutApi;
+import com.example.hangout_v0.ApiCall.HangOutData;
 import com.example.hangout_v0.R;
+import com.example.hangout_v0.Recommendation.RecShop;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
 
@@ -33,48 +51,62 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_in_detail_user);
 
+        Intent intent = getIntent();
+        Long shopId = Long.parseLong(intent.getStringExtra("chosenShopId"));
+
         this.getSupportActionBar().hide();
 
-        ImageView shopPhoto1 = (ImageView) findViewById(R.id.shopPhoto1);
-        ImageView shopPhoto2 = (ImageView) findViewById(R.id.shopPhoto2);
-        ImageView shopPhoto3 = (ImageView) findViewById(R.id.shopPhoto3);
 
-        shopPhoto1.setImageResource(R.drawable.image1);
-        shopPhoto2.setImageResource(R.drawable.image2);
-        shopPhoto3.setImageResource(R.drawable.image3);
+        OkHttpClient client = new OkHttpClient();
+        String url = HangOutApi.baseUrl + "shop";
+        HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
+        httpBuilder.addQueryParameter("shopId", shopId.toString());
 
-        // later call API to get data
-        String[] name = {"peach","mango","apple","pear","watermelon","cherry"};
-        String[] description = {"She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
-                "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
-                "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
-                "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
-                "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
-                "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. "};
-        Integer[] imgid = {R.drawable.image1,R.drawable.image2,R.drawable.image3,R.drawable.image4,R.drawable.image5,R.drawable.image6};
-        Float[] rating = {4.0f,3.0f,4.3f,4.0f,4.2f,4.1f};
-        String[] distance = {"4.0","3.0","4.3","4.0","4.2","4.1"};
-        String[] carParkCapacity = {"90%","80%","80%","80%","80%","80%"};
+        Request request = new Request.Builder().url(httpBuilder.build()).build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String myResponse = response.body().string();
+                    System.out.println(myResponse);
+                    try {
+                        JSONObject shopDetail = new JSONObject(myResponse);
+
+                        try {
+                            System.out.print("Get success");
+                            Recshop shopDetail = new RecShop(
+                                        jsonRecShop.getLong("Id"),
+                                        jsonRecShop.getString("name"),
+                                        jsonRecShop.getString("contactNumber"),
+                                        jsonRecShop.getString("contactEmail"),
+                                        jsonRecShop.getString("category"),
+                                        jsonRecShop.getString("location"),
+                                        jsonRecShop.getString("carParkNumbers"),
+                                        jsonRecShop.getString("imageId")
+                                );
+                            }
+                    } catch (JSONException e) {
+                    }
+                }
+            }
+        });
 
 
-        ListView shopDishListView = (ListView) findViewById(R.id.shopDishListView);
-        com.example.hangout_v0.Recommendation.ShopInListAdapter shopDishAdapter = new com.example.hangout_v0.Recommendation.ShopInListAdapter(this,name,description,imgid,rating,distance,carParkCapacity);
-        shopDishListView.setAdapter(shopDishAdapter);
+//
+//        ListView shopDishListView = (ListView) findViewById(R.id.shopDishListView);
+//        com.example.hangout_v0.Recommendation.ShopInListAdapter shopDishAdapter = new com.example.hangout_v0.Recommendation.ShopInListAdapter(this,name,description,imgid,rating,distance,carParkCapacity);
+//        shopDishListView.setAdapter(shopDishAdapter);
 
         final FloatingActionButton addPlanFloatingActionButton = (FloatingActionButton) findViewById(R.id.addPlanFloatingActionButton);
         addPlanFloatingActionButton.setImageResource(R.drawable.ic_add_plan_not_sel);
         final FloatingActionButton addCollectionFloatingActionButton = (FloatingActionButton) findViewById(R.id.addCollectionFloatingActionButton);
         addCollectionFloatingActionButton.setImageResource(R.drawable.ic_add_collection_not_sel);
-
-//        addPlanFloatingActionButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (addPlanFloatingActionButton.getIm==R.drawable.ic_add_plan_sel)
-//                    addPlanFloatingActionButton.setImageResource(R.drawable.ic_add_plan_not_sel);
-//                else
-//                    addPlanFloatingActionButton.setImageResource(R.drawable.ic_add_plan_sel);
-//            }
-//        });
 
 
         addCollectionFloatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -124,3 +156,24 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
         Toast.makeText(ShopInDetail.this,shopDateString+"\n"+ shopTimeString,Toast.LENGTH_SHORT).show();
     }
 }
+
+//        ImageView shopPhoto1 = (ImageView) findViewById(R.id.shopPhoto1);
+//        ImageView shopPhoto2 = (ImageView) findViewById(R.id.shopPhoto2);
+//        ImageView shopPhoto3 = (ImageView) findViewById(R.id.shopPhoto3);
+//
+//        shopPhoto1.setImageResource(R.drawable.image1);
+//        shopPhoto2.setImageResource(R.drawable.image2);
+//        shopPhoto3.setImageResource(R.drawable.image3);
+
+// later call API to get data
+//        String[] name = {"peach","mango","apple","pear","watermelon","cherry"};
+//        String[] description = {"She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
+//                "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
+//                "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
+//                "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
+//                "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
+//                "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. "};
+//        Integer[] imgid = {R.drawable.image1,R.drawable.image2,R.drawable.image3,R.drawable.image4,R.drawable.image5,R.drawable.image6};
+//        Float[] rating = {4.0f,3.0f,4.3f,4.0f,4.2f,4.1f};
+//        String[] distance = {" ","","" ,"","",""};
+//        String[] carParkCapacity = {"","","","","",""};

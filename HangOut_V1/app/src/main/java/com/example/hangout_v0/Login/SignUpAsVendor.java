@@ -17,9 +17,22 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hangout_v0.ApiCall.HangOutApi;
+import com.example.hangout_v0.ApiCall.HangOutData;
 import com.example.hangout_v0.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.Calendar;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class SignUpAsVendor extends AppCompatActivity {
 
@@ -61,10 +74,54 @@ public class SignUpAsVendor extends AppCompatActivity {
                 selectedSexBtn = findViewById(selectedId);
                 gender = selectedSexBtn.getText().toString();
 
-//                TextView test = findViewById(R.id.vendorSignUpTest);
-//                test.setText("vendor info: "+firstName+lastName+email+password+gender);
+                //
 
-                Toast.makeText(SignUpAsVendor.this,"sign up successfully", Toast.LENGTH_SHORT).show();
+                JSONObject newVendor = new JSONObject();
+                try {
+                    newVendor.put("firstName", firstName);
+                    newVendor.put("lastName", lastName);
+                    newVendor.put("gender", gender);
+                    newVendor.put("email", email);
+                    newVendor.put("password", password);
+                } catch(JSONException e){
+                    e.printStackTrace();
+                }
+
+                RequestBody body = RequestBody.create(HangOutApi.JSON, newVendor.toString());
+                OkHttpClient client = new OkHttpClient();
+                String url = HangOutApi.baseUrl + "vendor";
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(body)
+                        .build();
+
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        if (response.isSuccessful()) {
+                            String myResponse = response.body().string();
+                            HangOutData.setAccessToken(myResponse);
+                            SignUpAsVendor.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(SignUpAsVendor.this, "sign up successfully", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else {
+                            SignUpAsVendor.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(SignUpAsVendor.this, "sign up failed", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }
+                });
 
                 finish();
             }

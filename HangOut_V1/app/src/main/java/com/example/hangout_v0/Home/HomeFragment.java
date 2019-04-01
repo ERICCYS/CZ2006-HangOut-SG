@@ -11,8 +11,13 @@ import android.view.ViewGroup;
 import android.text.TextUtils;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
+
+import com.example.hangout_v0.Login.LoginActivity;
 import com.youth.banner.Banner;
 import java.util.ArrayList;
 
@@ -23,6 +28,8 @@ public class HomeFragment extends Fragment {
     private SearchView mSearchView = null;
     private ListView mListView = null;
     private String[] mDatas = {};
+    Button icon1;
+    Button detailButton;
 
     private ArrayList<Integer> images;
 
@@ -37,6 +44,15 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.homepage_layout, container, false);
 
+        icon1 = view.findViewById(R.id.home_icon1_food);
+        icon1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(),"unexisting account or incorrect password", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_UNSPECIFIED);
         ///////////////////////////////////////////////////////////////////////////////////
 
@@ -46,31 +62,6 @@ public class HomeFragment extends Fragment {
         banner.setImages(images);
         banner.start();
 
-        ///////////////////////////////////////////////////////////////////////////////////
-//
-//        mSearchView = (SearchView) view.findViewById(R.id.home_searchView);
-//        mListView = (ListView) view.findViewById(R.id.home_listView);
-//        mListView.setAdapter(new ArrayAdapter<String>(getActivity(),
-//                android.R.layout.simple_list_item_1, mDatas));
-//        mListView.setTextFilterEnabled(true);
-//
-//        // listen to the search view
-//        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//            // if the search view text changes
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                if (!TextUtils.isEmpty(newText)){
-//                    mListView.setFilterText(newText);
-//                }else{
-//                    mListView.clearTextFilter();
-//                }
-//                return false;
-//            }
-//        });
 
         ///////////////////////////////////////////////////////////////////////////////////
 
@@ -102,5 +93,6 @@ public class HomeFragment extends Fragment {
         images.add(R.drawable.home_banner_shop_folklore);
         images.add(R.drawable.home_banner_shop_humpback);
     }
+
 }
 
