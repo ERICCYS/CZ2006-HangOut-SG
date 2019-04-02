@@ -9,8 +9,10 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.nfc.Tag;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -57,17 +59,16 @@ public class EditCustomerProfile extends AppCompatActivity {
     Button editPhoto;
     private Uri avatarUri;
     private StorageReference storageRef;
-    EditText firstNameEt, lastNameEt, emailEt, passwordEt, regionalEt;
+    EditText firstNameEt, lastNameEt, passwordEt, regionalEt;
     RadioGroup genderSelection;
     // all customer info
     private String firstname, lastname, gender, email, password, avatarUrl, dob, hahalpref, vegpref, regionalpref;
-    static Long customerId = Long.valueOf(1);
+    static Long customerId = Long.valueOf(3);
     JSONObject customer;
 
-    public static void setCustomerId(Long cid){
-        customerId = cid;
-    }
 
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -81,7 +82,6 @@ public class EditCustomerProfile extends AppCompatActivity {
         storageRef = FirebaseStorage.getInstance().getReference();
         firstNameEt = findViewById(R.id.editCustomerFirstName);
         lastNameEt = findViewById(R.id.editCustomerLastName);
-        emailEt = findViewById(R.id.editCustomerEmail);
         passwordEt = findViewById(R.id.editCustomerPassword);
         regionalEt = findViewById(R.id.editCustomerRegion);
         genderSelection = findViewById(R.id.editCustomerGender);
@@ -89,6 +89,8 @@ public class EditCustomerProfile extends AppCompatActivity {
         vegOp = findViewById(R.id.editVegOption);
 
         // set all customer info to original ones on the edit page
+        String accessToken = HangOutData.getAccessToken();
+        customerId = Long.parseLong(HangOutApi.getUserId(accessToken));
         HangOutApi.getCustomer(customerId);
         customer = HangOutData.getCustomer();
         try {
@@ -169,7 +171,7 @@ public class EditCustomerProfile extends AppCompatActivity {
                             gender = "OTHER";
                             break;
                 }
-                email = emailEt.getText().toString();
+
                 password = passwordEt.getText().toString();
                 if(halalOp.isChecked())
                     hahalpref = "true";
@@ -180,7 +182,6 @@ public class EditCustomerProfile extends AppCompatActivity {
                 regionalpref = regionalEt.getText().toString();
                 if(avatarUrl ==  null)
                     avatarUrl = "https://iupac.org/wp-content/uploads/2018/05/default-avatar-768x768.png";
-                HangOutData.setAccessToken("MO+JagfaxkBhiebgBxMZ2w==");
                 JSONObject updatedCustomer = new JSONObject();
                 try {
                     updatedCustomer.put("firstName", firstname);

@@ -73,16 +73,16 @@
             android:layout_below="@id/editCustomerFirstName"
             android:layout_marginTop="10dp"/>
 
-        <EditText
-            android:id="@+id/editCustomerEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Enter Email"
-            android:inputType="textEmailAddress"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/editCustomerLastName"
-            android:layout_marginTop="10dp"/>
+        <!--<EditText-->
+            <!--android:id="@+id/editCustomerEmail"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:ems="10"-->
+            <!--android:hint="Enter Email"-->
+            <!--android:inputType="textEmailAddress"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_below="@id/editCustomerLastName"-->
+            <!--android:layout_marginTop="10dp"/>-->
 
         <EditText
             android:id="@+id/editCustomerPassword"
@@ -92,7 +92,7 @@
             android:hint="Enter New Password"
             android:inputType="textPassword"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/editCustomerEmail"
+            android:layout_below="@id/editCustomerLastName"
             android:layout_marginTop="10dp"/>
 
         <RadioGroup

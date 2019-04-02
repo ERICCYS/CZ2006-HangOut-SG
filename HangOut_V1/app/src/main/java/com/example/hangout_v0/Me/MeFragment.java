@@ -29,7 +29,7 @@ public class MeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_me, container, false);
 
-        CardView avator = view.findViewById(R.id.meAvatorWrapper);
+        //CardView avator = view.findViewById(R.id.meAvatorWrapper);
 //        AppCompatButton signInSignUp = view.findViewById(R.id.meSignInSignUpButton);
         LinearLayout reservation = view.findViewById(R.id.MeReservationLinearLayout);
         LinearLayout plan = view.findViewById(R.id.MePlanLinearLayout);
@@ -38,12 +38,12 @@ public class MeFragment extends Fragment {
         LinearLayout helpCenter = view.findViewById(R.id.fragmentHelpCenter);
         LinearLayout more = view.findViewById(R.id.fragmentMore);
 
-        avator.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+//        avator.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
 
 //        signInSignUp.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -51,6 +51,8 @@ public class MeFragment extends Fragment {
 //                Toast.makeText(v.getContext(), "this is to sign in / sign up", Toast.LENGTH_SHORT).show();
 //            }
 //        });
+
+
 
         reservation.setOnClickListener(new View.OnClickListener() {
             @Override

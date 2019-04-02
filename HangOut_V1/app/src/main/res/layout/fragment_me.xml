@@ -31,19 +31,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="25dp" />
 
-            <android.support.v7.widget.CardView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:id="@+id/meAvatorWrapper"
-                app:cardCornerRadius="40dp"
-                android:layout_gravity="center_horizontal">
-                <ImageView
-                    android:layout_height="80dp"
-                    android:layout_width="match_parent"
-                    android:id="@+id/meAvatorImageView"
-                    android:src="@drawable/me_default_user_avator"
-                    android:scaleType="centerCrop"/>
-            </android.support.v7.widget.CardView>
+            <!--<android.support.v7.widget.CardView-->
+                <!--android:layout_width="80dp"-->
+                <!--android:layout_height="80dp"-->
+                <!--android:id="@+id/meAvatorWrapper"-->
+                <!--app:cardCornerRadius="40dp"-->
+                <!--android:layout_gravity="center_horizontal">-->
+                <!--<ImageView-->
+                    <!--android:layout_height="80dp"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:id="@+id/meAvatorImageView"-->
+                    <!--android:src="@drawable/me_default_user_avator"-->
+                    <!--android:scaleType="centerCrop"/>-->
+            <!--</android.support.v7.widget.CardView>-->
 
 
         </LinearLayout>
