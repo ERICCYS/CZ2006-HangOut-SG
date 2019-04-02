@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+
+    <ImageView
+        android:id="@+id/me_shop_in_plan_icon"
+        android:layout_width="68dp"
+        android:layout_height="64dp"
+        android:clickable="false"
+        android:src="@drawable/vendor_shopicon"
+        />
+
+    <TextView
+        android:id="@+id/me_plan_shopDateTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/me_shop_in_plan_icon"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="-23dp"
+        android:layout_toLeftOf="@id/me_plan_shop_deleteBtn"
+        android:gravity="right"
+        android:text="DateTime" />
+
+    <TextView
+        android:id="@+id/me_plan_shopNameTextView"
+        android:layout_width="187dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/me_shop_in_plan_icon"
+        android:text="ShopName"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/me_plan_shopAddressTextView"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/me_plan_shopNameTextView"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="1dp"
+        android:layout_toRightOf="@id/me_shop_in_plan_icon"
+        android:text="Address" />
+
+
+    <ImageButton
+        android:id="@+id/me_plan_shop_deleteBtn"
+        style="@android:style/Widget.DeviceDefault.Light.ImageButton"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignTop="@+id/me_plan_shopAddressTextView"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginRight="35dp"
+        android:background="@null"
+        app:srcCompat="@drawable/mine_shop_delete_btn" />
+
+
+</RelativeLayout>
+
+
+
+
+
+
+

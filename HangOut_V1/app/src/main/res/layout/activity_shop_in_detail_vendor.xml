@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".Vendor.VendorShop">
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/vendorReserveButton"
+        android:layout_width="107dp"
+        android:layout_height="33dp"
+        android:layout_below="@+id/vendorEditbutton"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="29dp"
+        android:background="@drawable/reserve_round_corner_bg"
+
+        android:text="Reservation"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/exitFloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#fff"
+        android:shape="ring"
+        app:borderWidth="0dp"
+        android:src="@drawable/ic_back_to_last_page"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:clickable="true"
+        android:elevation="0dp"
+        app:elevation="0dp"/>
+
+
+    <TextView
+        android:id="@+id/vendorShopNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/exitFloatingActionButton"
+        android:text="shopname"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="36sp" />
+
+    <RatingBar
+        android:id="@+id/shopRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:isIndicator="true"
+        android:rating="5"
+        android:max="5"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_below="@id/vendorShopNameTextView"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        />
+
+    <!--phoge gallery-->
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/shopPhoto1"
+        android:layout_below="@id/shopRatingBar"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:scaleType="centerCrop"
+        /> <!--android:scaleType="fitXY"-->
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/shopPhoto2"
+        android:layout_below="@id/shopRatingBar"
+        android:layout_centerHorizontal="true"
+        android:scaleType="centerCrop"
+        />
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/shopPhoto3"
+        android:layout_below="@id/shopRatingBar"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:scaleType="centerCrop"
+        />
+
+    <!--location-->
+    <ImageView
+        android:id="@+id/vendorShopLocationIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_location"
+        android:layout_below="@id/shopPhoto1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/vendorShopLocationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vendorShopLocationIcon"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="-30dp"
+        android:layout_toEndOf="@+id/vendorShopLocationIcon"
+        android:layout_toRightOf="@+id/vendorShopLocationIcon"
+        android:text="Jurong point"
+        android:textSize="20sp" />
+
+    <!--phone-->
+    <ImageView
+        android:id="@+id/vendorShopPhoneNumberIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_shop_phone_number"
+        android:layout_below="@id/vendorShopLocationTextView"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/vendorShopPhoneNumberTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vendorShopPhoneNumberIcon"
+        android:layout_marginStart="17dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="-31dp"
+        android:layout_toEndOf="@+id/vendorShopPhoneNumberIcon"
+        android:layout_toRightOf="@+id/vendorShopPhoneNumberIcon"
+        android:text="1234 5678"
+        android:textSize="20sp" />
+
+    <!--website-->
+    <ImageView
+        android:id="@+id/vendorShopWebIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_web"
+        android:layout_below="@id/vendorShopPhoneNumberTextView"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/vendorShopWebTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vendorShopWebIcon"
+        android:layout_marginStart="17dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="-29dp"
+        android:layout_toEndOf="@+id/vendorShopWebIcon"
+        android:layout_toRightOf="@+id/vendorShopWebIcon"
+        android:text="www.123.com"
+        android:textSize="20sp" />
+
+
+    <ListView
+        android:id="@+id/vendorShopDishListView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/vendorShopWebTextView"
+        android:layout_marginTop="20dp">
+
+    </ListView>
+
+    <Button
+        android:id="@+id/vendorEditbutton"
+        android:layout_width="109dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginRight="21dp"
+        android:text="EDIT" />
+
+
+</RelativeLayout>

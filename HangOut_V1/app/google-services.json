@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "584523525914",
+    "firebase_url": "https://cz2006project.firebaseio.com",
+    "project_id": "cz2006project",
+    "storage_bucket": "cz2006project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:584523525914:android:86fae878ccf85a08",
+        "android_client_info": {
+          "package_name": "com.example.addavatar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "584523525914-je4du2mn7jc7dmhc1ng7i3p0gv3hujcq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9JglOHTOw2fb1aH2WRN05jv4yXBdhMro"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:584523525914:android:a673a0c17b5f50d8",
+        "android_client_info": {
+          "package_name": "com.example.hangout_v0"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "584523525914-je4du2mn7jc7dmhc1ng7i3p0gv3hujcq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9JglOHTOw2fb1aH2WRN05jv4yXBdhMro"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

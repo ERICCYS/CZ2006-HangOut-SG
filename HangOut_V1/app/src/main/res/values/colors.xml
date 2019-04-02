@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="white">#ffffff</color>
+
+    <!-- login page added -->
+    <color name="colorFloatingActionButton">#008CEE</color>
+    <color name="colorSplashBackground">#0E80C6</color>
+    <color name="colorLogin">#0980C3</color>
+    <color name="colorLoginButton">#004684</color>
+    <color name="colorCursor">#cccccc</color>
+    <color name="head_color">#836FFF</color>
+    <color name="information_title_color">#666666</color>
+    <color name="list_bg_color">#FFF4F4F4</color>
+    <color name="me_more_text">#828080</color>
+    <color name="list_focus_color">#bdbdbd</color>
+    <color name="logoScreenBackground">#F7F7F7</color>
+
+    <drawable name="checkbox">#666666</drawable>
+    <drawable name="camera_back_press">#1b1b1b</drawable>
+    <drawable name="camera_back_default">#2f2f2f</drawable>
+
+    <color name="light_blue">#ADD8E6</color>
+</resources>

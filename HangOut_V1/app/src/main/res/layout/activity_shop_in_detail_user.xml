@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/exitFloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#fff"
+        android:shape="ring"
+        app:borderWidth="0dp"
+        android:src="@drawable/ic_back_to_last_page"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:clickable="true"
+        android:elevation="0dp"
+        app:elevation="0dp"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/shareFloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_share"
+        android:backgroundTint="#fff"
+        app:borderWidth="0dp"
+        android:clickable="true"
+        android:elevation="0dp"
+        app:elevation="0dp"
+        android:shape="ring"
+        />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/addCollectionFloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@id/shareFloatingActionButton"
+        android:layout_toStartOf="@id/shareFloatingActionButton"
+        android:src="@drawable/ic_add_collection_not_sel"
+        android:backgroundTint="#fff"
+        app:borderWidth="0dp"
+        android:clickable="true"
+        android:elevation="0dp"
+        app:elevation="0dp"
+        android:shape="ring"
+        />
+
+    <android.support.design.widget.FloatingActionButton
+        android:elevation="0dp"
+        app:elevation="0dp"
+        android:id="@+id/addPlanFloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@id/addCollectionFloatingActionButton"
+        android:layout_toStartOf="@id/addCollectionFloatingActionButton"
+        android:src="@drawable/ic_add_plan_not_sel"
+        android:backgroundTint="#fff"
+        app:borderWidth="0dp"
+        android:clickable="true"
+        android:shape="ring"
+        />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/reserveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@+id/addPlanFloatingActionButton"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/reserve_round_corner_bg"
+        android:text="Reserve"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="25dp"
+        android:onClick="reserve"
+
+        />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/addPlanButton"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@+id/reserveButton"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/add_plan_round_corner_bg"
+        android:text="Add Plan"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"
+        android:onClick="addToPlan"
+        />
+
+
+    <TextView
+        android:id="@+id/shopNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PUTIEN"
+        android:textSize="36sp"
+        android:layout_below="@+id/exitFloatingActionButton"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
+        />
+
+    <RatingBar
+        android:id="@+id/shopRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:isIndicator="true"
+        android:rating="5"
+        android:max="5"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_below="@id/shopNameTextView"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="20dp"
+        />
+
+    <!--phoge gallery-->
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/shopPhoto1"
+        android:layout_below="@id/shopRatingBar"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:scaleType="centerCrop"
+        /> <!--android:scaleType="fitXY"-->
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/shopPhoto2"
+        android:layout_below="@id/shopRatingBar"
+        android:layout_centerHorizontal="true"
+        android:scaleType="centerCrop"
+        />
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/shopPhoto3"
+        android:layout_below="@id/shopRatingBar"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:scaleType="centerCrop"
+        />
+
+    <!--location-->
+    <ImageView
+        android:id="@+id/shopLocationIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_location"
+        android:layout_below="@id/shopPhoto1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/shopLocationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/shopLocationIcon"
+        android:layout_marginLeft="20dp"
+        android:textSize="20sp"
+        android:text="Jurong point"/>
+
+    <!--phone-->
+    <ImageView
+        android:id="@+id/shopPhoneNumberIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_shop_phone_number"
+        android:layout_below="@id/shopLocationTextView"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/shopPhoneNumberTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/shopPhoneNumberIcon"
+        android:layout_marginLeft="20dp"
+        android:textSize="20sp"
+        android:text="1234 5678"/>
+
+    <!--website-->
+    <ImageView
+        android:id="@+id/shopWebIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_web"
+        android:layout_below="@id/shopPhoneNumberTextView"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/shopWebTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/shopWebIcon"
+        android:layout_marginLeft="20dp"
+        android:textSize="20sp"
+        android:text="www.123.com"/>
+
+
+    <!--<ListView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_below="@+id/shopWebTextView"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:id="@+id/shopDishListView">-->
+
+    <!--</ListView>-->
+
+    <ImageView
+        android:id="@+id/shopCarParkIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/shopdetail_carpark_icon"
+        android:layout_below="@id/shopWebTextView"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/shopCarParkTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/shopCarParkIcon"
+        android:layout_marginLeft="20dp"
+        android:textSize="20sp"
+        android:text="Nearby Car Parks"/>
+
+    <TextView
+        android:id="@+id/shopCarParkCapacityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/shopCarParkTextView"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="0dp"
+        android:textSize="20sp"/>
+
+
+
+</RelativeLayout>

@@ -1,0 +1,4 @@
+#Sun Mar 24 12:26:50 SGT 2019
+base.0=/Users/libingzi/CZ2006/HangOut_V0/app/build/intermediates/transforms/dexMerger/debug/9
+path.0=classes.dex
+renamed.0=classes.dex

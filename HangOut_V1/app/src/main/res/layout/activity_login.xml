@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fafafa">
+
+
+    <View
+        android:id="@+id/top_empty_space"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:background="#fafafa" />
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/login_app_icon"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/top_empty_space"
+        android:layout_marginTop="20dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/app_icon_round" />
+
+
+    <TextView
+        android:id="@+id/login_app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="120dp"
+        android:layout_below="@id/top_empty_space"
+        android:text="Hang Out"
+        android:textColor="#000"
+        android:textSize="24sp"
+        android:typeface="monospace" />
+
+    <RelativeLayout
+        android:id="@+id/Login_userName_relativeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_app_name"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/rectangle_edittext">
+
+        <ImageView
+            android:id="@+id/login_userName_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingBottom="15dp"
+            android:paddingLeft="30dp"
+            android:paddingTop="15dp"
+            android:src="@mipmap/ic_edittextuname" />
+
+        <View
+            android:id="@+id/login_userName_view"
+            android:layout_width="1dip"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/login_userName_icon"
+            android:background="#cccccc" />
+
+        <EditText
+            android:id="@+id/login_userName_editText"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_toRightOf="@id/login_userName_view"
+            android:background="@null"
+            android:ems="19"
+            android:hint=" Username"
+            android:textColorHint="#cccccc"
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/login_userName_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/ic_backspace_grey600_24dp"
+            android:visibility="invisible" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/login_userPassword_relativeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Login_userName_relativeLayout"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/rectangle_edittext">
+
+        <ImageView
+            android:id="@+id/login_userPassword_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingBottom="15dp"
+            android:paddingLeft="30dp"
+            android:paddingTop="15dp"
+            android:src="@mipmap/ic_edittextupwd" />
+
+        <View
+            android:id="@+id/login_userPassword_view"
+            android:layout_width="1dip"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/login_userPassword_icon"
+            android:background="#cccccc" />
+
+        <EditText
+            android:id="@+id/login_userPassword_editText"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/login_userPassword_view"
+            android:background="@null"
+            android:drawablePadding="5dp"
+            android:ems="19"
+            android:hint=" Password"
+            android:inputType="textPassword"
+            android:textColorHint="#cccccc"
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/login_userPassword_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/ic_backspace_grey600_24dp"
+            android:visibility="invisible" />
+
+    </RelativeLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/login_checkBox_linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="15dp"
+        android:layout_below="@id/login_userPassword_relativeLayout"
+        android:orientation="horizontal">
+
+    <CheckBox
+        android:id="@+id/login_rememberPassword_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="10dp"
+        android:background="@null"
+        android:checked="false"
+        android:duplicateParentState="false"
+        android:text="Remember Password"
+        android:textColor="#666666"
+        android:textSize="15sp"
+        app:buttonTint="#004684" />
+
+    <CheckBox
+        android:id="@+id/login_vendorTunnel_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@null"
+        android:checked="false"
+        android:duplicateParentState="false"
+        android:text="Vendor Tunnel"
+        android:textColor="#666666"
+        android:textSize="15sp"
+        app:buttonTint="#004684" />
+
+    </LinearLayout>
+
+
+    <Button
+    android:id="@+id/login_login_button"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/login_checkBox_linearLayout"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="20dp"
+    android:background="@drawable/login_round_corner_bg"
+    android:gravity="center"
+    android:padding="10dp"
+    android:text="Sign In"
+    android:textColor="#fff"
+    android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/login_signup_button"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_login_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_round_corner_bg"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Sign Up"
+        android:textColor="#fff"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/login_skip_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/login_signup_button"
+        android:layout_marginTop="10dp"
+        android:background="#00000000"
+        android:text="Skip"
+        android:textColor="#738382"
+        android:textSize="15sp" />
+
+
+
+</RelativeLayout>

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/editCustomerProfileTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:text="Editing User Profile"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorPrimary"
+            android:padding="10dp"/>
+
+        <ImageView
+            android:id="@+id/editCustomerAvatar"
+            android:layout_width="113dp"
+            android:layout_height="97dp"
+            android:cropToPadding="true"
+            android:src="@drawable/image1"
+            android:layout_below="@id/editCustomerProfileTitle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/editAvatarButton"
+            android:layout_width="114dp"
+            android:layout_height="41dp"
+            android:text="Edit Photo"
+            android:textColor="#FFF"
+            app:backgroundTint="@color/colorPrimary"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/editCustomerAvatar"
+            android:layout_marginTop="10dp"/>
+
+
+        <EditText
+            android:id="@+id/editCustomerFirstName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter First Name"
+            android:inputType="textPersonName"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/editAvatarButton"
+            android:layout_marginTop="20dp"
+            />
+
+        <EditText
+            android:id="@+id/editCustomerLastName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter Last Name"
+            android:inputType="textPersonName"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/editCustomerFirstName"
+            android:layout_marginTop="10dp"/>
+
+        <!--<EditText-->
+            <!--android:id="@+id/editCustomerEmail"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:ems="10"-->
+            <!--android:hint="Enter Email"-->
+            <!--android:inputType="textEmailAddress"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_below="@id/editCustomerLastName"-->
+            <!--android:layout_marginTop="10dp"/>-->
+
+        <EditText
+            android:id="@+id/editCustomerPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter New Password"
+            android:inputType="textPassword"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/editCustomerLastName"
+            android:layout_marginTop="10dp"/>
+
+        <RadioGroup
+            android:id="@+id/editCustomerGender"
+            android:layout_marginTop="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/editCustomerPassword"
+            android:orientation="horizontal"
+            >
+
+            <RadioButton
+                android:id="@+id/editRadioMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male"
+                android:checked="true" />
+
+            <RadioButton
+                android:id="@+id/editRadioFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female" />
+
+            <RadioButton
+                android:id="@+id/editRadioOther"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Others" />
+
+        </RadioGroup>
+
+
+        <EditText
+            android:id="@+id/editCustomerRegion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter Region"
+            android:inputType="textAutoCorrect"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/editCustomerGender"
+            android:layout_marginTop="10dp"/>
+
+
+
+
+        <TextView
+            android:id="@+id/editDOB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="Select Birthday"
+            android:textSize="18dp"
+            android:textAlignment="center"
+            android:background="@color/light_blue"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/editCustomerRegion"
+            android:layout_marginTop="20dp"/>
+
+
+        <Switch
+            android:id="@+id/editHalalOption"
+            android:layout_width="120dp"
+            android:layout_height="45dp"
+            android:checked="false"
+            android:ems="10"
+            android:text="Halal Option"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/editDOB"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"/>
+
+        <Switch
+            android:id="@+id/editVegOption"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:checked="false"
+            android:ems="10"
+            android:text="Vegetarian Option"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/editDOB"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="30dp"
+            android:layout_marginEnd="30dp"/>
+
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/submitProfileButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:textColor="#FFF"
+            app:backgroundTint="@color/colorPrimary"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/editHalalOption"
+            android:layout_marginTop="30dp"
+            android:textSize="20sp"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            />
+
+
+    </RelativeLayout>
+</ScrollView>
+
+
+
+
+
+
+
