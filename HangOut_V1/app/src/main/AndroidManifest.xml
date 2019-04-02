@@ -12,13 +12,13 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme"
-        android:windowSoftInputMode="stateHidden">
+        >
 
         <activity android:name=".Login.SignUpAsCustomer"/>
         <activity android:name=".Login.SignUpAsVendor"/>
         <activity android:name=".ShopDetail.ShopInDetail" />
         <activity android:name=".UserMainActivity"
-            android:windowSoftInputMode="stateHidden"/>
+            />
 
 
         <activity android:name=".Vendor.VendorMainActivity" />

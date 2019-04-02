@@ -2,9 +2,9 @@ package com.example.hangout_v0.Login;
 
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -21,8 +21,6 @@ import com.example.hangout_v0.Vendor.VendorMainActivity;
 import com.example.hangout_v0.welcome_page.IntroActivity;
 
 import java.io.IOException;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -30,8 +28,6 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
-import static com.google.android.gms.tasks.Tasks.await;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -121,6 +117,7 @@ public class LoginActivity extends AppCompatActivity {
 //                    }
                 }
                 else{
+
                     OkHttpClient client = new OkHttpClient();
                     String url = HangOutApi.baseUrl + "vendor/signin";
                     HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
@@ -131,27 +128,27 @@ public class LoginActivity extends AppCompatActivity {
                     client.newCall(request).enqueue(new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
-                            System.out.println("****************************Log in failed***************************");
-                            LoginActivity.this.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(LoginActivity.this,"unexisting account or incorrect password", Toast.LENGTH_SHORT).show();
-                                }
-                            });
                             e.printStackTrace();
                         }
 
+                        @RequiresApi(api = Build.VERSION_CODES.O)
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
                             if (response.isSuccessful()) {
                                 String myResponse = response.body().string();
                                 System.out.println(myResponse);
                                 HangOutData.setAccessToken(myResponse);
-                                switchToUserPage();
+                                Intent myIntent = new Intent(LoginActivity.this, VendorMainActivity.class);
+                                Long vendorId = new Long(1);
+                                vendorId = Long.parseLong(HangOutApi.getUserId(myResponse));
 
-                                //textView.setText("Customer Access Token is " + myResponse);
+                                Bundle extras = new Bundle();
+                                extras.putString("AccessToken", myResponse);
+                                extras.putLong("vendorId", vendorId);
 
-                                // Able to get the access token.
+                                myIntent.putExtras(extras);
+                                startActivity(myIntent);
+
                             } else {
                                 System.out.println("****************************Log in failed***************************");
                                 LoginActivity.this.runOnUiThread(new Runnable() {
@@ -219,12 +216,12 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(myIntent);
     }
 
-    private void switchToVendorPage(){
-        Intent myIntent = new Intent(this, VendorMainActivity.class);
-        Long vendorId = new Long(1);
-
-        startActivity(myIntent);
-    }
+//    private void switchToVendorPage(){
+//        Intent myIntent = new Intent(this, VendorMainActivity.class);
+//        Long vendorId = new Long(1);
+//
+//        startActivity(myIntent);
+//    }
 
     private void switchToUserSignUpPage(){
         Intent myIntent = new Intent(this, SignUpAsCustomer.class);
@@ -232,7 +229,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void switchToVendorSignUpPage(){
-       Intent myIntent = new Intent(this, SignUpAsVendor.class);
+        Intent myIntent = new Intent(this, SignUpAsVendor.class);
         startActivity(myIntent);
     }
 
