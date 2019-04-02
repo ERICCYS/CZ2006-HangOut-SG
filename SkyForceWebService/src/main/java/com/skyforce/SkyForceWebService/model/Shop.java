@@ -13,24 +13,33 @@ import java.util.List;
 public class Shop {
 
     @Id
-    @Column(name="ID", unique = true)
+    @Column(name = "ID", unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="NAME", nullable = false)
+    @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name="CONTACT_NUMBER", nullable = false)
+    @Column(name = "CONTACT_NUMBER", nullable = false)
     private String contactNumber;
 
-    @Column(name="CONTACT_EMAIL", nullable = false)
+    @Column(name = "CONTACT_EMAIL", nullable = false)
     private String contactEmail;
 
-    @Column(name="VERIFIED", nullable = false)
+    @Column(name = "VERIFIED", nullable = false)
     private boolean verified;
 
-    @Column(name="CERTIFICATE")
+    @Column(name = "CERTIFICATE")
     private URL certificate;
 
+    @Column(name = "CATEGORY", nullable = false)
+    private String category;
+
+    @Column(name = "LOCATION", nullable = false)
+    private String location;
+
+    @ElementCollection
+    private List<String> carParkNumbers;
 
     @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
@@ -44,13 +53,15 @@ public class Shop {
     public Shop() {
     }
 
-    public Shop(Long id, String name, String contactNumber, String contactEmail) {
-        this.id = id;
+    public Shop(String name, String contactNumber, String contactEmail, String category, String location, List<String> carParkNumbers) {
         this.name = name;
         this.contactNumber = contactNumber;
         this.contactEmail = contactEmail;
         this.verified = false;
         this.certificate = null;
+        this.category = category;
+        this.location = location;
+        this.carParkNumbers = carParkNumbers;
     }
 
     public Shop(Long id, String name, String contactNumber, String contactEmail, List<Product> products) {
@@ -81,6 +92,9 @@ public class Shop {
                 ", contactEmail='" + contactEmail + '\'' +
                 ", verified=" + verified +
                 ", certificate=" + certificate +
+                ", category='" + category + '\'' +
+                ", location='" + location + '\'' +
+                ", carParkNumbers=" + carParkNumbers +
                 ", products=" + products +
                 '}';
     }
@@ -125,6 +139,21 @@ public class Shop {
         this.verified = verified;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     public URL getCertificate() {
         return certificate;
@@ -142,6 +171,13 @@ public class Shop {
         this.products = products;
     }
 
+    public List<String> getCarParkNumbers() {
+        return carParkNumbers;
+    }
+
+    public void setCarParkNumbers(List<String> carParkNumbers) {
+        this.carParkNumbers = carParkNumbers;
+    }
 
     public Vendor getVendor() {
         return vendor;
@@ -160,5 +196,4 @@ public class Shop {
         products.remove(product);
         product.setShop(null);
     }
-
 }

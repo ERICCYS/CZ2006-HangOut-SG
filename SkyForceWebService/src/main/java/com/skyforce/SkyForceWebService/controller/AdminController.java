@@ -11,15 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 public class AdminController {
 
     @Autowired
     AdminService adminService;
-
-    private AtomicLong nextId = new AtomicLong();
 
     @GetMapping("/admins")
     public String getAllAdmins() {
@@ -34,8 +31,11 @@ public class AdminController {
         return JSONConvert.JSONConverter(admin);
     }
 
-    @GetMapping("/admin/signin/{email}/{password}")
-    public String signInAdmin (@PathVariable("email") String email, @PathVariable("password") String password) throws NoSuchAlgorithmException {
+    @GetMapping("/admin/signin")
+    public String signInAdmin (
+            @RequestParam String email,
+            @RequestParam String password
+    ) throws NoSuchAlgorithmException {
         Admin admin = adminService.findByEmail(email);
         return ValidationController.UserSignIn(admin, password);
     }
@@ -51,16 +51,16 @@ public class AdminController {
     public String createAdmin (
             @Valid @RequestBody Admin admin
     ) throws NoSuchAlgorithmException {
-        admin.setId(nextId.incrementAndGet());
         String hashedPassword = admin.hashPassword(admin.getPassword());
         admin.setPassword(hashedPassword);
-        return JSONConvert.JSONConverter(adminService.save(admin));
+        JSONConvert.JSONConverter(adminService.save(admin));
+        return ValidationController.getAccessToken(admin.getId(), "ADMIN");
     }
 
-    // Delete admin account
     @DeleteMapping("/admin")
     public ResponseEntity<?> deleteAdmin(
-            @RequestParam Long adminId) {
+            @RequestParam Long adminId
+    ) {
         Admin admin = adminService.findById(adminId);
         adminService.delete(admin);
         return ResponseEntity.ok().build();
