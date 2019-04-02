@@ -59,7 +59,8 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
 
 
     AppCompatButton addPlanButton;
-    public AppCompatButton reserveButton;
+    AppCompatButton reserveButton;
+    //  public AppCompatButton reserveButton;
     public String shopDateString;
     public String shopTimeString;
     public String shopDateTimeString;
@@ -106,12 +107,11 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
         img3 = findViewById(R.id.shopPhoto3);
         carparkTv = findViewById(R.id.shopCarParkCapacityTextView);
 
-        if(shopId == 2){
+        if (shopId == 2) {
             img1.setImageDrawable(getResources().getDrawable(R.drawable.huoguo));
             img2.setImageDrawable(getResources().getDrawable(R.drawable.huoguo2));
             img3.setImageDrawable(getResources().getDrawable(R.drawable.huoguo3));
-        }
-        else{
+        } else {
             img1.setImageDrawable(getResources().getDrawable(R.drawable.macd1));
             img2.setImageDrawable(getResources().getDrawable(R.drawable.macd2));
             img3.setImageDrawable(getResources().getDrawable(R.drawable.macd3));
@@ -150,83 +150,19 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
                         @Override
                         public void run() {
                             String res = myResponse;
-                            carparkTv.setText(shopCarpark+" : "+myResponse);
+                            carparkTv.setText(shopCarpark + " : " + myResponse);
                         }
                     });
 
                 }
             }
         });
-        reserveButton = findViewById(R.id.reserveButton);
-        reserveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-//                 ShopInDetail.this.runOnUiThread(new Runnable() {
-//                     @Override
-//                     public void run() {
-//                         JSONObject newReservation = new JSONObject();
-
-//                         try {
-//                             setDateTime();
-
-//                             newReservation.put("shopId", "2");
-//                             newReservation.put("arrivalTime", shopDateTimeString);
-
-//                             Long shopId = 2l;
-//                             Long customerId = 3l;
-
-//                             RequestBody body = RequestBody.create(JSON, newReservation.toString());
-//                             OkHttpClient client = new OkHttpClient();
-//                             String url = HangOutApi.baseUrl + "reservation";
-//                             HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
-//                             httpBuilder.addQueryParameter("customerId", customerId.toString());
-//                             httpBuilder.addQueryParameter("shopId", shopId.toString());
-//                             Request request = new Request.Builder()
-//                                     .url(httpBuilder.build())
-//                                     .post(body)
-//                                     .addHeader("Authorization", "kldMaIf99i6G+0JvLQGwfw==")
-//                                     .build();
-
-//                             client.newCall(request).enqueue(new Callback() {
-//                                 @Override
-//                                 public void onFailure(Call call, IOException e) {
-//                                     e.printStackTrace();
-//                                 }
-
-//                                 @Override
-//                                 public void onResponse(Call call, Response response) throws IOException {
-//                                     if (response.isSuccessful()) {
-//                                         String myResponse = response.body().string();
-//                                         //  textView.setText("Customer add reservation Successfully, here is the new reservation " + myResponse);
-//                                     }
-//                                 }
-//                             });
-//                         } catch (JSONException e) {
-//                             e.printStackTrace();
-//                         }
-
-//                     }
-//                 });
-
-//             }});
-
-
 
 
         final FloatingActionButton addPlanFloatingActionButton = (FloatingActionButton) findViewById(R.id.addPlanFloatingActionButton);
         addPlanFloatingActionButton.setImageResource(R.drawable.ic_add_plan_not_sel);
         final FloatingActionButton addCollectionFloatingActionButton = (FloatingActionButton) findViewById(R.id.addCollectionFloatingActionButton);
         addCollectionFloatingActionButton.setImageResource(R.drawable.ic_add_collection_not_sel);
-
-
-//        addCollectionFloatingActionButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                addCollectionFloatingActionButton.setImageResource(R.drawable.ic_add_collection_sel);
-//            }
-//        });
 
     }
 
@@ -241,7 +177,7 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
         try {
             newPlanItem.put("scheduledVisitTime", "2019-04-05 10:00:00");
             newPlanItem.put("shopId", shopId.toString());
-        } catch(JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
@@ -277,12 +213,49 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
         });
 
 
-
     }
 
     public void reserve(View view) {
+        setDateTime();
         //add reservation backend;
 
+        JSONObject newReservation = new JSONObject();
+        try {
+            newReservation.put("shopId", "2");
+            newReservation.put("arrivalTime", "2019-04-05 10:00:00");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Long shopId = 2l;
+        Long customerId = 3l;
+
+        RequestBody body = RequestBody.create(JSON, newReservation.toString());
+        OkHttpClient client = new OkHttpClient();
+        String url = HangOutApi.baseUrl + "reservation";
+        HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
+        httpBuilder.addQueryParameter("customerId", customerId.toString());
+        httpBuilder.addQueryParameter("shopId", shopId.toString());
+        Request request = new Request.Builder()
+                .url(httpBuilder.build())
+                .post(body)
+                .addHeader("Authorization", "kldMaIf99i6G+0JvLQGwfw==")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String myResponse = response.body().string();
+                    //  textView.setText("Customer add reservation Successfully, here is the new reservation " + myResponse);
+                }
+            }
+        });
     }
 
 
@@ -291,7 +264,6 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
         datePicker.show(getSupportFragmentManager(), "date picker");
     }
 
-    @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, year);
@@ -313,11 +285,11 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
         hour_x = hourOfDay;
         minute_x = minute;
 
-        String hours = String.format("%02d",hour_x);
-        String minutes = String.format("%02d",minute_x);
+        String hours = String.format("%02d", hour_x);
+        String minutes = String.format("%02d", minute_x);
 
         shopTimeString = hours + ":" + minutes + ":00";
-        shopDateTimeString = shopDateString + " "+ shopTimeString;
+        shopDateTimeString = shopDateString + " " + shopTimeString;
         Toast.makeText(ShopInDetail.this, "Add shop successully " + shopDateTimeString, Toast.LENGTH_SHORT).show();
     }
 }
