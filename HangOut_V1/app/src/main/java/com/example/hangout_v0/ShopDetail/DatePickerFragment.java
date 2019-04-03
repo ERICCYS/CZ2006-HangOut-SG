@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 
 import java.util.Calendar;
-import java.util.Objects;
 
 public class DatePickerFragment extends DialogFragment {
     @NonNull

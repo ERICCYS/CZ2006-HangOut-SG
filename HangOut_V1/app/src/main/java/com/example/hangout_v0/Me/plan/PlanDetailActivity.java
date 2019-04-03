@@ -33,7 +33,6 @@ public class PlanDetailActivity extends AppCompatActivity {
     private ArrayList<String> shopName = new ArrayList<>();
     private ArrayList<String> shopAddress = new ArrayList<>();
     private ArrayList<String> shopDateTime = new ArrayList<>();
-    Button historyButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,20 +41,12 @@ public class PlanDetailActivity extends AppCompatActivity {
 
         this.getSupportActionBar().hide();
 
-        shopsInPlansListView =  findViewById(R.id.shopsInPlanListView);
+        shopsInPlansListView = findViewById(R.id.shopsInPlanListView);
 
-        Intent in= getIntent();
-        String planName= in.getStringExtra("PlanName");
+        Intent in = getIntent();
+        String planName = in.getStringExtra("PlanName");
         Long planId = Long.parseLong(in.getStringExtra("PlanId"));
 
-
-
-        // My suggestion is that we should see the plans histories (a list of plans)
-        // Then, see the plans detail, (shops etc.)
-        // Because after we get all the plans, we know each plan id
-        // here we use a dummy planId
-
-//        Long planId = 1l;
 
         OkHttpClient client = new OkHttpClient();
         String url = HangOutApi.baseUrl + "plan-items-formatted";
@@ -68,6 +59,7 @@ public class PlanDetailActivity extends AppCompatActivity {
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
             }
+
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
@@ -76,16 +68,15 @@ public class PlanDetailActivity extends AppCompatActivity {
                         JSONArray planItems = new JSONArray(myResponse);
                         System.out.println(planItems);
                         for (int i = 0; i < planItems.length(); i++) {
-                            JSONObject planItem = (JSONObject)planItems.get(i);
-                            //shopDateTime.add(planItem.get("shopDateTime").toString());
-                            shopDateTime.add(planItem.get("shopDateTime").toString().substring(5,16));
+                            JSONObject planItem = (JSONObject) planItems.get(i);
+                            shopDateTime.add(planItem.get("shopDateTime").toString().substring(5, 16));
                             shopName.add(planItem.get("shopName").toString());
                             shopAddress.add(planItem.get("shopAddress").toString());
                         }
                         PlanDetailActivity.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                com.example.hangout_v0.Me.plan.ShopInPlanAdapter shopInPlanAdapter = new com.example.hangout_v0.Me.plan.ShopInPlanAdapter(PlanDetailActivity.this, shopName,shopAddress, shopDateTime);
+                                com.example.hangout_v0.Me.plan.ShopInPlanAdapter shopInPlanAdapter = new com.example.hangout_v0.Me.plan.ShopInPlanAdapter(PlanDetailActivity.this, shopName, shopAddress, shopDateTime);
                                 shopsInPlansListView.setAdapter(shopInPlanAdapter);
                             }
                         });

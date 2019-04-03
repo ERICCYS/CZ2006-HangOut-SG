@@ -14,9 +14,6 @@ import android.widget.Toast;
 
 import com.example.hangout_v0.ApiCall.HangOutApi;
 import com.example.hangout_v0.R;
-import com.example.hangout_v0.Vendor.AddShop;
-import com.example.hangout_v0.Vendor.Shop;
-import com.example.hangout_v0.Vendor.VendorMainActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

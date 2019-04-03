@@ -8,12 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.hangout_v0.ApiCall.HangOutApi;
 import com.example.hangout_v0.ApiCall.HangOutData;
-import com.example.hangout_v0.Me.plan.PlanHistoryAdapter;
-import com.example.hangout_v0.Me.reservation.ReservationActivity;
 import com.example.hangout_v0.R;
 
 import org.json.JSONArray;
@@ -37,8 +34,6 @@ public class PlanHistoryActivity extends AppCompatActivity {
     ArrayList<Long> planIds = new ArrayList<>();
     ArrayList<String> planNames = new ArrayList<>();
     ArrayList<String> planDateTimes = new ArrayList<>();
-
-    public static PlanDataStub planDataStub;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -69,8 +64,6 @@ public class PlanHistoryActivity extends AppCompatActivity {
                         JSONArray plans = new JSONArray(myResponse);
                         for (int i = 0; i < plans.length(); i++) {
                             JSONObject plan = (JSONObject)plans.get(i);
-                            // Plan Id is needed in plan detail
-                            // here plan id can be added to using (create a new planId array
                             planIds.add(Long.parseLong(plan.get("planId").toString()));
                             planNames.add((String) plan.get("planName"));
                             planDateTimes.add((String)plan.get("planDateTime"));

@@ -6,9 +6,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-/**
- * Created by Administrator on .
- */
 
 public class EditTextClearTools {
     public static void addClearListener(final EditText et , final ImageView iv){
@@ -25,7 +22,6 @@ public class EditTextClearTools {
 
             @Override
             public void afterTextChanged(Editable s) {
-                //如果有输入内容长度大于0那么显示clear按钮
                 String str = s + "" ;
                 if (s.length() > 0){
                     iv.setVisibility(View.VISIBLE);

@@ -29,10 +29,8 @@ public class ReservationPage extends AppCompatActivity {
     public static final String baseUrl = HangOutApi.baseUrl;
     public Long vendorId;
     public Long shopId;
-    //customer names and times
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mTimes = new ArrayList<>();
-    //    private ArrayList<String> mImgaeUrls = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -42,8 +40,6 @@ public class ReservationPage extends AppCompatActivity {
         Bundle extras = intent.getExtras();
         vendorId = extras.getLong("vendorId", 1);
         shopId = extras.getLong("shopId",3);
-//        vendorId = new Long(1);
-//        shopId = new Long(3);
 
         OkHttpClient client = new OkHttpClient();
         String url = baseUrl + "reservation-vendor";

@@ -64,10 +64,6 @@ public class VendorMainActivity extends AppCompatActivity {
         id = extras.getLong("vendorId", 1);
         accessToken = extras.getString("AccessToken");
         HangOutApi.vendorAT = accessToken;
-        //HangOutData.getVendor().getLong("id");
-//        getVendor(id);
-//        JSONObject vendorSelf = new JSONObject();
-//        vendorSelf = HangOutData.getVendor();
 
         OkHttpClient client = new OkHttpClient();
         String url = baseUrl + "vendor";
@@ -105,14 +101,11 @@ public class VendorMainActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-//        arrayList.add(new Shop("PUTIEN Jurong", "12345678"));
-//        arrayList.add(new Shop("PUTIEN Changi", "91234567"));
                         adapter = new ShopAdapterVendor(VendorMainActivity.this, arrayList);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 listView.setAdapter(adapter);
-                                //listview end
                                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
                                     @Override
                                     public void onItemClick(AdapterView<?> adapterView, View view, int position, long idd){

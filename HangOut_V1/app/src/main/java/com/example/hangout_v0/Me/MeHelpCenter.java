@@ -2,7 +2,6 @@ package com.example.hangout_v0.Me;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Window;
 
 import com.example.hangout_v0.R;
 

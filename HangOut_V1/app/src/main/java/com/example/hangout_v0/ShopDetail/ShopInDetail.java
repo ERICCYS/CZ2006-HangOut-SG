@@ -146,9 +146,6 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
                 if (response.isSuccessful()) {
                     final String myResponse = response.body().string();
 
-//                        // Deal with this object, below is an example
-//                        textView.setText(customer.toString());
-
                     ShopInDetail.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -172,6 +169,11 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
     public void addToPlan(View view) {
         setDateTime();
         //add to plan backend;
+
+
+        // which plan to add to? Add to an existing plan? or a new plan?
+        // Should create a new page
+
 
         Long planId = 1l;
 
@@ -211,7 +213,7 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
                     System.out.println(myResponse);
                     // get full plan
                 } else {
-                    System.out.println("*************************");
+                    System.out.println("");
                 }
             }
         });
@@ -227,7 +229,7 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
         JSONObject newReservation = new JSONObject();
         try {
             newReservation.put("shopId", shopId.toString());
-            newReservation.put("arrivalTime",shopDateTimeString);
+            newReservation.put("arrivalTime", shopDateTimeString);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -238,7 +240,7 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
         HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
         httpBuilder.addQueryParameter("customerId", userId.toString());
         httpBuilder.addQueryParameter("shopId", shopId.toString());
-        System.out.println("userId"+userId + "-- shopId" + shopId);
+        System.out.println("userId" + userId + "-- shopId" + shopId);
         Request request = new Request.Builder()
                 .url(httpBuilder.build())
                 .post(body)
@@ -257,9 +259,7 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
                 if (response.isSuccessful()) {
                     System.out.println("success add");
                     String myResponse = response.body().string();
-                    //textView.setText("Customer add reservation Successfully, here is the new reservation " + myResponse);
-                }
-                else{
+                } else {
                     System.out.println("failed add 2");
                 }
             }

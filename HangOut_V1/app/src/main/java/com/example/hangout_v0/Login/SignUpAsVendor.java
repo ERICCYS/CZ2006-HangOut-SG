@@ -50,7 +50,6 @@ public class SignUpAsVendor extends AppCompatActivity {
 
         this.getSupportActionBar().hide();
 
-        // set all buttons
         firstNameEt = findViewById(R.id.signUpAsVendorFirstName);
         lastNameEt = findViewById(R.id.signUpAsVendorLastName);
         emailEt = findViewById(R.id.signUpAsVendorEmail);
@@ -60,7 +59,6 @@ public class SignUpAsVendor extends AppCompatActivity {
         signUpBtn = findViewById(R.id.signUpAsVendorSignUpBtn);
 
 
-        // check for basic error handling
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,12 +67,9 @@ public class SignUpAsVendor extends AppCompatActivity {
                 email = emailEt.getText().toString();
                 password = passwordEt.getText().toString();
 
-                // sex
                 int selectedId = radioSexGroup.getCheckedRadioButtonId();
                 selectedSexBtn = findViewById(selectedId);
                 gender = selectedSexBtn.getText().toString();
-
-                //
 
                 JSONObject newVendor = new JSONObject();
                 try {

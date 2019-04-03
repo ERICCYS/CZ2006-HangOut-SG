@@ -1,9 +1,5 @@
 package com.example.hangout_v0.Vendor;
 
-
-import java.net.URL;
-import java.util.ArrayList;
-
 public class Shop {
 
     private String name;
