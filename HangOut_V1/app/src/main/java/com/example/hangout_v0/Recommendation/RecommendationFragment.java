@@ -85,6 +85,7 @@ public class RecommendationFragment extends Fragment {
                 shopDetailActivity.putExtra("chosenShopRating", Float.toString(rating[position]));
                 shopDetailActivity.putExtra("chosenShopCarpark", carParkNumbers.get(position));
 
+
                 startActivity(shopDetailActivity);
             }
         });

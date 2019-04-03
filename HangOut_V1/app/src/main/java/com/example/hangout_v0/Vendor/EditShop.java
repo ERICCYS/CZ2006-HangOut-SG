@@ -100,7 +100,7 @@ public class EditShop extends AppCompatActivity{
                 Request request = new Request.Builder()
                         .url(httpBuilder.build())
                         .put(body)
-                        .addHeader("Authorization", HangOutApi.vendorAT)
+                        .addHeader("Authorization", HangOutApi.accessToken)
                         .build();
 
                 // Note that here the access Token is the vendor's access token

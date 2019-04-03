@@ -38,7 +38,8 @@ public class ReservationActivity extends AppCompatActivity {
 
         reservationListView = findViewById(R.id.me_reservation_reservationListView);
 
-        Long customerId = 3l;
+        Long customerId = HangOutApi.userId;
+        System.out.println("--------------"+customerId);
 
         OkHttpClient client = new OkHttpClient();
         String url = HangOutApi.baseUrl + "reservation-customer-formatted";

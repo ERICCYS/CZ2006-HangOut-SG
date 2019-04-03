@@ -96,7 +96,7 @@ public class AddShop extends AppCompatActivity{
                 Request request = new Request.Builder()
                         .url(httpBuilder.build())
                         .post(body)
-                        .addHeader("Authorization", HangOutApi.vendorAT)
+                        .addHeader("Authorization", HangOutApi.accessToken)
                         .build();
 
                 client.newCall(request).enqueue(new Callback() {

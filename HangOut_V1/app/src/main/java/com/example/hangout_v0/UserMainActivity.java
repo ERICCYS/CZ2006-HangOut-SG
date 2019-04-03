@@ -1,5 +1,6 @@
 package com.example.hangout_v0;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -39,13 +40,26 @@ public class UserMainActivity extends AppCompatActivity {
     public ArrayList<String> locations= new ArrayList<>();
     public ArrayList<String> carParkNumbers= new ArrayList<>();
 
-
+    public Long userId = new Long(1);
+    public String accessToken;
     public Bundle bundle =new Bundle();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_user);
+        Intent intent0 = getIntent();
+        try{
+            Bundle extras = intent0.getExtras();
+            userId = extras.getLong("customerId");
+            accessToken = HangOutApi.accessToken;
+
+            accessToken = extras.getString("accessToken");
+
+        }
+        catch (NullPointerException e){
+            //wu shi fa sheng
+        }
 
 
         this.getSupportActionBar().hide();
@@ -109,6 +123,7 @@ public class UserMainActivity extends AppCompatActivity {
                             bundle.putStringArrayList("categories", categories);
                             bundle.putStringArrayList("locations", locations);
                             bundle.putStringArrayList("carParkNumbers", carParkNumbers);
+                            bundle.putLong("customerId", userId);
 
 //                            System.out.println("********"+names.get(0)+"************");
 

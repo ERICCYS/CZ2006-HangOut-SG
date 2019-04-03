@@ -8,6 +8,7 @@ import com.skyforce.SkyForceWebService.service.ProductService;
 import com.skyforce.SkyForceWebService.service.ShopService;
 import com.skyforce.SkyForceWebService.service.VendorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -40,6 +41,7 @@ public class ShopController {
     }
 
     @PostMapping("/vendor/shop")
+    @ResponseStatus(HttpStatus.CREATED)
     public String createShop(
             @RequestParam Long vendorId,
             @RequestHeader(value = "Authorization") String accessToken,

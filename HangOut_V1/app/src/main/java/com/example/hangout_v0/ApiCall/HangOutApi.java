@@ -20,9 +20,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 public class HangOutApi {
-    public static final String baseUrl = "http://10.27.51.140:9090/api/";
-
-    private String accessToken = "kldMaIf99i6G+0JvLQGwfw==";
+    public static final String baseUrl = "http://192.168.1.105:9090/api/";
+    public static Long userId = 1l;
+    public static String accessToken = "4lTf+NWRlPqs0KeNyI8ZmA==";
     public static String vendorAT = "UPXDxfiMf2SNu/D/GQBkAg==";
 
     private static final String key = "Bar12345Bar12345";

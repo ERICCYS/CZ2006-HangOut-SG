@@ -83,15 +83,25 @@ public class LoginActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
+                        @RequiresApi(api = Build.VERSION_CODES.O)
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
                             if (response.isSuccessful()) {
                                 String myResponse = response.body().string();
                                 System.out.println(myResponse);
+                                Intent myIntent = new Intent(LoginActivity.this, UserMainActivity.class);
                                 HangOutData.setAccessToken(myResponse);
-                                switchToUserPage();
+                                Long userId = Long.parseLong(HangOutApi.getUserId(myResponse));
 
-                                //textView.setText("Customer Access Token is " + myResponse);
+                                Bundle extras = new Bundle();
+                                extras.putString("accessToken", myResponse);
+                                extras.putLong("customer", userId);
+                                HangOutApi.userId = userId;
+                                HangOutApi.accessToken = myResponse;
+
+                                myIntent.putExtras(extras);
+                                startActivity(myIntent);
+                                        //textView.setText("Customer Access Token is " + myResponse);
 
                                 // Able to get the access token.
                             } else {
@@ -137,13 +147,13 @@ public class LoginActivity extends AppCompatActivity {
                             if (response.isSuccessful()) {
                                 String myResponse = response.body().string();
                                 System.out.println(myResponse);
-                                HangOutData.setAccessToken(myResponse);
+                                HangOutApi.accessToken = myResponse;
                                 Intent myIntent = new Intent(LoginActivity.this, VendorMainActivity.class);
                                 Long vendorId = new Long(1);
                                 vendorId = Long.parseLong(HangOutApi.getUserId(myResponse));
-
+                                HangOutApi.userId = vendorId;
                                 Bundle extras = new Bundle();
-                                extras.putString("AccessToken", myResponse);
+                                extras.putString("accessToken", myResponse);
                                 extras.putLong("vendorId", vendorId);
 
                                 myIntent.putExtras(extras);
