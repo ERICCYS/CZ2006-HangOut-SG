@@ -46,6 +46,7 @@ public class PlanDetailActivity extends AppCompatActivity {
 
         Intent in= getIntent();
         String planName= in.getStringExtra("PlanName");
+        Long planId = Long.parseLong(in.getStringExtra("PlanId"));
 
 
 
@@ -53,7 +54,8 @@ public class PlanDetailActivity extends AppCompatActivity {
         // Then, see the plans detail, (shops etc.)
         // Because after we get all the plans, we know each plan id
         // here we use a dummy planId
-        Long planId = 1l;
+
+//        Long planId = 1l;
 
         OkHttpClient client = new OkHttpClient();
         String url = HangOutApi.baseUrl + "plan-items-formatted";
