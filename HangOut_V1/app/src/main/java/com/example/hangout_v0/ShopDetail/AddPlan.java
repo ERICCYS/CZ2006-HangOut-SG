@@ -122,6 +122,11 @@ public class AddPlan extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // create a new plan and add this item to it, not implemented yet
+                //Bundle extras = new Bundle();
+                //extras.put something....
+                Intent setPlanDetail = new Intent(AddPlan.this, SetPlanDetail.class);
+                //setPlanDetail.putExtras(extras);
+                startActivity(setPlanDetail);
             }
         });
 
