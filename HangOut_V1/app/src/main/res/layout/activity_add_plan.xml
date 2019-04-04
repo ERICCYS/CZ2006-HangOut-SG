@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/plansInPlanListView"
+        android:layout_width="match_parent"
+        android:layout_height="534dp"
+        android:layout_above="@+id/addToNewPlanButton"
+        android:layout_below="@+id/addToExistingPlanText"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="46dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/planNameTextView" />
+
+    <TextView
+        android:id="@+id/addToExistingPlanText"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:background="@android:color/holo_orange_light"
+        android:gravity="center"
+        android:text="Add to existing plans"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/addToNewPlanButton"
+        android:layout_width="289dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginEnd="61dp"
+        android:layout_marginRight="61dp"
+        android:layout_marginBottom="17dp"
+        android:text="Add to new plan" />
+
+</RelativeLayout>
