@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.hangout_v0.ApiCall.HangOutApi;
 import com.example.hangout_v0.Home.HomeFragment;
@@ -36,7 +37,7 @@ public class UserMainActivity extends AppCompatActivity {
     public ArrayList<String> locations = new ArrayList<>();
     public ArrayList<String> carParkNumbers = new ArrayList<>();
 
-    public Long userId = new Long(1);
+    public Long userId ;
     public String accessToken;
     public Bundle bundle = new Bundle();
 
@@ -141,10 +142,16 @@ public class UserMainActivity extends AppCompatActivity {
                             break;
                     }
 
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,
-                            selectedFragment).commit();
-
-                    return true;
+                    if(userId == null){
+                        Toast toast = Toast.makeText(getApplicationContext(), "Please login in:)", Toast.LENGTH_SHORT);
+                        toast.show();
+                        return false;
+                    }
+                    else{
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,
+                                selectedFragment).commit();
+                        return true;
+                    }
                 }
             };
 
