@@ -83,8 +83,6 @@ public class UserMainActivity extends AppCompatActivity {
                         String myResponse = response.body().string();
                         try {
                             JSONArray jsonRecShopList = new JSONArray(myResponse);
-                            // HangOutData.setShopList(jsonRecShopList);
-
                             try {
                                 for (int i = 0; i < jsonRecShopList.length(); i++) {
                                     JSONObject jsonRecShop = jsonRecShopList.getJSONObject(i);
@@ -114,7 +112,7 @@ public class UserMainActivity extends AppCompatActivity {
                             }
 
                         } catch (JSONException e) {
-
+                            e.printStackTrace();
                         }
                     } else {
                         System.out.println("********response not successful************");
@@ -143,7 +141,7 @@ public class UserMainActivity extends AppCompatActivity {
                     }
 
                     if(userId == null){
-                        Toast toast = Toast.makeText(getApplicationContext(), "Please login in:)", Toast.LENGTH_SHORT);
+                        Toast toast = Toast.makeText(getApplicationContext(), "Please login in :)", Toast.LENGTH_SHORT);
                         toast.show();
                         return false;
                     }
@@ -154,5 +152,4 @@ public class UserMainActivity extends AppCompatActivity {
                     }
                 }
             };
-
 }

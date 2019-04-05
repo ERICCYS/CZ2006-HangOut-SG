@@ -19,10 +19,6 @@ import okhttp3.Response;
 import static com.example.hangout_v0.ApiCall.HangOutApi.baseUrl;
 
 public class PlanDataStub {
-//    Long id = new Long(1);
-//            HangOutApi.getCustomer(1l);
-//    JSONObject customer = HangOutData.getCustomer();
-//            customer.getJSONArray("plan");
 
     ArrayList<String> planName = new ArrayList<String>();
     ArrayList<String> planDateTime = new ArrayList<String>();
@@ -35,8 +31,6 @@ public class PlanDataStub {
     Long customerId = new Long(1);
 
     public PlanDataStub(String user) {
-
-        //get user
 
         OkHttpClient client = new OkHttpClient();
         String url = baseUrl + "customer";
@@ -60,8 +54,6 @@ public class PlanDataStub {
                         plans = (JSONArray) customer.get("plans");
                         HangOutData.setPlanList(plans);
 
-                        // Deal with this object, below is an example
-                        //textView.setText(plans.toString());
 
                         for (int i = 0; i < plans.length(); i++) {
                             JSONObject obj = plans.getJSONObject(i);
@@ -70,23 +62,21 @@ public class PlanDataStub {
                             planName.add(name);
                             planDateTime.add(date);
                         }
-                    }
-                    catch (JSONException e) {
-                        //textView.setText("Error");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 }
             }
         });
 
-}
-            //JSONArray allPlan = HangOutData.getPlanList();
+    }
 
 
-    public ArrayList<String> getAllPlanName(){
+    public ArrayList<String> getAllPlanName() {
         return planName;
     }
 
-    public ArrayList<String> getAllPlanDateTime(){
+    public ArrayList<String> getAllPlanDateTime() {
         return planDateTime;
     }
 
@@ -141,18 +131,18 @@ public class PlanDataStub {
                     }
                 });
             }
-        } catch (JSONException e){
+        } catch (JSONException e) {
             //todo
         }
     }
 
 
-    public ArrayList<String> getPlanShopName(String planName)  {
+    public ArrayList<String> getPlanShopName(String planName) {
         setPlanItems(planName);
         return shopName;
     }
 
-    public ArrayList<String> getPlanShopAddress(String planName)  {
+    public ArrayList<String> getPlanShopAddress(String planName) {
         setPlanItems(planName);
         return shopAddress;
     }
@@ -162,12 +152,12 @@ public class PlanDataStub {
         return shopDateTime;
     }
 
-    public ArrayList<String> getReservationShopName()  {
+    public ArrayList<String> getReservationShopName() {
         setReservation();
         return shopName;
     }
 
-    public ArrayList<String> getReservationShopAddress()  {
+    public ArrayList<String> getReservationShopAddress() {
         setReservation();
         return shopAddress;
     }
@@ -255,7 +245,7 @@ public class PlanDataStub {
                     }
                 });
             }
-        } catch (JSONException e){
+        } catch (JSONException e) {
             //todo
         }
     }

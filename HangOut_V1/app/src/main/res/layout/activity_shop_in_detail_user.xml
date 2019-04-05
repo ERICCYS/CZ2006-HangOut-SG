@@ -81,8 +81,6 @@
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="25dp"
-
-
         />
 
     <android.support.v7.widget.AppCompatButton
@@ -98,7 +96,6 @@
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="15dp"
-
         />
 
 

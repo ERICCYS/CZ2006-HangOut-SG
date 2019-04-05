@@ -1,6 +1,5 @@
 package com.example.hangout_v0.ApiCall;
 
-import android.annotation.TargetApi;
 import android.os.Build;
 
 import org.json.JSONArray;
@@ -20,7 +19,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 public class HangOutApi {
-    public static final String baseUrl = "http://192.168.1.100:9090/api/";
+    public static final String baseUrl = "http://10.27.254.210:9090/api/";
     public static Long userId = 1l;
     public static String accessToken = "4lTf+NWRlPqs0KeNyI8ZmA==";
     public static String vendorAT = "UPXDxfiMf2SNu/D/GQBkAg==";
@@ -46,6 +45,7 @@ public class HangOutApi {
         }
         return info[0];
     }
+
     public static void getCustomer(Long customerId) {
         OkHttpClient client = new OkHttpClient();
         String url = baseUrl + "customer";
@@ -132,6 +132,7 @@ public class HangOutApi {
             }
         });
     }
+
     public static void getShopByShopId(final Long shopId) {
         OkHttpClient client = new OkHttpClient();
         String url = baseUrl + "shop";
@@ -163,6 +164,7 @@ public class HangOutApi {
             }
         });
     }
+
     public static void getCustomerPlan(Long customerId) {
         OkHttpClient client = new OkHttpClient();
         String url = baseUrl + "customer";
@@ -196,6 +198,7 @@ public class HangOutApi {
             }
         });
     }
+
     public static void signInCustomer(String email, String password) {
         OkHttpClient client = new OkHttpClient();
         String url = baseUrl + "customer/signin";
@@ -216,13 +219,11 @@ public class HangOutApi {
                     String myResponse = response.body().string();
                     System.out.println(myResponse);
                     HangOutData.setAccessToken(myResponse);
-                    //textView.setText("Customer Access Token is " + myResponse);
-
-                    // Able to get the access token.
                 }
             }
         });
     }
+
     public static void signInVendor(String email, String password) {
         OkHttpClient client = new OkHttpClient();
         String url = baseUrl + "vendor/signin";
@@ -243,12 +244,11 @@ public class HangOutApi {
                     String myResponse = response.body().string();
                     System.out.println(myResponse);
                     HangOutData.setAccessToken(myResponse);
-                    //textView.setText("Vendor Access Token is " + myResponse);
-                    // Able to get the access token.
                 }
             }
         });
     }
+
     public static void signUpCustomer(String newCustomer) {
         RequestBody body = RequestBody.create(JSON, newCustomer);
         OkHttpClient client = new OkHttpClient();
@@ -269,12 +269,11 @@ public class HangOutApi {
                 if (response.isSuccessful()) {
                     String myResponse = response.body().string();
                     HangOutData.setAccessToken(myResponse);
-
-                    //textView.setText("Customer Posted Successfully, here is the access token " + myResponse);
                 }
             }
         });
     }
+
     public static void signUpVendor(String newVendor) {
         RequestBody body = RequestBody.create(JSON, newVendor);
         OkHttpClient client = new OkHttpClient();
@@ -295,12 +294,11 @@ public class HangOutApi {
                 if (response.isSuccessful()) {
                     String myResponse = response.body().string();
                     HangOutData.setAccessToken(myResponse);
-
-                    //textView.setText("Vendor Posted Successfully, here is the access token " + myResponse);
                 }
             }
         });
     }
+
     public static void updateCustomerInfo(Long customerId, String updatedCustomer) {
         RequestBody body = RequestBody.create(JSON, updatedCustomer);
         OkHttpClient client = new OkHttpClient();
@@ -323,7 +321,6 @@ public class HangOutApi {
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     String myResponse = response.body().string();
-                    //textView.setText("Customer Updated Successfully, here is the new customer " + myResponse);
                 }
             }
         });
@@ -351,7 +348,6 @@ public class HangOutApi {
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     String myResponse = response.body().string();
-                    // the backend will return the vendor after update.
                 }
             }
         });
@@ -387,12 +383,11 @@ public class HangOutApi {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    //HangOutData.setVendor();
-                    //textView.setText("Vendor add shop Successfully, here is the new vendor info " + myResponse);
                 }
             }
         });
     }
+
     public static void customerMakeReservation(Long customerId, Long shopId, String newReservation) {
         RequestBody body = RequestBody.create(JSON, newReservation);
         OkHttpClient client = new OkHttpClient();
@@ -424,11 +419,11 @@ public class HangOutApi {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    //textView.setText("Customer add reservation Successfully, here is the new reservation " + myResponse);
                 }
             }
         });
     }
+
     public static void vendorGetAllReservations(Long vendorId) {
         OkHttpClient client = new OkHttpClient();
         String url = baseUrl + "reservation-vendor";
@@ -452,12 +447,11 @@ public class HangOutApi {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    //textView.setText("Vendor now have reservation " + myResponse);
-                    // Able to get the access token.
                 }
             }
         });
     }
+
     public static void customerGetAllReservation(Long customerId) {
         OkHttpClient client = new OkHttpClient();
         String url = baseUrl + "reservation-customer";
@@ -481,12 +475,11 @@ public class HangOutApi {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    //textView.setText("Customer now have reservation " + myResponse);
-                    // Able to get the access token.
                 }
             }
         });
     }
+
     public static void customerCreatePlan(Long customerId, String newPlan) {
         RequestBody body = RequestBody.create(JSON, newPlan);
         OkHttpClient client = new OkHttpClient();
@@ -517,7 +510,6 @@ public class HangOutApi {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    //textView.setText("Customer add plan Successfully, here is the new customer Info " + myResponse);
                 }
             }
         });

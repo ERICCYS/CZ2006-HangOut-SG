@@ -112,25 +112,18 @@ public class AddShop extends AppCompatActivity{
                             try {
                                 System.out.println(myResponse);
                                 JSONObject shop = new JSONObject(myResponse);
-//                                JSONArray shopList = HangOutData.getShopList();
                                 AddShop.this.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         Toast toast = Toast.makeText(getApplicationContext(), "Successfully submitted!", Toast.LENGTH_SHORT);
                                         toast.show();
                                         finish();
-//                                        Intent mainActivity = new Intent(getApplicationContext(),VendorMainActivity.class);
-//                                        startActivity(mainActivity);
 
                                     }
                                 });
-//                                shopList.put(shop);
-//                                HangOutData.setShopList(shopList);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            //HangOutData.setVendor();
-                            //textView.setText("Vendor add shop Successfully, here is the new vendor info " + myResponse);
                         }
                     }
                 });
@@ -139,7 +132,6 @@ public class AddShop extends AppCompatActivity{
             }
         });
 
-        // upload certificate;
         addCertificate = findViewById(R.id.uploadButton);
         storageRef = FirebaseStorage.getInstance().getReference();
         addCertificate.setOnClickListener(new View.OnClickListener(){
@@ -153,20 +145,17 @@ public class AddShop extends AppCompatActivity{
         });
     }
 
-    // upload certificate to firebase and return url
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         if(requestCode == PICK_IMAGE && resultCode == RESULT_OK
                 && data != null && data.getData() != null ) {
             certifUri = data.getData();
-            //upload image
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading image...");
             progressDialog.show();
             final StorageReference ref = storageRef.child("images/"+ UUID.randomUUID().toString());
 
-            //upload image
             UploadTask uploadTask = ref.putFile(certifUri);
 
             Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {

@@ -1,4 +1,5 @@
 package com.example.hangout_v0.Home;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.view.PagerAdapter;

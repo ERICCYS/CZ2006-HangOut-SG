@@ -18,17 +18,18 @@ public class ShopAdapterVendor extends BaseAdapter {
     ArrayList<Shop> shops;
     private static LayoutInflater inflater = null;
 
-    public ShopAdapterVendor(Activity context, ArrayList<Shop> shops){
+    public ShopAdapterVendor(Activity context, ArrayList<Shop> shops) {
         this.context = context;
         this.shops = shops;
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
     }
+
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(int position, View convertView, ViewGroup parent) {
         View itemView = convertView;
-        itemView = (itemView == null)? inflater.inflate(R.layout.shop_in_vendor_view, null): itemView;
+        itemView = (itemView == null) ? inflater.inflate(R.layout.shop_in_vendor_view, null) : itemView;
         TextView shopName = (TextView) itemView.findViewById(R.id.shopNameTextView);
         TextView shopNumber = (TextView) itemView.findViewById(R.id.shopNumberTextView);
         Shop selectedShop = shops.get(position);
@@ -37,16 +38,19 @@ public class ShopAdapterVendor extends BaseAdapter {
         //selectedShop.getShopId();
         return itemView;
     }
+
     @Override
-    public int getCount(){
+    public int getCount() {
         return shops.size();
     }
+
     @Override
-    public Shop getItem(int position){
+    public Shop getItem(int position) {
         return shops.get(position);
     }
+
     @Override
-    public long getItemId(int position){
-    return position;
+    public long getItemId(int position) {
+        return position;
     }
 }

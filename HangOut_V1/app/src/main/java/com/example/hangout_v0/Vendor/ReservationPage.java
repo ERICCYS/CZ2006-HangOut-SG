@@ -31,6 +31,7 @@ public class ReservationPage extends AppCompatActivity {
     public Long shopId;
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mTimes = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -39,7 +40,7 @@ public class ReservationPage extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         vendorId = extras.getLong("vendorId", 1);
-        shopId = extras.getLong("shopId",3);
+        shopId = extras.getLong("shopId", 3);
 
         OkHttpClient client = new OkHttpClient();
         String url = baseUrl + "reservation-vendor";
@@ -63,9 +64,9 @@ public class ReservationPage extends AppCompatActivity {
 
                         System.out.print("Get success");
                         if (vendorReservations != null) {
-                            for (int i=0;i<vendorReservations.length();i++){
+                            for (int i = 0; i < vendorReservations.length(); i++) {
                                 JSONObject reservation = vendorReservations.getJSONObject(i);
-                                if(reservation.getLong("shopId") == shopId){
+                                if (reservation.getLong("shopId") == shopId) {
                                     mNames.add("CustomerId:" + reservation.getString("customerId"));
                                     mTimes.add("Arrival Time" + reservation.getString("arrivalTime"));
                                 }
@@ -75,7 +76,7 @@ public class ReservationPage extends AppCompatActivity {
                             @Override
                             public void run() {
                                 RecyclerView recyclerView = findViewById(R.id.ReservationList);
-                                ReservationAdapterVendor adapter = new ReservationAdapterVendor(mNames, mTimes,ReservationPage.this);
+                                ReservationAdapterVendor adapter = new ReservationAdapterVendor(mNames, mTimes, ReservationPage.this);
                                 recyclerView.setAdapter(adapter);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(ReservationPage.this));
                             }
@@ -85,43 +86,10 @@ public class ReservationPage extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    //textView.setText("Vendor now have reservation " + myResponse);
-                    // Able to get the access token.
                 }
             }
         });
 
 
     }
-
-//    private void initImageBitmaps(){
-//        mNames.add("Harry Porter");
-//        mTimes.add("9:00 29-03-2019");
-//
-//        mNames.add("Steven Kin");
-//        mTimes.add("17:00 30-03-2019");
-//
-//        mNames.add("Jeremy");
-//        mTimes.add("15:00 30-03-2019");
-//
-//        mNames.add("Peter");
-//        mTimes.add("15:00 31-03-2019");
-//
-//        mNames.add("Jay Chou");
-//        mTimes.add("16:00 30-03-2019");
-//
-//        mNames.add("JJ Lin");
-//        mTimes.add("12:00 01-04-2019");
-//
-//        mNames.add("Naruto Uzumaki");
-//        mTimes.add("15:00 30-04-2019");
-//        initRecyclerView();
-//    }
-//    private void initRecyclerView(){
-//        RecyclerView recyclerView = findViewById(R.id.ReservationList);
-//        ReservationAdapterVendor adapter = new ReservationAdapterVendor(mNames, mTimes,ReservationPage.this);
-//        recyclerView.setAdapter(adapter);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(ReservationPage.this));
-//
-//    }
 }

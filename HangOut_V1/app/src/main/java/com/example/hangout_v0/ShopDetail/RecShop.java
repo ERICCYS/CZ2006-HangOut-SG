@@ -10,10 +10,10 @@ public class RecShop {
 
     String id;
     String name;
-    private String[] descriptionTemp={
+    private String[] descriptionTemp = {
             "Description is the pattern of narrative development that aims to make vivid a place, ",
             "object, character, or group. Description is one of four rhetorical modes, along with exposition",
-            "or group. Description is one of four rhetorical modes, along with exposition, argumentation, and narration.","" +
+            "or group. Description is one of four rhetorical modes, along with exposition, argumentation, and narration.", "" +
             "In practice it would be difficult to write literature that drew on just one of the four basic modes."
     };
     String description;
@@ -39,9 +39,9 @@ public class RecShop {
 
         DecimalFormat df = new DecimalFormat("#.#");
         df.setRoundingMode(RoundingMode.CEILING);
-        rating = Float.parseFloat(df.format(Math.random()*5));
+        rating = Float.parseFloat(df.format(Math.random() * 5));
 
-        distance = df.format(Math.random()*20);
+        distance = df.format(Math.random() * 20);
     }
 
     public String getId() {

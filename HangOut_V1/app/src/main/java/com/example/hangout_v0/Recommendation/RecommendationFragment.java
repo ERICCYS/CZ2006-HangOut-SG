@@ -21,16 +21,16 @@ public class RecommendationFragment extends Fragment {
 
     ListView recShopListView;
 
-     public ArrayList<String> ids;
-     public ArrayList<String> names;
-     public ArrayList<String> contactNumbers;
-     public ArrayList<String> contactEmails;
-     public ArrayList<String> categories;
-     public ArrayList<String> locations;
-     public ArrayList<String> carParkNumbers;
+    public ArrayList<String> ids;
+    public ArrayList<String> names;
+    public ArrayList<String> contactNumbers;
+    public ArrayList<String> contactEmails;
+    public ArrayList<String> categories;
+    public ArrayList<String> locations;
+    public ArrayList<String> carParkNumbers;
 
-     public float[] rating = {4.0f,3.0f,4.3f,4.0f,4.2f,4.1f};
-     public int[] image = {R.drawable.shotpot,R.drawable.macdonald,R.drawable.longjohn};
+    public float[] rating = {4.0f, 3.0f, 4.3f, 4.0f, 4.2f, 4.1f, 4.0f, 3.0f, 4.3f, 4.0f, 4.2f, 4.1f, 4.0f, 3.0f, 4.3f, 4.0f, 4.2f, 4.1f, 4.0f, 3.0f, 4.3f, 4.0f, 4.2f, 4.1f};
+    public int[] image = {R.drawable.shotpot, R.drawable.macdonald, R.drawable.longjohn};
 
     @Nullable
     @Override
@@ -48,7 +48,7 @@ public class RecommendationFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_recommendation, container, false);
         recShopListView = view.findViewById(R.id.rec_shop_listView);
 
-        com.example.hangout_v0.Recommendation.ShopInListAdapter shopInListAdapter = new com.example.hangout_v0.Recommendation.ShopInListAdapter(getActivity(),names,locations,image,rating,carParkNumbers);
+        com.example.hangout_v0.Recommendation.ShopInListAdapter shopInListAdapter = new com.example.hangout_v0.Recommendation.ShopInListAdapter(getActivity(), names, locations, image, rating, carParkNumbers);
 
         recShopListView.setAdapter(shopInListAdapter);
 
@@ -58,11 +58,11 @@ public class RecommendationFragment extends Fragment {
 
                 Intent shopDetailActivity = new Intent(view.getContext(), ShopInDetail.class);
 
-                shopDetailActivity.putExtra("chosenShopId",ids.get(position));
-                shopDetailActivity.putExtra("chosenShopName",names.get(position));
-                shopDetailActivity.putExtra("chosenShopLocation",locations.get(position));
-                shopDetailActivity.putExtra("chosenShopPhone",contactNumbers.get(position));
-                shopDetailActivity.putExtra("chosenShopEmail",contactEmails.get(position));
+                shopDetailActivity.putExtra("chosenShopId", ids.get(position));
+                shopDetailActivity.putExtra("chosenShopName", names.get(position));
+                shopDetailActivity.putExtra("chosenShopLocation", locations.get(position));
+                shopDetailActivity.putExtra("chosenShopPhone", contactNumbers.get(position));
+                shopDetailActivity.putExtra("chosenShopEmail", contactEmails.get(position));
                 shopDetailActivity.putExtra("chosenShopRating", Float.toString(rating[position]));
                 shopDetailActivity.putExtra("chosenShopCarpark", carParkNumbers.get(position));
                 startActivity(shopDetailActivity);

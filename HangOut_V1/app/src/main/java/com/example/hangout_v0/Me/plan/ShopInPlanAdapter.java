@@ -56,7 +56,6 @@ public class ShopInPlanAdapter extends BaseAdapter {
         shopDateTimeTextView.setText(dt);
         shopAddressTextView.setText(address);
 
-        //Handle buttons and add onClickListeners
         ImageButton deleteBtn = (ImageButton) v.findViewById(R.id.me_plan_shop_deleteBtn);
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -31,6 +31,7 @@ public class VendorShop extends AppCompatActivity {
     Button vendorReservationButton;
     public Long shopId = new Long(1);
     public Long vendorId = new Long(1);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +39,7 @@ public class VendorShop extends AppCompatActivity {
 
         Intent intent0 = getIntent();
         Bundle extras = intent0.getExtras();
-        shopId = extras.getLong("shopId",2);
+        shopId = extras.getLong("shopId", 2);
         vendorId = extras.getLong("vendorId", 1);
 
         OkHttpClient client = new OkHttpClient();
@@ -72,17 +73,12 @@ public class VendorShop extends AppCompatActivity {
                         shopEmail.setText(shop.getString("contactEmail"));
 
 
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
             }
         });
-
-
-
-
 
 
         editButton = (Button) findViewById(R.id.vendorEditbutton);
@@ -117,24 +113,18 @@ public class VendorShop extends AppCompatActivity {
         shopPhoto2.setImageResource(R.drawable.image2);
         shopPhoto3.setImageResource(R.drawable.image3);
 
-        // later call API to get data
-        String[] name = {"peach","mango","apple","pear","watermelon","cherry"};
+        String[] name = {"peach", "mango", "apple", "pear", "watermelon", "cherry"};
         String[] description = {"She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
                 "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
                 "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
                 "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
                 "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. ",
                 "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear. Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. Sister giving so wicket cousin of an he rather marked. Of on game part body rich. Adapted mr savings venture it or comfort affixed friends. "};
-        Integer[] imgid = {R.drawable.image1,R.drawable.image2,R.drawable.image3,R.drawable.image4,R.drawable.image5,R.drawable.image6};
+        Integer[] imgid = {R.drawable.image1, R.drawable.image2, R.drawable.image3, R.drawable.image4, R.drawable.image5, R.drawable.image6};
 
-        Float[] rating = {4.0f,3.0f,4.3f,4.0f,4.2f,4.1f};
-        String[] distance = {"4.0","3.0","4.3","4.0","4.2","4.1"};
-        String[] carParkCapacity = {"90%","80%","80%","80%","80%","80%"};
-
-
-//        ListView shopDishListView = (ListView) findViewById(R.id.shopDishListView);
-//        com.example.vendor.Utils.ShopInListAdapter shopDishAdapter = new com.example.vendor.Utils.ShopInListAdapter(this,name,description,imgid,rating,distance,carParkCapacity);
-//        shopDishListView.setAdapter(shopDishAdapter);
+        Float[] rating = {4.0f, 3.0f, 4.3f, 4.0f, 4.2f, 4.1f};
+        String[] distance = {"4.0", "3.0", "4.3", "4.0", "4.2", "4.1"};
+        String[] carParkCapacity = {"90%", "80%", "80%", "80%", "80%", "80%"};
 
     }
 

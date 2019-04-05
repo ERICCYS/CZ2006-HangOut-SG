@@ -28,12 +28,12 @@ public class ShopInListAdapter extends ArrayAdapter<String> {
     public ShopInListAdapter(Activity context, String[] name, String[] description, Integer[] imgid, Float[] rating, String[] distance, String[] carParkCapacity) {
         super(context, R.layout.shop_item_in_list, name);
         this.context = context;
-        this.name=name;
-        this.description=description;
-        this.imgid=imgid;
-        this.rating=rating;
-        this.distance=distance;
-        this.carParkCapacity=carParkCapacity;
+        this.name = name;
+        this.description = description;
+        this.imgid = imgid;
+        this.rating = rating;
+        this.distance = distance;
+        this.carParkCapacity = carParkCapacity;
     }
 
     @NonNull
@@ -43,14 +43,13 @@ public class ShopInListAdapter extends ArrayAdapter<String> {
         View r = convertView;
         ViewHolder viewHolder = null;
 
-        if (r==null){
+        if (r == null) {
             LayoutInflater layoutInflater = context.getLayoutInflater();
-            r=layoutInflater.inflate(R.layout.shop_item_in_list,null,true);
+            r = layoutInflater.inflate(R.layout.shop_item_in_list, null, true);
             viewHolder = new ViewHolder(r);
             r.setTag(viewHolder);
-        }
-        else{
-            viewHolder=(ViewHolder) r.getTag();
+        } else {
+            viewHolder = (ViewHolder) r.getTag();
         }
 
         viewHolder.nameView.setText(name[position]);
@@ -65,7 +64,7 @@ public class ShopInListAdapter extends ArrayAdapter<String> {
 
 }
 
-class ViewHolder{
+class ViewHolder {
     TextView nameView;
     TextView descriptionView;
     ImageView imageView;
@@ -73,7 +72,7 @@ class ViewHolder{
     TextView distanceView;
     TextView carParkCapacityView;
 
-    ViewHolder(View v){
+    ViewHolder(View v) {
         nameView = v.findViewById(R.id.nameTextView);
         descriptionView = v.findViewById(R.id.descriptionTextView);
         imageView = v.findViewById(R.id.imageView);

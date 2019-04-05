@@ -38,7 +38,7 @@ import okhttp3.Response;
 
 import static com.example.hangout_v0.ApiCall.HangOutApi.JSON;
 
-public class EditShop extends AppCompatActivity{
+public class EditShop extends AppCompatActivity {
     public static final String baseUrl = HangOutApi.baseUrl;
     public Long shopId;
     Button submit, addCertificate;
@@ -85,7 +85,7 @@ public class EditShop extends AppCompatActivity{
                     JSONArray carParks = new JSONArray();
                     carParks.put("HLM");
                     newShop.put("carParkNumbers", carParks);
-                } catch(JSONException e){
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
@@ -100,8 +100,6 @@ public class EditShop extends AppCompatActivity{
                         .addHeader("Authorization", HangOutApi.accessToken)
                         .build();
 
-                // Note that here the access Token is the vendor's access token
-                // Vendor is the vendor who owned the shop
                 client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
@@ -115,7 +113,6 @@ public class EditShop extends AppCompatActivity{
                             try {
                                 System.out.println(myResponse);
                                 JSONObject shop = new JSONObject(myResponse);
-//                                JSONArray shopList = HangOutData.getShopList();
                                 EditShop.this.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -130,8 +127,6 @@ public class EditShop extends AppCompatActivity{
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            // response is the JSON String of the updated shop
-                            // up to u to deal with it
                         }
                     }
                 });
@@ -143,7 +138,7 @@ public class EditShop extends AppCompatActivity{
         // upload certificate;
         addCertificate = findViewById(R.id.editUploadButton);
         storageRef = FirebaseStorage.getInstance().getReference();
-        addCertificate.setOnClickListener(new View.OnClickListener(){
+        addCertificate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -156,18 +151,15 @@ public class EditShop extends AppCompatActivity{
 
     // upload certificate to firebase and return url
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if(requestCode == PICK_IMAGE && resultCode == RESULT_OK
-                && data != null && data.getData() != null ) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
             certifUri = data.getData();
-            //upload image
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading image...");
             progressDialog.show();
-            final StorageReference ref = storageRef.child("images/"+ UUID.randomUUID().toString());
+            final StorageReference ref = storageRef.child("images/" + UUID.randomUUID().toString());
 
-            //upload image
             UploadTask uploadTask = ref.putFile(certifUri);
 
             Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
@@ -177,22 +169,19 @@ public class EditShop extends AppCompatActivity{
                         throw task.getException();
                     }
 
-                    // Continue with the task to get the download URL
                     return ref.getDownloadUrl();
                 }
             }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                 @Override
                 public void onComplete(@NonNull Task<Uri> task) {
                     if (task.isSuccessful()) {
-                        //get url
                         certifUrl = task.getResult().toString();
-                        Log.d("upload certificate",certifUrl);
+                        Log.d("upload certificate", certifUrl);
                         progressDialog.dismiss();
-                        Toast.makeText(EditShop.this,"Image uploaded",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditShop.this, "Image uploaded", Toast.LENGTH_SHORT).show();
                     } else {
-                        // Handle failures
                         progressDialog.dismiss();
-                        Toast.makeText(EditShop.this,"Upload failed",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditShop.this, "Upload failed", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

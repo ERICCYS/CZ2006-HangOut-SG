@@ -32,7 +32,7 @@ import okhttp3.Response;
 
 import static com.example.hangout_v0.ApiCall.HangOutApi.JSON;
 
-public class PlanItemConfirmPage extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
+public class PlanItemConfirmPage extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     Button submit;
     Button setTime;

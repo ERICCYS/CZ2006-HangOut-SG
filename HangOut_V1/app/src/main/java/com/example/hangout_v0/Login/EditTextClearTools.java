@@ -8,7 +8,7 @@ import android.widget.ImageView;
 
 
 public class EditTextClearTools {
-    public static void addClearListener(final EditText et , final ImageView iv){
+    public static void addClearListener(final EditText et, final ImageView iv) {
         et.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -22,10 +22,10 @@ public class EditTextClearTools {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String str = s + "" ;
-                if (s.length() > 0){
+                String str = s + "";
+                if (s.length() > 0) {
                     iv.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     iv.setVisibility(View.INVISIBLE);
                 }
             }

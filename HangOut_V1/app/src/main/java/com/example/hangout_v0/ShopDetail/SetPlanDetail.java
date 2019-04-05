@@ -53,9 +53,6 @@ public class SetPlanDetail extends AppCompatActivity implements DatePickerDialog
         submit = findViewById(R.id.newPlanSubmit);
         planName = findViewById(R.id.newPlanName);
 
-        //Long customerId = Long.parseLong(HangOutApi.getUserId(HangOutData.getAccessToken()));
-
-
         setTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +70,6 @@ public class SetPlanDetail extends AppCompatActivity implements DatePickerDialog
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // put to backend
                 if (shopDateString.equals("null") || planName.getText().toString().equals("")) {
                     Toast.makeText(SetPlanDetail.this, "Set Date and plan name first!", Toast.LENGTH_SHORT).show();
                 } else {
@@ -82,7 +78,6 @@ public class SetPlanDetail extends AppCompatActivity implements DatePickerDialog
                         newPlan.put("name", planName.getText());
                         newPlan.put("date", shopDateString);
                         JSONArray planItems = new JSONArray();
-                        // put some items here, can be empty
                         newPlan.put("planItems", planItems);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -148,17 +143,4 @@ public class SetPlanDetail extends AppCompatActivity implements DatePickerDialog
         Toast.makeText(SetPlanDetail.this, "Set date successfully " + shopDateString, Toast.LENGTH_SHORT).show();
 
     }
-
-//    @Override
-//    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-//        hour_x = hourOfDay;
-//        minute_x = minute;
-//
-//        String hours = String.format("%02d", hour_x);
-//        String minutes = String.format("%02d", minute_x);
-//
-//        shopTimeString = hours + ":" + minutes + ":00";
-//        shopDateTimeString = shopDateString + " " + shopTimeString;
-//        Toast.makeText(SetPlanDetail.this, "Set time successfully " + shopDateTimeString, Toast.LENGTH_SHORT).show();
-//    }
 }

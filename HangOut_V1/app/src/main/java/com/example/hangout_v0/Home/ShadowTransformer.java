@@ -25,7 +25,7 @@ public class ShadowTransformer implements ViewPager.OnPageChangeListener, ViewPa
                 currentCard.animate().scaleY(1);
                 currentCard.animate().scaleX(1);
             }
-        }else if(!mScalingEnabled && enable){
+        } else if (!mScalingEnabled && enable) {
             // grow main card
             CardView currentCard = mAdapter.getCardViewAt(mViewPager.getCurrentItem());
             if (currentCard != null) {
@@ -50,8 +50,6 @@ public class ShadowTransformer implements ViewPager.OnPageChangeListener, ViewPa
         float realOffset;
         boolean goingLeft = mLastOffset > positionOffset;
 
-        // If we're going backwards, onPageScrolled receives the last position
-        // instead of the current one
         if (goingLeft) {
             realCurrentPosition = position + 1;
             nextPosition = position;
@@ -62,7 +60,6 @@ public class ShadowTransformer implements ViewPager.OnPageChangeListener, ViewPa
             realOffset = positionOffset;
         }
 
-        // Avoid crash on overscroll
         if (nextPosition > mAdapter.getCount() - 1
                 || realCurrentPosition > mAdapter.getCount() - 1) {
             return;
@@ -70,8 +67,6 @@ public class ShadowTransformer implements ViewPager.OnPageChangeListener, ViewPa
 
         CardView currentCard = mAdapter.getCardViewAt(realCurrentPosition);
 
-        // This might be null if a fragment is being used
-        // and the views weren't created yet
         if (currentCard != null) {
             if (mScalingEnabled) {
                 currentCard.setScaleX((float) (1 + 0.1 * (1 - realOffset)));
@@ -83,8 +78,6 @@ public class ShadowTransformer implements ViewPager.OnPageChangeListener, ViewPa
 
         CardView nextCard = mAdapter.getCardViewAt(nextPosition);
 
-        // We might be scrolling fast enough so that the next (or previous) card
-        // was already destroyed or a fragment might not have been created yet
         if (nextCard != null) {
             if (mScalingEnabled) {
                 nextCard.setScaleX((float) (1 + 0.1 * (realOffset)));

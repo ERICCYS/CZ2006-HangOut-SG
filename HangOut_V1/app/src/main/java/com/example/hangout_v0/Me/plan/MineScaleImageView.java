@@ -14,7 +14,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 
-public class MineScaleImageView  extends AppCompatImageView {
+public class MineScaleImageView extends AppCompatImageView {
     private Paint paint;
 
     public MineScaleImageView(Context context) {
@@ -63,7 +63,5 @@ public class MineScaleImageView  extends AppCompatImageView {
         paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
         canvas.drawBitmap(bitmap, rect, rect, paint);
         return output;
-
-
     }
 } 

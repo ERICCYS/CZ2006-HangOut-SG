@@ -1,20 +1,12 @@
 package com.example.hangout_v0.Login;
 
-import android.app.DatePickerDialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hangout_v0.ApiCall.HangOutApi;
@@ -25,7 +17,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.Calendar;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -78,7 +69,7 @@ public class SignUpAsVendor extends AppCompatActivity {
                     newVendor.put("gender", gender);
                     newVendor.put("email", email);
                     newVendor.put("password", password);
-                } catch(JSONException e){
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
@@ -117,7 +108,6 @@ public class SignUpAsVendor extends AppCompatActivity {
                         }
                     }
                 });
-
                 finish();
             }
         });

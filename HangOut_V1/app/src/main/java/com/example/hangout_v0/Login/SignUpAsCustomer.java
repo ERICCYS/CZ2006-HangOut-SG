@@ -13,7 +13,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +22,6 @@ import com.example.hangout_v0.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -94,7 +92,7 @@ public class SignUpAsCustomer extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month++;
-                dob = Integer.toString(year) + '-' + String.format("%02d", month)  + '-' + String.format("%02d", dayOfMonth);
+                dob = Integer.toString(year) + '-' + String.format("%02d", month) + '-' + String.format("%02d", dayOfMonth);
                 DOBtv.setText(dob);
             }
         };
@@ -167,9 +165,6 @@ public class SignUpAsCustomer extends AppCompatActivity {
                         }
                     }
                 });
-
-//                Toast.makeText(SignUpAsCustomer.this,"sign up successfully", Toast.LENGTH_SHORT).show();
-
                 finish();
             }
         });
@@ -179,7 +174,6 @@ public class SignUpAsCustomer extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView,
                                          boolean isChecked) {
-                // TODO Auto-generated method stub
                 if (isChecked) {
                     halal = true;
                 } else {
@@ -192,7 +186,6 @@ public class SignUpAsCustomer extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView,
                                          boolean isChecked) {
-                // TODO Auto-generated method stub
                 if (isChecked) {
                     veg = true;
                 } else {

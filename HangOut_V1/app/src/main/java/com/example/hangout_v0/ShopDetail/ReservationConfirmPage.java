@@ -9,15 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.hangout_v0.ApiCall.HangOutApi;
 import com.example.hangout_v0.R;
-import com.example.hangout_v0.Vendor.ReservationPage;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -55,9 +52,6 @@ public class ReservationConfirmPage extends AppCompatActivity implements DatePic
         this.getSupportActionBar().hide();
         setTime = findViewById(R.id.reservationSetTime);
         submit = findViewById(R.id.confirmReservationSubmit);
-
-
-        //Long customerId = Long.parseLong(HangOutApi.getUserId(HangOutData.getAccessToken()));
 
 
         setTime.setOnClickListener(new View.OnClickListener() {

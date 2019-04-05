@@ -3,14 +3,9 @@ package com.example.hangout_v0.Me.plan;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.hangout_v0.ApiCall.HangOutApi;
-import com.example.hangout_v0.Me.plan.PlanHistoryActivity;
-import com.example.hangout_v0.Me.reservation.ReservationActivity;
 import com.example.hangout_v0.R;
 
 import org.json.JSONArray;

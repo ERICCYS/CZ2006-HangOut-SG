@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.youth.banner.Banner;
+
 import java.util.ArrayList;
 
 import com.example.hangout_v0.R;
@@ -45,7 +46,6 @@ public class HomeFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.homepage_layout, container, false);
-
 
 
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_UNSPECIFIED);

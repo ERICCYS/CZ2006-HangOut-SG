@@ -56,6 +56,7 @@ public class PlanHistoryActivity extends AppCompatActivity {
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
             }
+
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
@@ -63,15 +64,15 @@ public class PlanHistoryActivity extends AppCompatActivity {
                     try {
                         JSONArray plans = new JSONArray(myResponse);
                         for (int i = 0; i < plans.length(); i++) {
-                            JSONObject plan = (JSONObject)plans.get(i);
+                            JSONObject plan = (JSONObject) plans.get(i);
                             planIds.add(Long.parseLong(plan.get("planId").toString()));
                             planNames.add((String) plan.get("planName"));
-                            planDateTimes.add((String)plan.get("planDateTime"));
+                            planDateTimes.add((String) plan.get("planDateTime"));
                         }
                         PlanHistoryActivity.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                PlanHistoryAdapter planHistoryAdapter = new PlanHistoryAdapter(PlanHistoryActivity.this, planNames,planDateTimes);
+                                PlanHistoryAdapter planHistoryAdapter = new PlanHistoryAdapter(PlanHistoryActivity.this, planNames, planDateTimes);
                                 plansListView.setAdapter(planHistoryAdapter);
                             }
                         });
@@ -88,9 +89,9 @@ public class PlanHistoryActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent showPlanDetailActivity
-                        = new Intent(getApplicationContext(),PlanDetailActivity.class);
-                showPlanDetailActivity.putExtra("PlanName",planNames.get(position));
-                showPlanDetailActivity.putExtra("PlanId",planIds.get(position).toString());
+                        = new Intent(getApplicationContext(), PlanDetailActivity.class);
+                showPlanDetailActivity.putExtra("PlanName", planNames.get(position));
+                showPlanDetailActivity.putExtra("PlanId", planIds.get(position).toString());
                 startActivity(showPlanDetailActivity);
             }
         });
