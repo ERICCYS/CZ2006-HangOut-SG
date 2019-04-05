@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.hangout_v0.ApiCall.HangOutApi;
 import com.example.hangout_v0.ApiCall.HangOutData;
 import com.example.hangout_v0.Login.LoginActivity;
 import com.example.hangout_v0.Me.avator.UserProfile;
@@ -126,6 +127,7 @@ public class MeFragment extends Fragment {
                                     // reset customer in Hangout Data and go to log in page
                                     HangOutData.setCustomer(null);
                                     HangOutData.setAccessToken(null);
+                                    HangOutApi.accessToken = null;
                                     Intent intent = new Intent(getActivity(), com.example.hangout_v0.Login.LoginActivity.class);
                                     startActivity(intent);
                                 }
