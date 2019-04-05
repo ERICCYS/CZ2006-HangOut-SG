@@ -81,7 +81,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="25dp"
-        android:onClick="reserve"
+
 
         />
 
@@ -98,7 +98,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="15dp"
-        android:onClick="addToPlan"
+
         />
 
 

@@ -9,6 +9,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -20,7 +21,9 @@ import android.widget.Toast;
 import com.example.hangout_v0.ApiCall.HangOutApi;
 import com.example.hangout_v0.ApiCall.HangOutData;
 import com.example.hangout_v0.R;
+import com.example.hangout_v0.Vendor.ReservationPage;
 import com.example.hangout_v0.Vendor.Shop;
+import com.example.hangout_v0.Vendor.VendorShop;
 //import com.example.hangout_v0.Recommendation.RecShop;
 
 
@@ -70,7 +73,7 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
     TextView shopNameTv, shopLocationTv, phoneNoTv, emailTv, carparkTv;
     RatingBar ratingBar;
     ImageView img1, img2, img3;
-
+    Button addPlan;
     public Long shopId;
     public Long userId;
     String shopName;
@@ -79,7 +82,7 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
     String shopEmail;
     float shopRating;
     String shopCarpark;
-
+    Button reserve;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,6 +161,33 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
             }
         });
 
+        // add plan button
+        addPlan = findViewById(R.id.addPlanButton);
+        addPlan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //pass shop id, customer id to next intent: AddPlan page
+                //....
+                Intent addPlanPage = new Intent(ShopInDetail.this, AddPlan.class);
+//                Bundle extras = new Bundle();
+                //extras.putLong("vendorId", customerId);
+                // can use customer id in HangOutApi.userId
+//                extras.putLong("shopId", shopId);
+                addPlanPage.putExtra("shopId", shopId.toString());
+                startActivity(addPlanPage);
+            }
+        });
+
+
+        reserve = findViewById(R.id.reserveButton);
+        reserve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent confirmReservation = new Intent(ShopInDetail.this, ReservationConfirmPage.class);
+                confirmReservation.putExtra("shopId", shopId.toString());
+                startActivity(confirmReservation);
+            }
+        });
 
         final FloatingActionButton addPlanFloatingActionButton = (FloatingActionButton) findViewById(R.id.addPlanFloatingActionButton);
         addPlanFloatingActionButton.setImageResource(R.drawable.ic_add_plan_not_sel);
