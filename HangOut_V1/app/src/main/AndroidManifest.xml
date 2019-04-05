@@ -10,13 +10,14 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/app_logo"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme"
-        >
-
-        <activity android:name=".Login.SignUpAsCustomer"/>
-        <activity android:name=".Login.SignUpAsVendor"/>
+        android:usesCleartextTraffic="true">
+        <activity android:name=".Vendor.VendorEditProfile"></activity>
+        <activity android:name=".Login.SignUpAsCustomer" />
+        <activity android:name=".Login.SignUpAsVendor" />
         <activity android:name=".ShopDetail.ShopInDetail" />
+
+        <activity android:name=".UserMainActivity" />
         <activity android:name=".ShopDetail.AddPlan" />
         <activity android:name=".ShopDetail.SetPlanDetail" />
         <activity android:name=".ShopDetail.ReservationConfirmPage" />
@@ -24,25 +25,21 @@
         <activity android:name=".UserMainActivity"
             />
 
-
         <activity android:name=".Vendor.VendorMainActivity" />
         <activity android:name=".Vendor.AddShop" />
         <activity android:name=".Vendor.EditShop" />
         <activity android:name=".Vendor.VendorShop" />
         <activity android:name=".Vendor.ReservationPage" />
-
         <activity android:name=".Me.plan.PlanDetailActivity" />
         <activity android:name=".Me.plan.PlanHistoryActivity" />
         <activity android:name=".Me.avator.UserProfile" />
         <activity android:name=".Me.MeMoreActivity" />
         <activity android:name=".Me.avator.EditCustomerProfile" />
-        <activity android:name=".Me.reservation.ReservationActivity"/>
-
-
-        <activity android:name=".Me.MeHelpCenter"/>
-        <activity android:name=".welcome_page.IntroActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
+        <activity android:name=".Me.reservation.ReservationActivity" />
+        <activity android:name=".Me.MeHelpCenter" />
+        <activity
+            android:name=".welcome_page.IntroActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

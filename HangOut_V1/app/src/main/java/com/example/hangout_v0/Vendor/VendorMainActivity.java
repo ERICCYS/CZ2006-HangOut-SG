@@ -10,8 +10,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hangout_v0.ApiCall.HangOutApi;
@@ -43,16 +45,14 @@ import okhttp3.Response;
 public class VendorMainActivity extends AppCompatActivity {
     public static final String baseUrl = HangOutApi.baseUrl;
     ListView listView;
-    ImageView avator;
     //String url = "https://avatarfiles.alphacoders.com/873/thumb-87368.jpg";
-    Button addShop, editAvatar;
+    Button addShop;
+    ImageButton editProfile;
     ShopAdapterVendor adapter;
-    private String avatarUrl;
-    private Uri avatarUri;
+    TextView vendorNameTv, vendorEmailTv, vendorGenderTv;
     public Long id = new Long(1);
-    private StorageReference storageRef;
-    public static final int PICK_IMAGE = 1;
     public String accessToken;
+    private String firstname, lastname, gender, email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +64,10 @@ public class VendorMainActivity extends AppCompatActivity {
         id = extras.getLong("vendorId", 1);
         accessToken = extras.getString("AccessToken");
         HangOutApi.vendorAT = accessToken;
+
+        vendorNameTv = findViewById(R.id.vendorNameText);
+        vendorEmailTv = findViewById(R.id.vendorEmailText);
+        vendorGenderTv = findViewById(R.id.vendorGenderText);
 
         OkHttpClient client = new OkHttpClient();
         String url = baseUrl + "vendor";
@@ -97,9 +101,24 @@ public class VendorMainActivity extends AppCompatActivity {
                                     arrayList.add(new Shop(shop.getString("name"), shop.getString("contactNumber"), shop.getLong("id")));
                                 }
                             }
+                            //get vendor info
+                            firstname = vendor.get("firstName").toString();
+                            lastname = vendor.get("lastName").toString();
+                            gender = vendor.get("gender").toString();
+                            email = vendor.get("email").toString();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+
+                        VendorMainActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                // set all text to info
+                                vendorNameTv.setText(firstname+" "+lastname);
+                                vendorGenderTv.setText("Gender: "+gender);
+                                vendorEmailTv.setText("Email: "+email);
+                            }
+                        });
 
                         adapter = new ShopAdapterVendor(VendorMainActivity.this, arrayList);
                         runOnUiThread(new Runnable() {
@@ -146,24 +165,14 @@ public class VendorMainActivity extends AppCompatActivity {
             }
         });
 
-        avator = (ImageView)findViewById(R.id.vendorAvatar);
-        avator.setImageResource(R.drawable.image1);
-
-        // edit avatar
-        editAvatar = findViewById(R.id.editVendorAvatar);
-        storageRef = FirebaseStorage.getInstance().getReference();
-        editAvatar.setOnClickListener(new View.OnClickListener(){
+        editProfile = findViewById(R.id.editVendorProfileBtn);
+        editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+                Intent editVendorProfile = new Intent(VendorMainActivity.this, com.example.hangout_v0.Vendor.VendorEditProfile.class);
+                startActivity(editVendorProfile);
             }
         });
-
-
-
 
     }
     public void populateListView(){
@@ -192,53 +201,5 @@ public class VendorMainActivity extends AppCompatActivity {
 //        return super.onOptionsItemSelected(item);
 //    }
 
-
-    // upload firebase and return url
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if(requestCode == PICK_IMAGE && resultCode == RESULT_OK
-                && data != null && data.getData() != null ) {
-            // set image
-            avatarUri = data.getData();
-            avator.setImageURI(avatarUri);
-
-            //upload image
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("Uploading image...");
-            progressDialog.show();
-            final StorageReference ref = storageRef.child("images/"+ UUID.randomUUID().toString());
-
-            //upload image
-            UploadTask uploadTask = ref.putFile(avatarUri);
-
-            Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                @Override
-                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                    if (!task.isSuccessful()) {
-                        throw task.getException();
-                    }
-
-                    // Continue with the task to get the download URL
-                    return ref.getDownloadUrl();
-                }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                    if (task.isSuccessful()) {
-                        //get url
-                        avatarUrl = task.getResult().toString();
-                        Log.d("upload vendor avatar",avatarUrl);
-                        progressDialog.dismiss();
-                        Toast.makeText(VendorMainActivity.this,"Image uploaded",Toast.LENGTH_SHORT).show();
-                    } else {
-                        // Handle failures
-                        progressDialog.dismiss();
-                        Toast.makeText(VendorMainActivity.this,"Upload failed",Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        }
-    }
 
 }
