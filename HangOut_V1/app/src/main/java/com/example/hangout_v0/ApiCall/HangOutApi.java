@@ -328,6 +328,35 @@ public class HangOutApi {
             }
         });
     }
+
+    public static void updateVendorInfo(Long vendorId, String updatedVendor) {
+        RequestBody body = RequestBody.create(JSON, updatedVendor);
+        OkHttpClient client = new OkHttpClient();
+        String url = baseUrl + "vendor";
+        HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
+        httpBuilder.addQueryParameter("vendorId", vendorId.toString());
+        Request request = new Request.Builder()
+                .url(httpBuilder.build())
+                .put(body)
+                .addHeader("Authorization", accessToken)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String myResponse = response.body().string();
+                    // the backend will return the vendor after update.
+                }
+            }
+        });
+    }
+
     public static void vendorAddShop(Long vendorId, String newShop) {
         RequestBody body = RequestBody.create(JSON, newShop);
         OkHttpClient client = new OkHttpClient();

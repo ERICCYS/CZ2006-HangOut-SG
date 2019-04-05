@@ -199,7 +199,6 @@ public class EditCustomerProfile extends AppCompatActivity {
                 }
                 //System.out.println("**************************************");
                 HangOutApi.updateCustomerInfo(customerId,updatedCustomer.toString());
-
                 Toast toast = Toast.makeText(getApplicationContext(), "Successfully submitted!", Toast.LENGTH_SHORT);
                 toast.show();
                 finish();

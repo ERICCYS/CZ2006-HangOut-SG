@@ -1,7 +1,9 @@
 package com.example.hangout_v0.Me;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.hangout_v0.ApiCall.HangOutData;
+import com.example.hangout_v0.Login.LoginActivity;
 import com.example.hangout_v0.Me.avator.UserProfile;
 import com.example.hangout_v0.Me.plan.PlanDetailActivity;
 import com.example.hangout_v0.Me.plan.PlanHistoryActivity;
@@ -22,6 +26,7 @@ import com.example.hangout_v0.R;
 import com.example.hangout_v0.UserMainActivity;
 
 public class MeFragment extends Fragment {
+    final Context context = this.getContext();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,6 +42,7 @@ public class MeFragment extends Fragment {
         LinearLayout account = view.findViewById(R.id.fragmentMyAccount);
         LinearLayout helpCenter = view.findViewById(R.id.fragmentHelpCenter);
         LinearLayout more = view.findViewById(R.id.fragmentMore);
+        LinearLayout signOut = view.findViewById(R.id.custSignOutButton);
 
 //        avator.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -102,6 +108,37 @@ public class MeFragment extends Fragment {
                 Intent myIntent = new Intent(getActivity(), MeMoreActivity.class);
                 getActivity().startActivity(myIntent);
                 //Toast.makeText(v.getContext(), "this is to MORE", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        signOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setCancelable(true);
+                builder.setTitle("Confirming sign out...");
+                builder.setMessage("Are you sure you want to sign out?");
+                builder.setPositiveButton("Yes",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // reset customer in Hangout Data and go to log in page
+                                HangOutData.setCustomer(null);
+                                HangOutData.setAccessToken(null);
+                                Intent intent = new Intent(getActivity(), com.example.hangout_v0.Login.LoginActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // stay here
+                        dialog.cancel();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
         return view;
