@@ -61,6 +61,7 @@ public class ReservationActivity extends AppCompatActivity {
                         for (int i = 0; i < reservations.length(); i++) {
                             JSONObject reservation = (JSONObject)reservations.get(i);
                             reservationShopDateTime.add((reservation.get("arrivalTime").toString()).substring(5,16));
+                            //System.out.println((reservation.get("arrivalTime").toString()));
                             reservationShopName.add(reservation.get("shopName").toString());
                             reservationShopAddress.add(reservation.get("shopAddress").toString());
                         }
