@@ -41,11 +41,16 @@ public class AddPlan extends AppCompatActivity {
     ArrayList<String> planNames = new ArrayList<>();
     ArrayList<String> planDateTimes = new ArrayList<>();
     Button addToNewPlan;
+    String shopId;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_plan);
+
+        shopId = getIntent().getStringExtra("shopId");
+
         this.getSupportActionBar().hide();
         plansListView = (ListView) findViewById(R.id.plansInPlanListView);
 
@@ -54,10 +59,13 @@ public class AddPlan extends AppCompatActivity {
         plansListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent showPlanDetailActivity
-                        = new Intent(getApplicationContext(), PlanDetailActivity.class);
-                showPlanDetailActivity.putExtra("PlanName",planNames.get(position));
-                showPlanDetailActivity.putExtra("PlanId",planIds.get(position).toString());
+//                Intent showPlanDetailActivity
+////                        = new Intent(getApplicationContext(), PlanDetailActivity.class);
+////                showPlanDetailActivity.putExtra("PlanName",planNames.get(position));
+////                showPlanDetailActivity.putExtra("PlanId",planIds.get(position).toString());
+                Intent planItemConfirmPage = new Intent(getApplicationContext(), PlanItemConfirmPage.class);
+                planItemConfirmPage.putExtra("shopId", shopId);
+                planItemConfirmPage.putExtra("planId", planIds.get(position).toString());
 
 
 
@@ -112,7 +120,7 @@ public class AddPlan extends AppCompatActivity {
 //
 // -------------------------------------------------------------------------------------
 
-                startActivity(showPlanDetailActivity);
+                startActivity(planItemConfirmPage);
             }
         });
 

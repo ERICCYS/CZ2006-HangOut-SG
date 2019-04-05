@@ -169,11 +169,11 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
                 //pass shop id, customer id to next intent: AddPlan page
                 //....
                 Intent addPlanPage = new Intent(ShopInDetail.this, AddPlan.class);
-                Bundle extras = new Bundle();
+//                Bundle extras = new Bundle();
                 //extras.putLong("vendorId", customerId);
                 // can use customer id in HangOutApi.userId
 //                extras.putLong("shopId", shopId);
-//                addPlanPage.putExtras(extras);
+                addPlanPage.putExtra("shopId", shopId.toString());
                 startActivity(addPlanPage);
             }
         });

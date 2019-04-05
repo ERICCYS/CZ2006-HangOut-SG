@@ -20,6 +20,7 @@
         <activity android:name=".ShopDetail.AddPlan" />
         <activity android:name=".ShopDetail.SetPlanDetail" />
         <activity android:name=".ShopDetail.ReservationConfirmPage" />
+        <activity android:name=".ShopDetail.PlanItemConfirmPage" />
         <activity android:name=".UserMainActivity"
             />
 
