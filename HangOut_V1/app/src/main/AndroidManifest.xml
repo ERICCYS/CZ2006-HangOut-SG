@@ -17,6 +17,8 @@
         <activity android:name=".Login.SignUpAsCustomer"/>
         <activity android:name=".Login.SignUpAsVendor"/>
         <activity android:name=".ShopDetail.ShopInDetail" />
+        <activity android:name=".ShopDetail.AddPlan" />
+        <activity android:name=".ShopDetail.SetPlanDetail" />
         <activity android:name=".UserMainActivity"
             />
 
