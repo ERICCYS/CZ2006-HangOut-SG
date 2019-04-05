@@ -33,9 +33,8 @@
             android:layout_width="113dp"
             android:layout_height="100dp"
             android:cropToPadding="true"
-            android:src="@drawable/image1"
+            android:src="@drawable/vendor_avatar"
             android:layout_below="@id/editVendorProfileTitle"
-            tools:srcCompat="@tools:sample/avatars"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
             />
