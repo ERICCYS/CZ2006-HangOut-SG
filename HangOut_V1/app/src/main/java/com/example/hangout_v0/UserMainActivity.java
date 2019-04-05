@@ -66,62 +66,62 @@ public class UserMainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,
                 new HomeFragment()).commit();
 
-        OkHttpClient client = new OkHttpClient();
-        String url = HangOutApi.baseUrl + "shops";
-        Request request = new Request.Builder().url(url).build();
+        if(userId != null) {
+            OkHttpClient client = new OkHttpClient();
+            String url = HangOutApi.baseUrl + "shops";
+            Request request = new Request.Builder().url(url).build();
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    String myResponse = response.body().string();
-                    try {
-                        JSONArray jsonRecShopList = new JSONArray(myResponse);
-                        // HangOutData.setShopList(jsonRecShopList);
-
-                        try {
-                            for (int i = 0; i < jsonRecShopList.length(); i++) {
-                                JSONObject jsonRecShop = jsonRecShopList.getJSONObject(i);
-                                ids.add(jsonRecShop.getString("id"));
-                                names.add(jsonRecShop.get("name").toString());
-                                contactNumbers.add(jsonRecShop.get("contactNumber").toString());
-                                contactEmails.add(jsonRecShop.get("contactEmail").toString());
-                                categories.add(jsonRecShop.get("category").toString());
-                                locations.add(jsonRecShop.get("location").toString());
-
-                                if (((JSONArray) jsonRecShop.get("carParkNumbers")).length() > 0) {
-                                    carParkNumbers.add((((JSONArray) jsonRecShop.get("carParkNumbers")).get(0)).toString());
-                                } else {
-                                    carParkNumbers.add("");
-                                }
-
-                            }
-                            bundle.putStringArrayList("ids", ids);
-                            bundle.putStringArrayList("names", names);
-                            bundle.putStringArrayList("contactNumbers", contactNumbers);
-                            bundle.putStringArrayList("contactEmails", contactEmails);
-                            bundle.putStringArrayList("categories", categories);
-                            bundle.putStringArrayList("locations", locations);
-                            bundle.putStringArrayList("carParkNumbers", carParkNumbers);
-                            bundle.putLong("customerId", userId);
-                        } catch (JSONException e) {
-                        }
-
-                    } catch (JSONException e) {
-
-                    }
-                } else {
-                    System.out.println("********response not successful************");
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
                 }
-            }
-        });
 
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    if (response.isSuccessful()) {
+                        String myResponse = response.body().string();
+                        try {
+                            JSONArray jsonRecShopList = new JSONArray(myResponse);
+                            // HangOutData.setShopList(jsonRecShopList);
 
+                            try {
+                                for (int i = 0; i < jsonRecShopList.length(); i++) {
+                                    JSONObject jsonRecShop = jsonRecShopList.getJSONObject(i);
+                                    ids.add(jsonRecShop.getString("id"));
+                                    names.add(jsonRecShop.get("name").toString());
+                                    contactNumbers.add(jsonRecShop.get("contactNumber").toString());
+                                    contactEmails.add(jsonRecShop.get("contactEmail").toString());
+                                    categories.add(jsonRecShop.get("category").toString());
+                                    locations.add(jsonRecShop.get("location").toString());
+
+                                    if (((JSONArray) jsonRecShop.get("carParkNumbers")).length() > 0) {
+                                        carParkNumbers.add((((JSONArray) jsonRecShop.get("carParkNumbers")).get(0)).toString());
+                                    } else {
+                                        carParkNumbers.add("");
+                                    }
+
+                                }
+                                bundle.putStringArrayList("ids", ids);
+                                bundle.putStringArrayList("names", names);
+                                bundle.putStringArrayList("contactNumbers", contactNumbers);
+                                bundle.putStringArrayList("contactEmails", contactEmails);
+                                bundle.putStringArrayList("categories", categories);
+                                bundle.putStringArrayList("locations", locations);
+                                bundle.putStringArrayList("carParkNumbers", carParkNumbers);
+                                bundle.putLong("customerId", userId);
+                            } catch (JSONException e) {
+                            }
+
+                        } catch (JSONException e) {
+
+                        }
+                    } else {
+                        System.out.println("********response not successful************");
+                    }
+                }
+            });
+        }
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navLister =

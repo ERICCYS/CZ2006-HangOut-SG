@@ -31,8 +31,6 @@ import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText etUserName;
-    private EditText etUserPassword;
     private Button btn_login;
     private Button btn_skip;
     private Button btn_signup;
@@ -61,8 +59,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(is_vendor == false) {
-
+                if (!is_vendor) {
                     OkHttpClient client = new OkHttpClient();
                     String url = HangOutApi.baseUrl + "customer/signin";
                     HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
@@ -73,11 +70,10 @@ public class LoginActivity extends AppCompatActivity {
                     client.newCall(request).enqueue(new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
-                            System.out.println("****************************Log in failed***************************");
                             LoginActivity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(LoginActivity.this,"unexisting account or incorrect password", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, "Incorrect customer account or password", Toast.LENGTH_SHORT).show();
                                 }
                             });
                             e.printStackTrace();
@@ -101,33 +97,18 @@ public class LoginActivity extends AppCompatActivity {
 
                                 myIntent.putExtras(extras);
                                 startActivity(myIntent);
-                                        //textView.setText("Customer Access Token is " + myResponse);
-
-                                // Able to get the access token.
                             } else {
-                                System.out.println("****************************Log in failed***************************");
                                 LoginActivity.this.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(LoginActivity.this,"unexisting account or incorrect password", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this, "Incorrect customer account or password", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
                         }
                     });
 
-//                    CountDownLatch countDownLatch = new CountDownLatch(1);
-//                    HangOutApi.signInCustomer(userName.getText().toString(), userPassword.getText().toString());
-//                    try {
-//                        countDownLatch.await();
-//                        System.out.println(HangOutData.getAccessToken());
-//                        switchToUserPage();
-//                    } catch (Exception e) {
-//
-//                    }
-                }
-                else{
-
+                } else {
                     OkHttpClient client = new OkHttpClient();
                     String url = HangOutApi.baseUrl + "vendor/signin";
                     HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
@@ -149,22 +130,19 @@ public class LoginActivity extends AppCompatActivity {
                                 System.out.println(myResponse);
                                 HangOutApi.accessToken = myResponse;
                                 Intent myIntent = new Intent(LoginActivity.this, VendorMainActivity.class);
-                                Long vendorId = new Long(1);
+                                Long vendorId;
                                 vendorId = Long.parseLong(HangOutApi.getUserId(myResponse));
                                 HangOutApi.userId = vendorId;
                                 Bundle extras = new Bundle();
                                 extras.putString("accessToken", myResponse);
                                 extras.putLong("vendorId", vendorId);
-
                                 myIntent.putExtras(extras);
                                 startActivity(myIntent);
-
                             } else {
-                                System.out.println("****************************Log in failed***************************");
                                 LoginActivity.this.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(LoginActivity.this,"unexisting account or incorrect password", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this, "Incorrect vendor account or password", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
@@ -178,12 +156,10 @@ public class LoginActivity extends AppCompatActivity {
         btn_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(is_vendor == false){
+                if (!is_vendor) {
                     switchToUserSignUpPage();
-                }
-                else{
+                } else {
                     switchToVendorSignUpPage();
-
                 }
             }
         });
@@ -196,49 +172,37 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        cb_vendor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+        cb_vendor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView,
                                          boolean isChecked) {
-                // TODO Auto-generated method stub
-                if(isChecked){
-                    is_vendor = true;
-                }else{
-                    is_vendor = false;
-                }
+                is_vendor = isChecked;
             }
         });
 
     }
 
-    private void init(){
+    private void init() {
         userName = (EditText) findViewById(R.id.login_userName_editText);
         userPassword = (EditText) findViewById(R.id.login_userPassword_editText);
         ImageView unameClear = (ImageView) findViewById(R.id.login_userName_clear);
         ImageView pwdClear = (ImageView) findViewById(R.id.login_userPassword_clear);
 
-        com.example.hangout_v0.Login.EditTextClearTools.addClearListener(userName,unameClear);
-        com.example.hangout_v0.Login.EditTextClearTools.addClearListener(userPassword,pwdClear);
+        com.example.hangout_v0.Login.EditTextClearTools.addClearListener(userName, unameClear);
+        com.example.hangout_v0.Login.EditTextClearTools.addClearListener(userPassword, pwdClear);
     }
 
-    private void switchToUserPage(){
+    private void switchToUserPage() {
         Intent myIntent = new Intent(this, UserMainActivity.class);
         startActivity(myIntent);
     }
 
-//    private void switchToVendorPage(){
-//        Intent myIntent = new Intent(this, VendorMainActivity.class);
-//        Long vendorId = new Long(1);
-//
-//        startActivity(myIntent);
-//    }
-
-    private void switchToUserSignUpPage(){
+    private void switchToUserSignUpPage() {
         Intent myIntent = new Intent(this, SignUpAsCustomer.class);
         startActivity(myIntent);
     }
 
-    private void switchToVendorSignUpPage(){
+    private void switchToVendorSignUpPage() {
         Intent myIntent = new Intent(this, SignUpAsVendor.class);
         startActivity(myIntent);
     }

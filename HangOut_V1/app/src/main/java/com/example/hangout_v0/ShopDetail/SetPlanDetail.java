@@ -1,26 +1,17 @@
 package com.example.hangout_v0.ShopDetail;
 
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.hangout_v0.ApiCall.HangOutApi;
-import com.example.hangout_v0.ApiCall.HangOutData;
-import com.example.hangout_v0.Login.LoginActivity;
-import com.example.hangout_v0.Me.plan.PlanDetailActivity;
-import com.example.hangout_v0.Me.plan.PlanHistoryAdapter;
 import com.example.hangout_v0.R;
 
 import org.json.JSONArray;
@@ -29,7 +20,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import okhttp3.Call;
@@ -50,7 +40,7 @@ public class SetPlanDetail extends AppCompatActivity implements DatePickerDialog
     Button setTime;
     public int day, month, year, hour, minute, hour_x, minute_x;
 
-    public String shopDateString= "null"; //dummy in case user did not set time
+    public String shopDateString = "null";
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -64,7 +54,6 @@ public class SetPlanDetail extends AppCompatActivity implements DatePickerDialog
         planName = findViewById(R.id.newPlanName);
 
         //Long customerId = Long.parseLong(HangOutApi.getUserId(HangOutData.getAccessToken()));
-
 
 
         setTime.setOnClickListener(new View.OnClickListener() {
@@ -85,10 +74,9 @@ public class SetPlanDetail extends AppCompatActivity implements DatePickerDialog
             @Override
             public void onClick(View v) {
                 // put to backend
-                if(shopDateString =="null" || planName.getText().toString() == ""){
-                    Toast.makeText(SetPlanDetail.this,"Set Date and plan name first!", Toast.LENGTH_SHORT).show();
-                }
-                else{
+                if (shopDateString.equals("null") || planName.getText().toString().equals("")) {
+                    Toast.makeText(SetPlanDetail.this, "Set Date and plan name first!", Toast.LENGTH_SHORT).show();
+                } else {
                     JSONObject newPlan = new JSONObject();
                     try {
                         newPlan.put("name", planName.getText());
@@ -96,7 +84,7 @@ public class SetPlanDetail extends AppCompatActivity implements DatePickerDialog
                         JSONArray planItems = new JSONArray();
                         // put some items here, can be empty
                         newPlan.put("planItems", planItems);
-                    } catch(JSONException e){
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     RequestBody body = RequestBody.create(JSON, newPlan.toString());
@@ -113,6 +101,12 @@ public class SetPlanDetail extends AppCompatActivity implements DatePickerDialog
                     client.newCall(request).enqueue(new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
+                            SetPlanDetail.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(SetPlanDetail.this, "Something goes wrong", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                             e.printStackTrace();
                         }
 
@@ -120,13 +114,24 @@ public class SetPlanDetail extends AppCompatActivity implements DatePickerDialog
                         public void onResponse(Call call, Response response) throws IOException {
                             if (response.isSuccessful()) {
                                 String myResponse = response.body().string();
-                                Toast.makeText(SetPlanDetail.this,"successfully submitted", Toast.LENGTH_SHORT).show();
+                                SetPlanDetail.this.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(SetPlanDetail.this, "Plan successfully created", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            } else {
+                                SetPlanDetail.this.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(SetPlanDetail.this, "Something goes wrong", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             }
                         }
                     });
+                    finish();
                 }
-
-                finish();
             }
         });
 
