@@ -54,8 +54,8 @@ public class VendorEditProfile extends AppCompatActivity {
         lastNameEt = findViewById(R.id.editVendorLastName);
         genderSelection = findViewById(R.id.editVendorGender);
 
-        // set all customer info to original ones on the edit page
-        String accessToken = HangOutData.getAccessToken();
+        // set all vendor info to original ones on the edit page
+        String accessToken = HangOutApi.accessToken;
         vendorId = Long.parseLong(HangOutApi.getUserId(accessToken));
         HangOutApi.getVendor(vendorId);
         vendor = HangOutData.getVendor();
