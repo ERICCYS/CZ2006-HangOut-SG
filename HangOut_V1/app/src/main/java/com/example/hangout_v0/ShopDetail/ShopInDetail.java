@@ -82,7 +82,7 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
     String shopEmail;
     float shopRating;
     String shopCarpark;
-
+    Button reserve;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,6 +175,17 @@ public class ShopInDetail extends AppCompatActivity implements TimePickerDialog.
 //                extras.putLong("shopId", shopId);
 //                addPlanPage.putExtras(extras);
                 startActivity(addPlanPage);
+            }
+        });
+
+
+        reserve = findViewById(R.id.reserveButton);
+        reserve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent confirmReservation = new Intent(ShopInDetail.this, ReservationConfirmPage.class);
+                confirmReservation.putExtra("shopId", shopId.toString());
+                startActivity(confirmReservation);
             }
         });
 
